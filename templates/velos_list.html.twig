@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des vélos
+{% endblock %}
+
+{% block content %}
+	{% include '_header.html.twig' %}
+	<main>
+		<h2>Vélos</h2>
+		<ul>
+			{% for velo in velos %}
+				<li class="listeVelos">
+					<h3>{{ velo.name }} - {{ velo.type }}</h3>
+					<p>{{ velo.description }}</p>
+					<p><strong>{{ velo.price }} €</strong></p>
+					<p>
+						<a href="{{ path('velos_show', {'id': velo.id}) }}" class="btn btn-primary">Voir les détails</a>
+					</p>
+				</li>
+			{% endfor %}
+		</ul>
+	</main>
+	{% include '_footer.html.twig' %}
+{% endblock %}
