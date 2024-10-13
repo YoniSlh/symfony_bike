@@ -1,78 +1,211 @@
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f0f2f5;
+    font-family: 'Arial', sans-serif;
     margin: 0;
-    color: #333;
-}
-
-main {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
-}
-
-h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
-
-ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
     padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+/* Navbar */
+.siteHeader {
+    background-color: #333;
+    padding: 20px 0;
+}
+
+.logoSite {
+    font-size: 1.8em;
+    color: white;
+    margin: 0;
+}
+
+.main-nav ul {
     list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.main-nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.main-nav ul li a:hover {
+    text-decoration: underline;
+}
+
+.container-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Accueil */
+.accueilIntro {
+    background-image: url('images/velo-background.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 150px 0;
+    color: white;
+    text-align: center;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.3);
+}
+
+.accueilIntro h1 {
+    font-size: 3em;
+    margin: 20px 0;
+}
+
+.accueilIntro p {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+}
+
+.btnRedirection {
+    padding: 15px 40px;
+    background-color: #1e90ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+}
+
+/* Liste de vélos */
+.veloListContainer {
+    padding: 50px 0;
 }
 
 .listeVelos {
-    background: #fff;
-    flex: 1 1 calc(33.333% - 20px);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    padding: 0;
 }
 
-.listeVelos h3 {
-    font-size: 1.5rem;
-    color: #2c3e50;
-    margin-bottom: 15px;
+.veloItem {
+    background-color: #1e1e2f;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
 }
 
-.listeVelo p {
-    line-height: 1.6;
-    margin-bottom: 10px;
-}
-
-.listeVelo strong {
-    font-size: 1.3rem;
-    color: #e74c3c;
-    margin-bottom: 15px;
-    display: block;
-}
-
-a.btn {
-    display: inline-block;
-    padding: 12px 20px;
-    background: #3498db;
-    color: #fff;
-    border-radius: 4px;
+.titreDetails {
+    color: #f4f4f4;
     text-decoration: none;
-    font-weight: bold;
+    transition: color 0.2s ease-in-out, transform 0.1s ease-in-out;
 }
 
-a.btn:hover {
-    background: #2980b9;
+.titreDetails:hover {
+    color: #1e90ff;
+    transform: scale(1.1);
 }
 
-@media (max-width: 768px) {
-    li {
-        flex: 1 1 100%;
-    }
+.veloDetails {
+    padding: 20px;
+}
 
-    h2 {
-        font-size: 2rem;
-    }
+.veloDetails h3 {
+    font-size: 1.5em;
+    color: #f4f4f4;
+    margin: 15px 0;
+}
+
+.veloDetails p {
+    margin-bottom: 20px;
+    color: #f4f4f4;
+}
+
+.veloDetails strong {
+    color: #1e90ff;
+}
+
+.veloDetails .btnRedirection {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 10px 30px;
+}
+
+/* Détails d'un vélo */
+.veloDetailsContainer {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.veloDetails h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.veloDetails h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.veloDetails ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.veloDetails ul li {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.btnRedirection {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #1e90ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btnRedirection:hover {
+    background-color: #007bff;
+}
+
+/* Achat/Autres */
+.btnAjoutPanier {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btnAjoutPanier:hover {
+    background-color: #218838;
+}
+
+/* Footer */
+footer {
+    display: none; /* pas affiché pour le moment */
+    background-color: #222;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 150px;
 }

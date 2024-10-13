@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Symfony Bike</title>
-		<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-	</head>
-	<body>
-		{% block body %}
-			<header>
-				<h1>Welcome to Symfony Bike</h1>
-			</header>
-			<main>
-				<p>Page d'accueil</p>
-			</main>
-		{% endblock %}
-	</body>
-</html>
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+    {% include '_header.html.twig' %}
+
+    <div class="accueilIntro">
+        <div class="container">
+            <h1>Bienvenue !</h1>
+            <p>Découvrez notre sélection de vélos.</p>
+            <a href="{{ path('velos') }}" class="btnRedirection">Voir nos vélos</a>
+        </div>
+    </div>
+
+    {% include '_footer.html.twig' %}
+{% endblock %}

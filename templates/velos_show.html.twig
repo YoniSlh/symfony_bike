@@ -3,16 +3,21 @@
 {% block title %}Détails du vélo{% endblock %}
 
 {% block content %}
-	{% include '_header.html.twig' %}
-	<h1>🚴‍♂️ Détails du vélo : {{ velo.name }}</h1>
-	<div>
-		<h2>ID : {{ velo.id }}</h2>
-		<ul>
-			<li><strong>Nom :</strong> {{ velo.name }}</li>
-			<li><strong>Prix :</strong> {{ velo.price }} €</li>
-			<li><strong>Type :</strong> {{ velo.type }}</li>
-			<li><strong>Description :</strong> {{ velo.description }}</li>
-		</ul>
-		{# <img src="{{ velo.image }}" style="width: 200px; height: auto; border-radius: 25px;"> #}
-	</div>
+    {% include '_header.html.twig' %}
+    <div class="veloDetailsContainer">
+        <h1>🚴‍♂️ Détails du vélo : {{ velo.name }}</h1>
+        <div class="veloDetails">
+            <ul>
+                <li><strong>Nom :</strong> {{ velo.name }}</li>
+                <li><strong>Prix :</strong> {{ velo.price }} €</li>
+                <li><strong>Type :</strong> {{ velo.type }}</li>
+                <li><strong>Description :</strong> {{ velo.description }}</li>
+            </ul>
+            {# <img src="{{ velo.image }}" alt="{{ velo.name }}" class="veloImage"> #}
+        </div>
+        <div class="btn-container">
+            <a href="{{ path('velos') }}" class="btnRedirection">Retour à la liste des vélos</a>
+            <a href="{{ path('velos') }}" class="btnAjoutPanier">Ajouter au panier</a>
+        </div>
+    </div>
 {% endblock %}
