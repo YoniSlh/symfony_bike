@@ -28,8 +28,8 @@ class Product
     #[ORM\Column(type: 'integer')]
     private ?int $stock = null;
 
-    #[ORM\Column(type: 'string', enumType: ProductStatus::class, length: 255)]
-    private ?ProductStatus $status = null;
+    // #[ORM\Column(type: 'string', enumType: ProductStatus::class, length: 255)]
+    // private ?ProductStatus $status = null;
 
     public function getId(): ?int
     {
@@ -91,14 +91,14 @@ class Product
         return $this;
     }
 
-    public function getStatus(): ?ProductStatus
-    {
-        return $this->status;
-    }
+    // public function getStatus(): ?ProductStatus
+    // {
+    //     return $this->status;
+    // }
 
-    public function setStatus(?ProductStatus $status): self
-    {
-        $this->status = $status;
-        return $this;
-    }
+    // public function setStatus(?ProductStatus $status): self
+    // {
+    //     $this->status = $status;
+    //     return $this;
+    // }
 }
