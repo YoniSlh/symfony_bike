@@ -12,9 +12,9 @@ class VeloController extends AbstractController
     public function list(): Response
     {
         $velos = [
-            ['id' => 1, 'name' => 'Vélo de Montagne', 'type' => 'Tout-terrain', 'price' => 500, 'description' => 'Un vélo adapté aux terrains accidentés.'],
-            ['id' => 2, 'name' => 'Vélo de Route', 'type' => 'Sur route', 'price' => 700, 'description' => 'Un vélo conçu pour la vitesse sur les routes pavées.'],
-            ['id' => 3, 'name' => 'Vélo Hybride', 'type' => 'Mixte', 'price' => 600, 'description' => 'Un vélo polyvalent pour différents types de terrains.'],
+            ['id' => 1, 'name' => 'Vélo de Montagne', 'type' => 'Tout-terrain', 'price' => 500, 'description' => 'Un vélo adapté aux terrains accidentés.', 'image' => 'https://www.cyclesloisirs.com/wp-content/uploads/2016/03/VTT-LAPIERRE-EDGE-217.jpg', 'stock' => 'En stock'],
+            ['id' => 2, 'name' => 'Vélo de Route', 'type' => 'Sur route', 'price' => 700, 'description' => 'Un vélo conçu pour la vitesse sur les routes pavées.', 'image' => 'https://www.lexpertvelo.com/documents/Image/les-differents-type-velo-route-2.jpg', 'stock' => 'En rupture de stock'],
+            ['id' => 3, 'name' => 'Vélo Hybride', 'type' => 'Mixte', 'price' => 600, 'description' => 'Un vélo polyvalent pour différents types de terrains.', 'image' => 'https://sunrider85.fr/wp-content/uploads/2020/06/Image-3-v%C3%A9lo.jpg', 'stock' => 'En stock'],
         ];
 
         return $this->render('velos_list.html.twig', [
@@ -26,9 +26,9 @@ class VeloController extends AbstractController
     public function show(int $id): Response
     {
         $velos = [
-            1 => ['id' => 1, 'name' => 'Vélo de Montagne', 'type' => 'Tout-terrain', 'price' => 500, 'description' => 'Un vélo adapté aux terrains accidentés.'],
-            2 => ['id' => 2, 'name' => 'Vélo de Route', 'type' => 'Sur route', 'price' => 700, 'description' => 'Un vélo conçu pour la vitesse sur les routes pavées.'],
-            3 => ['id' => 3, 'name' => 'Vélo Hybride', 'type' => 'Mixte', 'price' => 600, 'description' => 'Un vélo polyvalent pour différents types de terrains.'],
+            1 => ['id' => 1, 'name' => 'Vélo de Montagne', 'type' => 'Tout-terrain', 'price' => 500, 'description' => 'Un vélo adapté aux terrains accidentés.', 'image' => 'https://www.cyclesloisirs.com/wp-content/uploads/2016/03/VTT-LAPIERRE-EDGE-217.jpg'],
+            2 => ['id' => 2, 'name' => 'Vélo de Route', 'type' => 'Sur route', 'price' => 700, 'description' => 'Un vélo conçu pour la vitesse sur les routes pavées.', 'image' => 'https://www.lexpertvelo.com/documents/Image/les-differents-type-velo-route-2.jpg'],
+            3 => ['id' => 3, 'name' => 'Vélo Hybride', 'type' => 'Mixte', 'price' => 600, 'description' => 'Un vélo polyvalent pour différents types de terrains.', 'image' => 'https://sunrider85.fr/wp-content/uploads/2020/06/Image-3-v%C3%A9lo.jpg'],
         ];
 
         if (!isset($velos[$id])) {
