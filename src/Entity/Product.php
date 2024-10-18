@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Enum\ProductStatus;
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -14,7 +15,7 @@ class Product
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
@@ -33,10 +34,18 @@ class Product
     private ?Category $category = null;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderItem::class)]
-    private array $orderItems = [];
+    private Collection $orderItems;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Image $image = null;
+
+    #[ORM\ManyToOne(targetEntity: Type::class)]
+    private ?Type $type = null;
+
+    public function __construct()
+    {
+        $this->orderItems = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -108,4 +117,33 @@ class Product
         $this->status = $status;
         return $this;
     }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    public function getOrderItems(): Collection
+    {
+        return $this->orderItems;
+    }
+    
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+    
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
+        return $this;
+    }
+    
+    
 }

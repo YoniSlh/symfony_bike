@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Enum\OrderStatus;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\Mapping as ORM;
 

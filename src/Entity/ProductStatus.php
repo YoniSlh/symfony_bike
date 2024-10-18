@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Enum;
+namespace App\Entity;
 
 enum ProductStatus: string
 {
-    case AVAILABLE = 'disponible';
-    case OUT_OF_STOCK = 'en rupture';
-    case PRE_ORDER = 'en précommande';
+    case DISPONIBLE = 'disponible';
+    case RUPTURE_DE_STOCK = 'en rupture';
+    case PRECOMMANDE = 'en précommande';
 }
