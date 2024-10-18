@@ -16,6 +16,9 @@ class Image
     #[ORM\Column(length: 500)]
     private ?string $url = null;
 
+    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'images')]
+    private ?Product $product = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,17 @@ class Image
     public function setUrl(?string $url): self
     {
         $this->url = $url;
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
         return $this;
     }
 }

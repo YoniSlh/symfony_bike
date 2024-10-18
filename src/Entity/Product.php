@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\ProductStatus;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,9 +17,6 @@ class Product
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Image $image = null;
-
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private ?float $price = null;
 
@@ -28,8 +26,17 @@ class Product
     #[ORM\Column(type: 'integer')]
     private ?int $stock = null;
 
-    // #[ORM\Column(type: 'string', enumType: ProductStatus::class, length: 255)]
-    // private ?ProductStatus $status = null;
+    #[ORM\Column(type: 'string', enumType: ProductStatus::class, length: 255)]
+    private ?ProductStatus $status = null;
+
+    #[ORM\ManyToOne(targetEntity: Category::class)]
+    private ?Category $category = null;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderItem::class)]
+    private array $orderItems = [];
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Image $image = null;
 
     public function getId(): ?int
     {
@@ -91,14 +98,14 @@ class Product
         return $this;
     }
 
-    // public function getStatus(): ?ProductStatus
-    // {
-    //     return $this->status;
-    // }
+    public function getStatus(): ?ProductStatus
+    {
+        return $this->status;
+    }
 
-    // public function setStatus(?ProductStatus $status): self
-    // {
-    //     $this->status = $status;
-    //     return $this;
-    // }
+    public function setStatus(?ProductStatus $status): self
+    {
+        $this->status = $status;
+        return $this;
+    }
 }

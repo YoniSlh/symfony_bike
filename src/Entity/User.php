@@ -28,6 +28,12 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Order::class)]
+    private array $orders = [];
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Address::class)]
+    private array $Addresses = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,5 +92,15 @@ class User
     {
         $this->password = $password;
         return $this;
+    }
+
+    public function getOrders(): array
+    {
+        return $this->orders;
+    }
+
+    public function getAddresses(): array
+    {
+        return $this->Addresses;
     }
 }
