@@ -31,4 +31,9 @@ class Type
         $this->typeNom = $typeNom;
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->typeNom ?? '';
+    }
 }

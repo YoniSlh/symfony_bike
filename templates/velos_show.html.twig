@@ -12,8 +12,8 @@
                 <li><strong>Prix :</strong> {{ velo.price }} €</li>
                 <li><strong>Type :</strong> {{ velo.type }}</li>
                 <li><strong>Description :</strong> {{ velo.description }}</li>
+                <li><img src="{{ velo.image }}" class="veloImageDetail"></li>
             </ul>
-            {# <img src="{{ velo.image }}" alt="{{ velo.name }}" class="veloImage"> #}
         </div>
         <div class="btn-container">
             <a href="{{ path('velos') }}" class="btnRedirection">Retour à la liste des vélos</a>
