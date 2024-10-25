@@ -1,23 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détails du vélo{% endblock %}
+{% block title %}Détails du vélo
+{% endblock %}
 
 {% block content %}
-    {% include '_header.html.twig' %}
-    <div class="veloDetailsContainer">
-        <h1>🚴‍♂️ Détails du vélo : {{ velo.name }}</h1>
-        <div class="veloDetails">
-            <ul>
-                <li><strong>Nom :</strong> {{ velo.name }}</li>
-                <li><strong>Prix :</strong> {{ velo.price }} €</li>
-                <li><strong>Type :</strong> {{ velo.type }}</li>
-                <li><strong>Description :</strong> {{ velo.description }}</li>
-                <li><img src="{{ velo.image }}" class="veloImageDetail"></li>
-            </ul>
-        </div>
-        <div class="btn-container">
-            <a href="{{ path('velos') }}" class="btnRedirection">Retour à la liste des vélos</a>
-            <a href="{{ path('velos') }}" class="btnAjoutPanier">Ajouter au panier</a>
-        </div>
-    </div>
+	{% include '_header.html.twig' %}
+	<div class="veloDetailsContainer">
+		<a href="{{ path('velos') }}" class="btnRetour" title="Retour"></a>
+		<h1>{{ velo.name }}</h1>
+		<div class="veloDetails">
+			<ul class="veloImageContainer">
+				<li><img src="{{ velo.image }}" class="veloImageDetail"></li>
+			</ul>
+			<ul class="veloInfosContainer">
+				<li>
+					<strong>Type :</strong>
+					{{ velo.type }}</li>
+				<li>
+					<strong>Description :</strong>
+					{{ velo.description }}</li>
+
+				<li>
+					<strong>Référence :</strong>
+					{{ velo.id }}</li>
+			</ul>
+			<div class="veloAchatContainer">
+				<ul>
+					<li>
+						<strong>Prix :</strong>
+						<strong class="prixVelo">
+							{{ velo.price }}
+							€</strong>
+					</li>
+					<li>
+						<strong>Stock :</strong>
+						<strong class="stockInfo">
+							{{ velo.stock }}</strong>
+					</li>
+				</ul>
+				<div class="btn-container">
+					<a href="{{ path('velos') }}" class="btnAjoutPanier">Ajouter au panier</a>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

@@ -14,9 +14,9 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $products = [
-            ['name' => 'TREK Madone SLR 6 eTap 7e génération Rouge Métallique', 'image_id' => 1, 'type_ref' => 'type_1', 'price' => 500.00, 'description' => 'Un vélo de route léger', 'stock' => 10, 'status' => ProductStatus::DISPONIBLE],
-            ['name' => 'VTT LAPIERRE Edge 3.7 Gris', 'image_id' => 2, 'type_ref' => 'type_2', 'price' => 1000.00, 'description' => 'Conçu pour les terrains accidentés', 'stock' => 0, 'status' => ProductStatus::RUPTURE_DE_STOCK],
-            ['name' => 'Riverside 100 E Vert', 'image_id' => 3, 'type_ref' => 'type_3', 'price' => 1500.00, 'description' => 'Vélo avec assistance électrique', 'stock' => 8, 'status' => ProductStatus::PRECOMMANDE],
+            ['name' => 'TREK Madone SLR 6 eTap 7e', 'image_id' => 1, 'type_ref' => 'type_1', 'price' => 500.00, 'description' => 'Un vélo de route léger', 'stock' => 10, 'status' => ProductStatus::DISPONIBLE],
+            ['name' => 'VTT LAPIERRE Edge 3.7', 'image_id' => 2, 'type_ref' => 'type_2', 'price' => 1000.00, 'description' => 'Conçu pour les terrains accidentés', 'stock' => 0, 'status' => ProductStatus::RUPTURE_DE_STOCK],
+            ['name' => 'Riverside 100 E', 'image_id' => 3, 'type_ref' => 'type_3', 'price' => 1500.00, 'description' => 'Vélo avec assistance électrique', 'stock' => 8, 'status' => ProductStatus::PRECOMMANDE],
         ];
 
         foreach ($products as $data) {

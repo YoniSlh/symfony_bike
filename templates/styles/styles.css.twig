@@ -128,7 +128,7 @@ body {
 }
 
 .prixVelo {
-    color: #1e90ff;
+    color: #2bab2b;
 }
 
 .veloDetails .btnRedirection {
@@ -151,13 +151,40 @@ body {
 }
 
 .stockInfo {
-    color: #32CD32;
+    color: #1e90ff;
 }
 
 /* Détails d'un vélo */
 .veloDetailsContainer {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.veloImageContainer {
+    max-width: 600px;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.veloInfosContainer {
+    max-width: 600px;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.veloAchatContainer {
+    max-width: 400px;
     padding: 20px;
     background-color: #ffffff;
     color: #333;
@@ -188,18 +215,23 @@ body {
     font-size: 1.2em;
 }
 
-.btnRedirection {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #1e90ff;
-    color: white;
+.btnRetour {
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
+    color: #333;
+    font-size: 1.2em; 
     border-radius: 5px;
-    text-align: center;
+    transition: transform 0.1s ease-in-out;
 }
 
-.btnRedirection:hover {
-    background-color: #007bff;
+.btnRetour::before {
+    content: '←';
+    font-size: 1.4em;
+}
+
+.btnRetour:hover {
+    transform: scale(1.1);
 }
 
 /* Achat/Autres */
@@ -217,12 +249,73 @@ body {
     background-color: #218838;
 }
 
+/* Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.lang-logo {
+    width: 20px; 
+    margin-right: 5px; 
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 80px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu li {
+    list-style-type: none;
+    padding: 6px 10px;
+}
+
+.dropdown-menu li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    border-radius: 5px;
+}
+
+.dropdown-menu li:hover {
+    background-color: #0056b3; 
+    border-radius: 5px;
+}
+
+.main-nav ul {
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.main-nav ul li {
+    margin: 0 15px;
+}
+
+
 /* Footer */
 footer {
     display: none; /* pas affiché pour le moment */
     background-color: #222;
     color: white;
-    padding: 20px 0;
+    padding: 20px 0; 
     text-align: center;
     margin-top: 150px;
 }
