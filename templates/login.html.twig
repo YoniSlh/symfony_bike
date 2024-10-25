@@ -1,13 +1,18 @@
-<form action="{{ path('login') }}" method="post">
-    <div>
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<form action="{{ path('login') }}" method="post" class="loginForm">
+    <h2>Connexion</h2>
+    <div class="formGroup">
         <label for="username">Email:</label>
         <input type="text" id="username" name="_username" value="{{ app.request.get('_username') }}" required>
     </div>
 
-    <div>
-        <label for="password">Password:</label>
+    <div class="formGroup">
+        <label for="password">Mot de passe:</label>
         <input type="password" id="password" name="_password" required>
     </div>
 
-    <button type="submit">Login</button>
+    <button type="submit" class="btnLogin">Se connecter</button>
 </form>
+{% endblock %}
