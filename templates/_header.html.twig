@@ -1,35 +1,37 @@
 {% block content %}
 	<header class="siteHeader">
 		<div class="container-nav">
-			<h1 class="logoSite">Symfony Bike</h1>
+			<h2 class="logoSite"><a href="{{ path('home') }}">Symfony Bike</a></h2>
 			<nav class="main-nav">
 				<ul>
-				{# choix de la langue #}
+					{# choix de la langue #}
 					{# <li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<img src="{{ asset('styles/images/drapeau_france.png') }}" class="lang-logo">
-						</a>
-						<ul class="dropdown-menu">
-							<li>
-								<a href="?lang=fr">Français</a>
-							</li>
-							<li>
-								<a href="?lang=en">English</a>
-							</li>
-						</ul>
-					</li> #}
-					<li>
-						<a href="{{ path('home') }}">Accueil</a>
-					</li>
-					<li>
-						<a href="{{ path('velos') }}">Vélos</a>
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+												<img src="{{ asset('styles/images/drapeau_france.png') }}" class="lang-logo">
+											</a>
+											<ul class="dropdown-menu">
+												<li>
+													<a href="?lang=fr">Français</a>
+												</li>
+												<li>
+													<a href="?lang=en">English</a>
+												</li>
+											</ul>
+										</li> #}
+						<li><a href="{{ path('velos') }}"> Vélos</a>
 					</li>
 					<li>
 						<a href="">Panier</a>
 					</li>
-					<li>
-						<a href="{{ path('login') }}">Se connecter</a>
-					</li>
+					{% if app.user %}
+						<li>
+							<a href="{{ path('user_profil') }}">Mon compte</a>
+						</li>
+					{% else %}
+						<li>
+							<a href="{{ path('login') }}">Se connecter</a>
+						</li>
+					{% endif %}
 				</ul>
 			</nav>
 		</div>

@@ -16,77 +16,140 @@ body {
 /* Navbar */
 .siteHeader {
     background-color: #333;
-    padding: 10px 0;
+    padding: 15px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .logoSite {
-    font-size: 1.6em;
-    color: white;
+    font-size: 1.8em;
+    font-weight: bold;
     margin: 0;
 }
 
-.main-nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    gap: 20px;
-}
-
-.main-nav ul li a {
-    color: white;
+.logoSite a {
+    color: #fff;
     text-decoration: none;
-    font-size: 1.1em;
+    transition: color 0.1s ease;
 }
 
-.main-nav ul li a:hover {
-    text-decoration: underline;
+.logoSite a:hover {
+    color: #1e90ff;
 }
 
 .container-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: 500;
+    padding: 8px 0;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.main-nav ul li a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #1e90ff;
+    transition: width 0.3s;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+}
+
+.main-nav ul li a:hover::after {
+    width: 100%;
+}
+
+.main-nav ul li a:hover {
+    color: #1e90ff;
 }
 
 /* Accueil */
 .accueilIntro {
-    background-image: url('images/velo-background.jpg');
+    position: relative;
+    background-image: url('{{ asset('styles/images/velo_background.jpg') }}');
     background-size: cover;
     background-position: center;
-    padding: 100px 0;
-    color: white;
+    padding: 120px 0;
+    color: #ffffff;
     text-align: center;
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.accueilIntro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3));
+}
+
+.accueilIntro .container {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    text-align: center;
+    padding: 20px;
 }
 
 .accueilIntro h1 {
-    font-size: 2.5em;
-    margin: 10px 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #f8f9fa;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
 }
 
 .accueilIntro p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    font-size: 1.4em;
+    color: #e0e0e0;
+    margin-bottom: 30px;
+    line-height: 1.5;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .btnRedirection {
-    padding: 12px 30px;
-    background-color: #007bff;
+    display: inline-block;
+    padding: 12px 35px;
+    background-color: #ff4b2b;
     color: white;
     text-decoration: none;
-    border-radius: 25px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0px 5px 15px rgba(255, 75, 43, 0.4);
 }
 
 .btnRedirection:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
+    background-color: #e03d20;
+    transform: scale(1.03);
 }
 
 /* Liste de vélos */
@@ -123,12 +186,11 @@ body {
 .titreDetails {
     color: #f4f4f4;
     text-decoration: none;
-    transition: color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    transition: color 0.1s ease-in-out;
 }
 
 .titreDetails:hover {
     color: #1e90ff;
-    transform: scale(1.1);
 }
 
 .veloDetails {
@@ -288,12 +350,14 @@ body {
     margin-top: 8px;
     font-weight: bold;
     font-size: 0.9em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 .btnAjoutPanier:hover {
     background-color: #e68a00;
-    transform: scale(1.02);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
 }
 
 /* Avis clients */

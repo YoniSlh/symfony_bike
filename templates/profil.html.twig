@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	{% include '_header.html.twig' %}
+	<main class="profilContainer">
+		<div class="container">
+			<h2>Mon profil</h2>
+			<div class="profilDetails">
+				<p>
+					<strong>Prénom :</strong>
+					{{ app.user.firstName }}</p>
+				<p>
+					<strong>Nom :</strong>
+					{{ app.user.lastName }}</p>
+				<p>
+					<strong>Email :</strong>
+					{{ app.user.email }}</p>
+				<p>
+					<strong>ID du compte :</strong>
+					{{ app.user.id }}</p>
+				<p>
+					<strong>Rôles :</strong>
+					{% if 'ROLE_ADMIN' in app.user.roles %}
+						Administrateur
+					{% elseif 'ROLE_USER' in app.user.roles %}
+						Utilisateur
+					{% else %}
+						{{ app.user.roles|join(', ') }}
+					{% endif %}
+				</p>
+			</div>
+		</div>
+	</main>
+{% endblock %}
