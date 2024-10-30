@@ -12,20 +12,21 @@
 				{% for velo in velos %}
 					<li class="veloItem">
 						<div class="veloDetails">
-							<h3>
-								<a href="{{ path('velos_show', {'id': velo.id}) }}" class="titreDetails">{{ velo.name }}</a>
-							</h3>
 							<a href="{{ path('velos_show', {'id': velo.id}) }}">
 								<img src="{{ velo.image }}" class="veloImage">
 							</a>
-							<p>{{ velo.type }}</p>
-							<p>{{ velo.description }}</p>
-							<p>
-								<strong class="prixVelo">{{ velo.price }}
-									€</strong>
+							<h3>
+								<a href="{{ path('velos_show', {'id': velo.id}) }}" class="titreDetails">{{ velo.name }}</a>
+							</h3>
+							<p class="veloItemMarque">
+								{{ velo.marque }}
 							</p>
 							<p>
-								<strong class="stockInfo">{{velo.stock}} en stock</strong>
+								{{ velo.description|length > 100 ? velo.description|slice(0, 100) ~ '...' : velo.description }}
+							</p>
+							<p>
+								<strong class="prixVeloItem">{{ velo.price }}
+									€</strong>
 							</p>
 							<a href="{{ path('velos') }}" class="btnAjoutPanier">Ajouter au panier</a>
 						</div>

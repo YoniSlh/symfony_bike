@@ -18,11 +18,20 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $marque = null;
+
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private ?float $price = null;
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
+
+    #[ORM\Column(length: 30)]
+    private ?string $couleur = null;
+
+    #[ORM\Column(type: 'integer')]
+    private ?int $poids = null;
 
     #[ORM\Column(type: 'integer')]
     private ?int $stock = null;
@@ -63,6 +72,17 @@ class Product
         return $this;
     }
 
+    public function getMarque(): ?string
+    {
+        return $this->marque;
+    }
+
+    public function setMarque(?string $marque): self
+    {
+        $this->marque = $marque;
+        return $this;
+    }
+
     public function getImage(): ?Image
     {
         return $this->image;
@@ -93,6 +113,28 @@ class Product
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+        return $this;
+    }
+
+    public function getCouleur(): ?string
+    {
+        return $this->couleur;
+    }
+
+    public function setCouleur(?string $couleur): self
+    {
+        $this->couleur = $couleur;
+        return $this;
+    }
+
+    public function getPoids(): ?int
+    {
+        return $this->poids;
+    }
+
+    public function setPoids(?int $poids): self
+    {
+        $this->poids = $poids;
         return $this;
     }
 
@@ -144,6 +186,4 @@ class Product
         $this->type = $type;
         return $this;
     }
-    
-    
 }

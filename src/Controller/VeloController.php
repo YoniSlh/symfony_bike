@@ -30,6 +30,7 @@ class VeloController extends AbstractController
     public function show(int $id): Response
     {
         $velo = $this->productRepository->find($id);
+        $velos = $this->productRepository->findAll();
 
         if (!$velo) {
             throw $this->createNotFoundException('Le vélo demandé n\'existe pas.');
@@ -37,6 +38,7 @@ class VeloController extends AbstractController
 
         return $this->render('velos_show.html.twig', [
             'velo' => $velo,
+            'velos' => $velos,
         ]);
     }
 }
