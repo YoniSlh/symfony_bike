@@ -45,8 +45,8 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderItem::class)]
     private Collection $orderItems;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Image $image = null;
+    #[ORM\Column(type: 'json')]
+    private array $imageUrls = [];
 
     #[ORM\ManyToOne(targetEntity: Type::class)]
     private ?Type $type = null;
@@ -83,14 +83,14 @@ class Product
         return $this;
     }
 
-    public function getImage(): ?Image
+    public function getImageUrls(): array
     {
-        return $this->image;
+        return $this->imageUrls;
     }
 
-    public function setImage(?Image $image): self
+    public function setImageUrls(array $imageUrls): self
     {
-        $this->image = $image;
+        $this->imageUrls = $imageUrls;
         return $this;
     }
 
@@ -175,12 +175,12 @@ class Product
     {
         return $this->orderItems;
     }
-    
+
     public function getType(): ?Type
     {
         return $this->type;
     }
-    
+
     public function setType(?Type $type): self
     {
         $this->type = $type;

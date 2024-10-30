@@ -13,8 +13,8 @@ class Image
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 500)]
-    private ?string $url = null;
+    #[ORM\Column(type: 'json')]
+    private array $urls = [];
 
     #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'images')]
     private ?Product $product = null;
@@ -24,30 +24,39 @@ class Image
         return $this->id;
     }
 
-    public function getUrl(): ?string
+    public function getUrls(): array
     {
-        return $this->url;
+        return $this->urls;
     }
 
-    public function setUrl(?string $url): self
+    public function setUrls(array $urls): self
     {
-        $this->url = $url;
+        if (count($urls) > 4) {
+            throw new \InvalidArgumentException('Vous ne pouvez pas ajouter plus de 4 URLs.');
+        }
+        $this->urls = $urls;
         return $this;
     }
 
-    public function getProduct(): ?Product
+    public function addUrl(string $url): self
     {
-        return $this->product;
+        if (count($this->urls) >= 4) {
+            throw new \InvalidArgumentException('Vous ne pouvez pas ajouter plus de 4 URLs.');
+        }
+        $this->urls[] = $url;
+        return $this;
     }
 
-    public function setProduct(?Product $product): self
+    public function removeUrl(string $url): self
     {
-        $this->product = $product;
+        if (($key = array_search($url, $this->urls)) !== false) {
+            unset($this->urls[$key]);
+        }
         return $this;
     }
 
     public function __toString(): string
     {
-        return $this->url ?? '';
+        return implode(', ', $this->urls);
     }
 }

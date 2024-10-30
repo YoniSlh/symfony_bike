@@ -14,30 +14,25 @@
 		</div>
 	</div>
 
-	<main class="veloListContainer">
+		<main class="veloListContainer">
 		<div class="container">
-			<h2>Nos vélos en vedette</h2>
+			<h2>Nos vélos</h2>
 			<ul class="listeVelos">
-				{% for velo in velos|slice(0, 3) %}
+				{% for velo in velos|slice(0,3) %}
 					<li class="veloItem">
-						<div class="veloDetails">
-							<a href="{{ path('velos_show', {'id': velo.id}) }}">
-								<img src="{{ velo.image }}" class="veloImage">
-							</a>
-							<h3>
-								<a href="{{ path('velos_show', {'id': velo.id}) }}" class="titreDetails">{{ velo.name }}</a>
-							</h3>
-							<p>{{ velo.description }}</p>
-							<p>
-								<strong class="prixVeloItem">{{ velo.price }}
-									€</strong>
-							</p>
-							<p>
-								<strong class="stockInfo">{{ velo.stock }}
-									en stock</strong>
-							</p>
-							<a href="{{ path('velos') }}" class="btnAjoutPanier">Ajouter au panier</a>
-						</div>
+						<a href="{{ path('velos_show', {'id': velo.id}) }}" class="veloLink">
+							<div class="veloDetails">
+								<img src="{{ velo.imageUrls[0] }}" class="veloImage">
+								<h3 class="titreDetails">{{ velo.name }}</h3>
+								<p class="veloItemMarque">{{ velo.marque }}</p>
+								<p>{{ velo.description|length > 100 ? velo.description|slice(0, 100) ~ '...' : velo.description }}</p>
+								<p>
+									<strong class="prixVeloItem">{{ velo.price }}
+										€</strong>
+								</p>
+								<a href="{{ path('velos') }}" class="btnAjoutPanier">Ajouter au panier</a>
+							</div>
+						</a>
 					</li>
 				{% endfor %}
 			</ul>
