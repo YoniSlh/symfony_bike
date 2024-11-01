@@ -22,7 +22,7 @@
 					<li class="veloItem">
 						<a href="{{ path('velos_show', {'id': velo.id}) }}" class="veloLink">
 							<div class="veloDetails">
-								<img src="{{ velo.imageUrls[0] }}" class="veloImage">
+								<img src="{{ velo.images|first.urls[0] }}" class="veloImage">
 								<h3 class="titreDetails">{{ velo.name }}</h3>
 								<p class="veloItemMarque">{{ velo.marque }}</p>
 								<p>{{ velo.description|length > 100 ? velo.description|slice(0, 100) ~ '...' : velo.description }}</p>
@@ -30,7 +30,7 @@
 									<strong class="prixVeloItem">{{ velo.price }}
 										€</strong>
 								</p>
-								<a href="{{ path('velos') }}" class="btnAjoutPanier">Ajouter au panier</a>
+								<a href="{{ path('user_panier') }}" class="btnAjoutPanier">Ajouter au panier</a>
 							</div>
 						</a>
 					</li>

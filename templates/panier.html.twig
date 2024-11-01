@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Panier{% endblock %}
+
+{% block content %}
+    {% include '_header.html.twig' %}
+    <main class="panierContainer">
+        <div class="container">
+            <h2>Mon Panier</h2>
+            <div class="panierDetails">
+                {% if true %}
+                    <ul class="panierItems">
+                        <li class="panierItem">
+                            <img src="https://www.cubebikes.fr/26230-pdt_1920/stereo-hybrid-one44-hpc.jpg" class="panierImage">
+                            <div class="panierInfo">
+                                <h3 class="panierTitre">Stereo Hybrid ONE44 HPC</h3>
+                                <p class="panierPrix">Prix : 5450 €</p>
+                                <p class="panierQuantite">Quantité : 1</p>
+                                <button class="btnSupprimer">Supprimer</button>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="panierTotal">
+                        <p><strong>Total :</strong> 299 €</p>
+                        <a href="{{ path('velos') }}" class="btnValider">Passer la commande</a>
+                    </div>
+                {% else %}
+                    <p>Votre panier est vide.</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+{% endblock %}

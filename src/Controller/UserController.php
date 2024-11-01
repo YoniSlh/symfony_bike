@@ -15,4 +15,12 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
+
+    #[Route('/panier', name: 'user_panier')]
+    public function panier(): Response
+    {
+        return $this->render('panier.html.twig', [
+            'controller_name' => 'UserController',
+        ]);
+    }
 }

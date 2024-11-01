@@ -1,113 +1,140 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ velo.name }}
+	{{ velo.name }}
 {% endblock %}
 
 {% block content %}
-    {% include '_header.html.twig' %}
-    <a href="{{ path('velos') }}" class="btnRetour" title="Retour"></a>
+	{% include '_header.html.twig' %}
+	<a href="{{ path('velos') }}" class="btnRetour" title="Retour"></a>
 
-    <div class="veloDetailsContainer">
-        <div class="imageDescriptionContainer">
-            <div class="galerieImagesContainer">
-                <div class="imageSecondaireContainer">
-                    {% for image in velo.images %}
-                        {% for imageUrl in image.urls %}
-                            <img src="{{ imageUrl }}" class="imageSecondaireImage">
-                        {% endfor %}
-                    {% endfor %}
-                </div>
-                <div class="mainImageContainer">
-                    <img src="{{ velo.images|first.urls[0] }}" class="principalImage">
-                </div>
-            </div>
-            <div class="detailsContainer">
-                <h2>Caractéristiques</h2>
-                <ul>
-                    <li><strong>Type :</strong> {{ velo.type }}</li>
-                    <li><strong>Marque :</strong> {{ velo.marque }}</li>
-                    <li><strong>Couleur :</strong> {{ velo.couleur }}</li>
-                    <li><strong>Poids :</strong> {{ velo.poids }} kg</li>
-                    <li><strong>Description :</strong> {{ velo.description }}</li>
-                </ul>
-            </div>
-        </div>
+	<div class="veloDetailsContainer">
+		<div class="imageDescriptionContainer">
+			<div class="galerieImagesContainer">
+				<div class="imageSecondaireContainer">
+					{% for image in velo.images %}
+						{% for imageUrl in image.urls %}
+							<img src="{{ imageUrl }}" class="imageSecondaireImage">
+						{% endfor %}
+					{% endfor %}
+				</div>
+				<div class="mainImageContainer">
+					<img src="{{ velo.images|first.urls[0] }}" class="principalImage">
+				</div>
+			</div>
+			<div class="detailsContainer">
+				<h2>Caractéristiques</h2>
+				<ul>
+					<li>
+						<strong>Type :</strong>
+						{{ velo.type }}</li>
+					<li>
+						<strong>Marque :</strong>
+						{{ velo.marque }}</li>
+					<li>
+						<strong>Couleur :</strong>
+						{{ velo.couleur }}</li>
+					<li>
+						<strong>Poids :</strong>
+						{{ velo.poids }}
+						kg</li>
+					<li>
+						<strong>Description :</strong>
+						{{ velo.description }}</li>
+				</ul>
+			</div>
+		</div>
 
-        <div class="veloInfosContainer">
-            <div class="veloAchatContainer">
-                <h2 style="margin: 0 0;">{{ velo.name }}</h2>
-                <p style="margin-top: 0;">
-                    <i class="refVelo">Référence : {{ velo.id }}</i>
-                </p>
-                <div class="prixContainer">
-                    <strong class="prixVeloItem" style="color: white;">{{ velo.price }} €</strong>
-                </div>
-                <div class="stockContainer">
-                    {% if velo.stock == 0 %}
-                        <span class="stockInfo">En rupture de stock</span>
-                    {% else %}
-                        <span class="stockInfo">{{ velo.stock }} en stock</span>
-                    {% endif %}
-                </div>
-                <div class="btn-container">
-                    <a href="{{ path('velos') }}" class="btnAjoutPanier">Ajouter au panier</a>
-                </div>
-            </div>
+		<div class="veloInfosContainer">
+			<div class="veloAchatContainer">
+				<h2 style="margin: 0 0;">{{ velo.name }}</h2>
+				<p style="margin-top: 0;">
+					<i class="refVelo">Référence :
+						{{ velo.id }}</i>
+				</p>
+				<div class="prixContainer">
+					<strong class="prixVeloItem" style="color: white;">{{ velo.price }}
+						€</strong>
+				</div>
+				<div class="stockContainer">
+					{% if velo.stock == 0 %}
+						<span class="stockInfo">En rupture de stock</span>
+					{% else %}
+						<span class="stockInfo">{{ velo.stock }}
+							en stock</span>
+					{% endif %}
+				</div>
+				<div class="quantityContainer">
+					<label for="quantity" class="quantityLabel">Quantité :</label>
+					<select id="quantity" class="quantitySelect">
+						{% for i in 1..velo.stock %}
+							<option value="{{ i }}">{{ i }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="btn-container">
+					<a href="{{ path('user_panier') }}" class="btnAjoutPanier">Ajouter au panier</a>
+				</div>
+			</div>
+			{# Avis clients #}
+			<div class="veloAchatContainer">
+				<h3>Avis des clients
+					<span class="nbAvis">3</span>
+				</h3>
+				<div class="avisContainer">
+					<div class="avisItem">
+						<div class="avisHeader">
+							<span class="avisNom">Jean Dupont</span>
+							<div class="etoiles">⭐⭐⭐⭐⭐</div>
+						</div>
+						<p class="avisTexte">Un vélo exceptionnel ! Très confortable et rapide. Je le recommande vivement.</p>
+						<p class="dateAvis">Publié le 12 mars 2024</p>
+					</div>
+					<div class="avisItem">
+						<div class="avisHeader">
+							<span class="avisNom">Marie Curie</span>
+							<div class="etoiles">⭐⭐⭐⭐</div>
+						</div>
+						<p class="avisTexte">Un excellent rapport qualité-prix. Idéal pour les balades en ville.</p>
+						<p class="dateAvis">Publié le 10 mars 2024</p>
+					</div>
+					<div class="avisItem">
+						<div class="avisHeader">
+							<span class="avisNom">Pierre Martin</span>
+							<div class="etoiles">⭐⭐⭐⭐⭐</div>
+						</div>
+						<p class="avisTexte">J'adore ce vélo ! Sa maniabilité est incroyable. Parfait pour les sorties le week-end.</p>
+						<p class="dateAvis">Publié le 8 mars 2024</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-            <div class="veloAchatContainer">
-                <h3>Avis des clients <span class="nbAvis">3</span></h3>
-                <div class="avisContainer">
-                    <div class="avisItem">
-                        <div class="avisHeader">
-                            <span class="avisNom">Jean Dupont</span>
-                            <div class="etoiles">⭐⭐⭐⭐⭐</div>
-                        </div>
-                        <p class="avisTexte">Un vélo exceptionnel ! Très confortable et rapide. Je le recommande vivement.</p>
-                        <p class="dateAvis">Publié le 12 mars 2024</p>
-                    </div>
-                    <div class="avisItem">
-                        <div class="avisHeader">
-                            <span class="avisNom">Marie Curie</span>
-                            <div class="etoiles">⭐⭐⭐⭐</div>
-                        </div>
-                        <p class="avisTexte">Un excellent rapport qualité-prix. Idéal pour les balades en ville.</p>
-                        <p class="dateAvis">Publié le 10 mars 2024</p>
-                    </div>
-                    <div class="avisItem">
-                        <div class="avisHeader">
-                            <span class="avisNom">Pierre Martin</span>
-                            <div class="etoiles">⭐⭐⭐⭐⭐</div>
-                        </div>
-                        <p class="avisTexte">J'adore ce vélo ! Sa maniabilité est incroyable. Parfait pour les sorties le week-end.</p>
-                        <p class="dateAvis">Publié le 8 mars 2024</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="veloListContainer">
+		<div class="container">
+			<h2>Nos autres vélos</h2>
+			<ul class="listeVelos">
+				{% for velo in velos|slice(0, 3) %}
+					<li class="veloItem">
+						<a href="{{ path('velos_show', {'id': velo.id}) }}" class="veloLink">
+							<div class="veloDetails">
+								<img src="{{ velo.images|first.urls[0] }}" class="veloImage">
+								<h3 class="titreDetails">{{ velo.name }}</h3>
+								<p class="veloItemMarque">{{ velo.marque }}</p>
+								<p>{{ velo.description|length > 100 ? velo.description|slice(0, 100) ~ '...' : velo.description }}</p>
+								<p>
+									<strong class="prixVeloItem">{{ velo.price }}
+										€</strong>
+								</p>
+								<a href="{{ path('user_panier') }}" class="btnAjoutPanier">Ajouter au panier</a>
+							</div>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
 
-    <div class="veloListContainer">
-        <div class="container">
-            <h2>Nos autres vélos</h2>
-            <ul class="listeVelos">
-                {% for velo in velos|slice(0, 3) %}
-                    <li class="veloItem">
-                        <a href="{{ path('velos_show', {'id': velo.id}) }}" class="veloLink">
-                            <div class="veloDetails">
-                                <img src="{{ velo.images|first.urls[0] }}" class="veloImage">
-                                <h3 class="titreDetails">{{ velo.name }}</h3>
-                                <p class="veloItemMarque">{{ velo.marque }}</p>
-                                <p>{{ velo.description|length > 100 ? velo.description|slice(0, 100) ~ '...' : velo.description }}</p>
-                                <p><strong class="prixVeloItem">{{ velo.price }} €</strong></p>
-                                <a href="{{ path('velos') }}" class="btnAjoutPanier">Ajouter au panier</a>
-                            </div>
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-
-    {% include '_footer.html.twig' %}
+	{% include '_footer.html.twig' %}
 {% endblock %}

@@ -368,6 +368,33 @@ body {
     font-size: 1.1em;
 }
 
+.quantityContainer {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.quantitySelect {
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.quantitySelect:focus {
+    border-color: #1e90ff;
+    outline: none;
+}
+
+.quantityLabel {
+    font-size: 1.1em;
+    color: #333;
+    margin-right: 10px;
+}
+
 .btnRetour {
     display: inline-flex;
     align-items: center;
@@ -396,7 +423,7 @@ body {
     text-decoration: none;
     border-radius: 25px;
     text-align: center;
-    margin-top: 8px;
+    margin-top: 20px;
     font-weight: bold;
     font-size: 0.9em;
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
@@ -574,12 +601,99 @@ body {
     background-color: #1c86ee;
 }
 
+/* Panier */
+.panierContainer {
+    padding: 20px 0;
+}
+
+.panierDetails {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.panierItems {
+    padding: 0;
+    list-style: none;
+}
+
+.panierItem {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.panierImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.panierInfo {
+    flex: 1;
+}
+
+.panierTitre {
+    font-size: 1.4em;
+    margin: 0;
+}
+
+.panierPrix {
+    font-size: 1.2em;
+    color: #333;
+    margin: 5px 0;
+}
+
+.panierQuantite {
+    font-size: 1.1em;
+    color: #777;
+    margin: 5px 0;
+}
+
+.btnSupprimer {
+    background-color: #ff4b2b;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btnSupprimer:hover {
+    background-color: #e03d20;
+}
+
+.panierTotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.btnValider {
+    padding: 10px 20px;
+    background-color: #1e90ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btnValider:hover {
+    background-color: #1c86ee;
+}
+
 /* Footer */
 footer {
     display: block;
-    background-color: #222;
+    background-color: #333;
     color: white;
-    padding: 20px 0; 
+    padding: 10px 0; 
     text-align: center;
     margin-top: 150px;
 }
