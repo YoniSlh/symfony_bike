@@ -24,12 +24,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 'poids' => 7.5,
                 'couleur' => 'Rouge',
                 'marque' => 'Trek',
-                'image_urls' => [
-                    'https://cdn.shoplightspeed.com/shops/639663/files/52631120/image.jpg',
-                    'https://media.trekbikes.com/image/upload/f_auto,fl_progressive:semi,q_auto,w_1920,h_1440,c_pad/MadoneSLR6_23_37416_D_Portrait',
-                    'https://media.trekbikes.com/image/upload/f_auto,fl_progressive:semi,q_auto,w_1920,h_1440,c_pad/MadoneSLR6_23_37416_D_Alt1',
-                    'https://media.trekbikes.com/image/upload/f_auto,fl_progressive:semi,q_auto,w_1920,h_1440,c_pad/MadoneSLR6_23_37416_D_Alt8'
-                ]
+                'image_refs' => ['image_1']
             ],
             [
                 'name' => 'Overvolt AM 9.7 2024',
@@ -41,9 +36,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 'poids' => 11.2,
                 'couleur' => 'Noir',
                 'marque' => 'Lapierre',
-                'image_urls' => [
-                    'https://www.velobrival.com/app/uploads/2024/04/lorpa.jpg'
-                ]
+                'image_refs' => ['image_2']
             ],
             [
                 'name' => 'Stereo Hybrid ONE44 HPC',
@@ -55,12 +48,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 'poids' => 24.4,
                 'couleur' => 'Bleu',
                 'marque' => 'Cube',
-                'image_urls' => [
-                    'https://www.cubebikes.fr/26230-pdt_1920/stereo-hybrid-one44-hpc.jpg',
-                    'https://www.cubebikes.fr/26234-pdt_1920/stereo-hybrid-one44-hpc.jpg',
-                    'https://www.cubebikes.fr/30102-pdt_1920/stereo-hybrid-one44-hpc.jpg',
-                    'https://www.cubebikes.fr/26232-pdt_1920/stereo-hybrid-one44-hpc.jpg'
-                ]
+                'image_refs' => ['image_3']
             ],
             [
                 'name' => 'Edge 3.7',
@@ -72,12 +60,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 'poids' => 12.0,
                 'couleur' => 'Gris',
                 'marque' => 'Lapierre',
-                'image_urls' => [
-                    'https://www.velobrival.com/app/uploads/2020/12/Edge-7.9-F130-artwork.jpg',
-                    'https://www.velobrival.com/app/uploads/2020/12/Edge-7.9-F130-artwork.jpg',
-                    'https://www.velobrival.com/app/uploads/2020/12/Edge-7.9-F130-artwork.jpg',
-                    'https://www.velobrival.com/app/uploads/2020/12/Edge-7.9-F130-artwork.jpg'
-                ]
+                'image_refs' => ['image_4']
             ]
         ];
 
@@ -90,11 +73,15 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 ->setStatus($data['status'])
                 ->setPoids($data['poids'])
                 ->setCouleur($data['couleur'])
-                ->setMarque($data['marque'])
-                ->setImageUrls($data['image_urls']);
+                ->setMarque($data['marque']);
 
             $type = $this->getReference($data['type_ref']);
             $product->setType($type);
+
+            foreach ($data['image_refs'] as $image_ref) {
+                $image = $this->getReference($image_ref);
+                $product->addImage($image);
+            }
 
             $manager->persist($product);
         }

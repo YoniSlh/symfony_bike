@@ -45,8 +45,8 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderItem::class)]
     private Collection $orderItems;
 
-    #[ORM\Column(type: 'json')]
-    private array $imageUrls = [];
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class)]
+    private Collection $images;
 
     #[ORM\ManyToOne(targetEntity: Type::class)]
     private ?Type $type = null;
@@ -54,6 +54,7 @@ class Product
     public function __construct()
     {
         $this->orderItems = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,17 +81,6 @@ class Product
     public function setMarque(?string $marque): self
     {
         $this->marque = $marque;
-        return $this;
-    }
-
-    public function getImageUrls(): array
-    {
-        return $this->imageUrls;
-    }
-
-    public function setImageUrls(array $imageUrls): self
-    {
-        $this->imageUrls = $imageUrls;
         return $this;
     }
 
@@ -174,6 +164,32 @@ class Product
     public function getOrderItems(): Collection
     {
         return $this->orderItems;
+    }
+
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setProduct($this);
+        }
+    
+        return $this;
+    }
+    
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            if ($image->getProduct() === $this) {
+                $image->setProduct(null);
+            }
+        }
+        return $this;
     }
 
     public function getType(): ?Type
