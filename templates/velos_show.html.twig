@@ -58,7 +58,7 @@
 				</div>
 				<div class="stockContainer">
 					{% if velo.stock == 0 %}
-						<span class="stockInfo">En rupture de stock</span>
+						<span class="stockInfo" style="color: red;">En rupture de stock</span>
 					{% else %}
 						<span class="stockInfo">{{ velo.stock }}
 							en stock</span>
@@ -73,7 +73,11 @@
 					</select>
 				</div>
 				<div class="btn-container">
+				{% if velo.stock == 0 %}
+					<a href="{{ path('user_panier') }}" class="btnAjoutPanier" style="opacity: 0.5; pointer-events: none;">Ajouter au panier</a>
+				{% else %}
 					<a href="{{ path('user_panier') }}" class="btnAjoutPanier">Ajouter au panier</a>
+				{% endif %}
 				</div>
 			</div>
 			{# Avis clients #}
