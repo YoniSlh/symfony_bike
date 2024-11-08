@@ -29,11 +29,14 @@
 					{% if app.user %}
 						{% if 'ROLE_ADMIN' in app.user.roles %}
 							<li>
-								<a href="{{ path('app_admin') }}">Administration</a>
+								<a href="{{ path('app_admin') }}">Admin</a>
 							</li>
 						{% endif %}
 						<li>
 							<a href="{{ path('user_profil') }}">Mon compte</a>
+						</li>
+						<li>
+							<a href="{{ path('_logout_main') }}">Se déconnecter</a>
 						</li>
 					{% else %}
 						<li>

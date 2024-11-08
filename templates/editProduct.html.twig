@@ -41,6 +41,11 @@
 				<input type="text" id="marque" name="marque" value="{{ product.marque }}" required>
 			</div>
 
+			{# <div class="champModificationProduit">
+				<label for="tableUrlImages" class="labelModificationProduit">URLs des images :</label>
+				<input type="text" id="tableUrlImages" name="tableUrlImages" value="{% for image in velo.images %}{% for imageUrl in image.urls %}{{ imageUrl }} {% endfor %}{% endfor %}" required>
+			</div> #}
+
 			<button type="submit" class="btnEnregistrerModif" onclick="return confirm('Êtes-vous sûr de confirmer les modifications ?');">Enregistrer les modifications</button>
 		</form>
 	</div>
