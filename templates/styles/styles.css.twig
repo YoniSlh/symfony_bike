@@ -688,6 +688,185 @@ body {
     background-color: #1c86ee;
 }
 
+/* Admin */
+.conteneurAdmin {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.titreAdmin {
+    font-size: 1.5rem;
+    color: #444;
+    text-align: left;
+    margin-bottom: 0;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 600;
+}
+
+.divTableAdmin {
+    overflow-x: auto;
+}
+
+.tableAdmin {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tableAdmin th, .tableAdmin td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.tableAdmin th {
+    background-color: #333;
+    color: white;
+    font-size: 1.1em;
+}
+
+.tableAdmin td {
+    font-size: 1em;
+    color: #333;
+}
+
+.tableAdmin tr:hover {
+    background-color: #f2f2f2;
+}
+
+.tableAdmin .actionBtn {
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease;
+}
+
+.tableAdmin .actionBtn:hover {
+    background-color: #1c86ee;
+}
+
+.btnContainer {
+    display: flex;
+    gap: 10px;
+}
+
+.btnDelete {
+    background-color: #ff4b2b;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease;
+    margin-right: -90px;
+}
+
+.btnDelete:hover {
+    background-color: #e03d20;
+}
+
+.btnModifier {
+    background-color: #1e90ff;
+    color: white;
+    text-decoration: none;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease;
+}
+
+.btnModifier:hover {
+    background-color: #1c86ee;
+}
+
+.tdAucun {
+    text-align: center;
+    color: #ff6f61;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .tableAdmin {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+    }
+
+    .tableAdmin th, .tableAdmin td {
+        padding: 8px;
+    }
+}
+
+/* Modification d'un produit */
+.conteneurModificationProduit {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.formulaireModificationProduit {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.champModificationProduit {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 48%;
+}
+
+.labelModificationProduit {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.champModificationProduit > input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+
+.btnEnregistrerModif {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.btnEnregistrerModif:hover {
+    background-color: #0056b3;
+}
+
+.btnEnregistrerModif:active {
+    background-color: #0042a2;
+}
+
 /* Footer */
 footer {
     display: block;
@@ -695,5 +874,5 @@ footer {
     color: white;
     padding: 10px 0; 
     text-align: center;
-    margin-top: 150px;
+    margin-top: 100px;
 }

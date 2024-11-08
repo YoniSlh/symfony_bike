@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	{% include '_header.html.twig' %}
+	<div class="conteneurAdmin">
+		<h2 class="titreAdmin">Liste des utilisateurs</h2>
+		<div class="divTableAdmin">
+			<table class="tableAdmin">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Prénom</th>
+						<th>Nom</th>
+						<th>Email</th>
+						<th>Rôles</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in users %}
+						<tr>
+							<td>{{ user.id }}</td>
+							<td>{{ user.firstName }}</td>
+							<td>{{ user.lastName }}</td>
+							<td>{{ user.email }}</td>
+							<td>
+								{% if 'ROLE_ADMIN' in user.roles %}
+									Administrateur
+								{% elseif 'ROLE_USER' in user.roles %}
+									Utilisateur
+								{% else %}
+									{{ user.roles|join(', ') }}
+								{% endif %}
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="6" class="tdAucun">Aucun utilisateur trouvé</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<br>
+		<h2 class="titreAdmin">Liste des produits</h2>
+		<div class="divTableAdmin">
+			<table class="tableAdmin">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nom</th>
+						<th>Couleur</th>
+						<th>Prix</th>
+						<th>Stock</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for product in products %}
+						<tr>
+							<td>{{ product.id }}</td>
+							<td>{{ product.name }}</td>
+							<td>{{ product.couleur }}</td>
+							<td>{{ product.price }}
+								€</td>
+							<td>{{ product.stock }}</td>
+							<td>
+								<div class="btnContainer">
+									<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
+									<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+										<button type="submit" class="btnDelete">Supprimer</button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{% include '_footer.html.twig' %}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	{% include '_header.html.twig' %}
+	<div class="conteneurModificationProduit">
+		<h2>Modification du produit n°
+			{{ product.id }}</h2>
+		<form method="POST" class="formulaireModificationProduit">
+			<div class="champModificationProduit">
+				<label for="name" class="labelModificationProduit">Nom du produit :</label>
+				<input type="text" id="name" name="name" value="{{ product.name }}" required>
+			</div>
+
+			<div class="champModificationProduit">
+				<label for="price" class="labelModificationProduit">Prix :</label>
+				<input type="number" id="price" name="price" value="{{ product.price }}" required>
+			</div>
+
+			<div class="champModificationProduit">
+				<label for="description" class="labelModificationProduit">Description :</label>
+				<textarea id="description" name="description" required>{{ product.description }}</textarea>
+			</div>
+
+			<div class="champModificationProduit">
+				<label for="stock" class="labelModificationProduit">Stock :</label>
+				<input type="number" id="stock" name="stock" value="{{ product.stock }}" required>
+			</div>
+
+			<div class="champModificationProduit">
+				<label for="poids" class="labelModificationProduit">Poids :</label>
+				<input type="number" id="poids" name="poids" value="{{ product.poids }}" required>
+			</div>
+
+			<div class="champModificationProduit">
+				<label for="couleur" class="labelModificationProduit">Couleur :</label>
+				<input type="text" id="couleur" name="couleur" value="{{ product.couleur }}" required>
+			</div>
+
+			<div class="champModificationProduit">
+				<label for="marque" class="labelModificationProduit">Marque :</label>
+				<input type="text" id="marque" name="marque" value="{{ product.marque }}" required>
+			</div>
+
+			<button type="submit" class="btnEnregistrerModif" onclick="return confirm('Êtes-vous sûr de confirmer les modifications ?');">Enregistrer les modifications</button>
+		</form>
+	</div>
+	{% include '_footer.html.twig' %}
+{% endblock %}
