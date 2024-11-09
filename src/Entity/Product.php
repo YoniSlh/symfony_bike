@@ -39,17 +39,14 @@ class Product
     #[ORM\Column(type: 'string', enumType: ProductStatus::class, length: 255)]
     private ?ProductStatus $status = null;
 
-    #[ORM\ManyToOne(targetEntity: Category::class)]
-    private ?Category $category = null;
-
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderItem::class)]
     private Collection $orderItems;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class)]
     private Collection $images;
 
-    #[ORM\ManyToOne(targetEntity: Type::class)]
-    private ?Type $type = null;
+    #[ORM\ManyToOne(targetEntity: Category::class)]
+    private ?Category $category = null;
 
     public function __construct()
     {
@@ -150,17 +147,6 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
-        return $this;
-    }
-
     public function getOrderItems(): Collection
     {
         return $this->orderItems;
@@ -192,14 +178,14 @@ class Product
         return $this;
     }
 
-    public function getType(): ?Type
+    public function getCategory(): ?Category
     {
-        return $this->type;
+        return $this->category;
     }
 
-    public function setType(?Type $type): self
+    public function setCategory(?Category $category): self
     {
-        $this->type = $type;
+        $this->category = $category;
         return $this;
     }
 }

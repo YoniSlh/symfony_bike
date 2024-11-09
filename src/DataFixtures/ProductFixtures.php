@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Product;
 use App\Entity\ProductStatus;
-use App\Entity\Type;
+use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -16,7 +16,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
         $products = [
             [
                 'name' => 'Madone SLR 6 7e gén.',
-                'type_ref' => 'type_1',
+                'category_ref' => 'category_1',
                 'price' => 7599.00,
                 'description' => 'Vélo de route léger et performant, idéal pour les compétitions',
                 'stock' => 10,
@@ -28,7 +28,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             ],
             [
                 'name' => 'Overvolt AM 9.7 2024',
-                'type_ref' => 'type_3',
+                'category_ref' => 'category_3',
                 'price' => 5789.00,
                 'description' => 'VTT électrique puissant, parfait pour les aventures tout-terrain',
                 'stock' => 17,
@@ -40,7 +40,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             ],
             [
                 'name' => 'Stereo Hybrid ONE44 HPC',
-                'type_ref' => 'type_3',
+                'category_ref' => 'category_3',
                 'price' => 5450.00,
                 'description' => 'Vélo avec assistance électrique, idéal pour les longues randonnées',
                 'stock' => 8,
@@ -52,7 +52,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             ],
             [
                 'name' => 'Edge 3.7',
-                'type_ref' => 'type_2',
+                'category_ref' => 'category_2',
                 'price' => 649.00,
                 'description' => 'Conçu pour les terrains accidentés, ce VTT offre une excellente maniabilité',
                 'stock' => 0,
@@ -75,8 +75,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 ->setCouleur($data['couleur'])
                 ->setMarque($data['marque']);
 
-            $type = $this->getReference($data['type_ref']);
-            $product->setType($type);
+            $category = $this->getReference($data['category_ref']);
+            $product->setCategory($category);
 
             foreach ($data['image_refs'] as $image_ref) {
                 $image = $this->getReference($image_ref);
@@ -92,7 +92,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            TypeFixtures::class,
+            CategoryFixtures::class,
             ImageFixtures::class,
         ];
     }

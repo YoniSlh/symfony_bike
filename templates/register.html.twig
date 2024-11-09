@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	<div class="loginWrapper">
+		<form action="{{ path('register') }}" method="post" class="loginForm">
+			<h2>Inscription</h2>
+
+			{{ form_start(form) }}
+			<div class="formGroup">
+				{{ form_label(form.email) }}
+				{{ form_widget(form.email) }}
+			</div>
+
+			<div class="formGroup">
+				{{ form_label(form.password) }}
+				{{ form_widget(form.password) }}
+			</div>
+
+			<div class="formGroup">
+				{{ form_label(form.confirm_password) }}
+				{{ form_widget(form.confirm_password) }}
+			</div>
+
+			<button type="submit" class="btnLogin">S'inscrire</button>
+
+			<div class="signupLink">
+				<p>Déjà un compte ?
+					<a href="{{ path('login') }}" class="signupButton">Se connecter</a>
+				</p>
+			</div>
+			{{ form_end(form) }}
+		</form>
+	</div>
+{% endblock %}
