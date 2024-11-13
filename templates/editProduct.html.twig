@@ -2,51 +2,84 @@
 
 {% block content %}
 	{% include '_header.html.twig' %}
-	<div class="conteneurModificationProduit">
+	<div class="conteneurAdminProduit">
 		<h2>Modification du produit n°
 			{{ product.id }}</h2>
 		<form method="POST" class="formulaireModificationProduit">
-			<div class="champModificationProduit">
-				<label for="name" class="labelModificationProduit">Nom du produit :</label>
+			<div class="champProduit">
+				<label for="name" class="labelProduit">Nom du produit :</label>
 				<input type="text" id="name" name="name" value="{{ product.name }}" required>
 			</div>
 
-			<div class="champModificationProduit">
-				<label for="price" class="labelModificationProduit">Prix :</label>
+			<div class="champProduit">
+				<label for="price" class="labelProduit">Prix :</label>
 				<input type="number" id="price" name="price" value="{{ product.price }}" required>
 			</div>
 
-			<div class="champModificationProduit">
-				<label for="description" class="labelModificationProduit">Description :</label>
+			<div class="champProduit">
+				<label for="description" class="labelProduit">Description :</label>
 				<textarea id="description" name="description" required>{{ product.description }}</textarea>
 			</div>
 
-			<div class="champModificationProduit">
-				<label for="stock" class="labelModificationProduit">Stock :</label>
+			<div class="champProduit">
+				<label for="stock" class="labelProduit">Stock :</label>
 				<input type="number" id="stock" name="stock" value="{{ product.stock }}" required>
 			</div>
 
-			<div class="champModificationProduit">
-				<label for="poids" class="labelModificationProduit">Poids :</label>
+			<div class="champProduit">
+				<label for="poids" class="labelProduit">Poids :</label>
 				<input type="number" id="poids" name="poids" value="{{ product.poids }}" required>
 			</div>
 
-			<div class="champModificationProduit">
-				<label for="couleur" class="labelModificationProduit">Couleur :</label>
+			<div class="champProduit">
+				<label for="couleur" class="labelProduit">Couleur :</label>
 				<input type="text" id="couleur" name="couleur" value="{{ product.couleur }}" required>
 			</div>
 
-			<div class="champModificationProduit">
-				<label for="marque" class="labelModificationProduit">Marque :</label>
+			<div class="champProduit">
+				<label for="marque" class="labelProduit">Marque :</label>
 				<input type="text" id="marque" name="marque" value="{{ product.marque }}" required>
 			</div>
 
-			{# <div class="champModificationProduit">
-				<label for="tableUrlImages" class="labelModificationProduit">URLs des images :</label>
-				<input type="text" id="tableUrlImages" name="tableUrlImages" value="{% for image in velo.images %}{% for imageUrl in image.urls %}{{ imageUrl }} {% endfor %}{% endfor %}" required>
-			</div> #}
-
-			<button type="submit" class="btnEnregistrerModif" onclick="return confirm('Êtes-vous sûr de confirmer les modifications ?');">Enregistrer les modifications</button>
+			<div class="champProduit">
+				<label for="tableUrlImages" class="labelProduit">URLs des images :</label>
+				{% if product.images is not empty %}
+					<div class="images-container">
+						{% for image in product.images %}
+							<div class="image-entry">
+								{% for url in image.urls %}
+									<div class="image-url">
+										<input type="text" name="images[{{ loop.index0 }}][{{ loop.index }}]" value="{{ url }}" placeholder="Entrez l'URL de l'image" required>
+									</div>
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+				{% else %}
+					<p>Aucune image associée à ce produit.</p>
+				{% endif %}
+			</div>
+			<div class="champProduit">
+				<label for="category" class="labelProduit">Catégorie :</label>
+				<select id="category" name="category" required>
+					{% for category in categories %}
+						<option value="{{ category.id }}" {% if product.category and product.category.id == category.id %} selected {% endif %}>
+							{{ category.categoryNom }}
+						</option>
+					{% endfor %}
+				</select>
+			</div>
+			<br>
+			<div class="champProduit">
+				<label for="status" class="labelProduit">Status :
+					<select id="status" name="status" class="selectCateg" required>
+						{% for status in productStatus %}
+							<option value="{{ status.value }}" {% if status.value == product.status.value %} selected {% endif %}>{{ status.value }}</option>
+						{% endfor %}
+					</select>
+				</label>
+			</div>
+			<button type="submit" class="btnEnregistrer" onclick="return confirm('Êtes-vous sûr de confirmer les modifications ?');">Enregistrer les modifications</button>
 		</form>
 	</div>
 	{% include '_footer.html.twig' %}

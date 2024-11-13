@@ -49,6 +49,7 @@
 						<th>ID</th>
 						<th>Nom</th>
 						<th>Couleur</th>
+						<th>Catégorie</th>
 						<th>Prix</th>
 						<th>Stock</th>
 						<th>Actions</th>
@@ -60,6 +61,7 @@
 							<td>{{ product.id }}</td>
 							<td>{{ product.name }}</td>
 							<td>{{ product.couleur }}</td>
+							<td>{{ product.category.categoryNom }}</td>
 							<td>{{ product.price }}
 								€</td>
 							<td>{{ product.stock }}</td>
@@ -79,6 +81,8 @@
 					{% endfor %}
 				</tbody>
 			</table>
+			<br>
+			<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
 		</div>
 	</div>
 	{% include '_footer.html.twig' %}

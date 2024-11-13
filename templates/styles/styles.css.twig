@@ -815,6 +815,22 @@ body {
     background-color: #1c86ee;
 }
 
+.btnAjouter {
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease;
+}
+
+.btnAjouter:hover {
+    background-color: #218838;
+}
+
 .tdAucun {
     text-align: center;
     color: #ff6f61;
@@ -836,7 +852,7 @@ body {
 }
 
 /* Modification d'un produit */
-.conteneurModificationProduit {
+.conteneurAdminProduit {
     max-width: 900px;
     margin: 50px auto;
     padding: 20px;
@@ -845,34 +861,83 @@ body {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-.formulaireModificationProduit {
+.formulaireProduit {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: space-between;
 }
 
-.champModificationProduit {
+.champProduit {
     display: flex;
     flex-direction: column;
     flex-basis: 48%;
 }
 
-.labelModificationProduit {
+.labelProduit {
     font-weight: 600;
     margin-bottom: 5px;
+    margin-top: 20px;
     color: #555;
 }
 
-.champModificationProduit > input {
+.champProduit > input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
 }
 
+.images-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+    max-width: 600px;
+}
 
-.btnEnregistrerModif {
+.image-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.labelAjoutImage {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.image-entry input[type="text"] {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.image-entry input[type="text"]:focus {
+    border-color: #0066cc;
+}
+
+.image-entry:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.selectCateg {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.selectCateg:focus {
+    border-color: #0066cc;
+}
+
+.btnEnregistrer {
     padding: 12px 20px;
     background-color: #007bff;
     color: white;
@@ -885,11 +950,11 @@ body {
     margin-top: 20px;
 }
 
-.btnEnregistrerModif:hover {
+.btnEnregistrer:hover {
     background-color: #0056b3;
 }
 
-.btnEnregistrerModif:active {
+.btnEnregistrer:active {
     background-color: #0042a2;
 }
 
