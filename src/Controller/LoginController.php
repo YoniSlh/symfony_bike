@@ -25,22 +25,32 @@ class LoginController extends AbstractController
     {
         $user = new User();
         $email = $request->request->get('_username');
+        $firstName = $request->request->get('_first_name');
+        $lastName = $request->request->get('_last_name');
         $password = $request->request->get('_password');
         $confirmPassword = $request->request->get('_confirm_password');
 
-        if ($password !== $confirmPassword) {
-            $this->addFlash('error', 'Les mots de passe ne correspondent pas.');
-            return $this->redirectToRoute('register');
+        if (!$email || !$firstName || !$lastName || !$password || !$confirmPassword) {
+            return $this->render('register.html.twig', [
+                'controller_name' => 'LoginController',
+            ]);
         }
 
-        $encodedPassword = $passwordHasher->hashPassword($user, $password);
+        if ($password !== $confirmPassword) {
+            return $this->render('register.html.twig', [
+                'controller_name' => 'LoginController',
+            ]);
+        }
+
         $user->setEmail($email);
-        $user->setPassword($encodedPassword);
+        $user->setFirstName($firstName);
+        $user->setLastName($lastName);
+        $user->setRoles(['ROLE_USER']);
+        $user->setPassword($passwordHasher->hashPassword($user, $password));
 
         $entityManager->persist($user);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
         return $this->redirectToRoute('login');
     }
 }

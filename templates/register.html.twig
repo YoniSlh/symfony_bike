@@ -4,21 +4,29 @@
 	<div class="loginWrapper">
 		<form action="{{ path('register') }}" method="post" class="loginForm">
 			<h2>Inscription</h2>
-
-			{{ form_start(form) }}
 			<div class="formGroup">
-				{{ form_label(form.email) }}
-				{{ form_widget(form.email) }}
+				<label for="email">Email</label>
+				<input type="email" name="_username" id="email" required>
 			</div>
 
 			<div class="formGroup">
-				{{ form_label(form.password) }}
-				{{ form_widget(form.password) }}
+				<label for="first_name">Prénom</label>
+				<input type="text" name="_first_name" id="first_name" required>
 			</div>
 
 			<div class="formGroup">
-				{{ form_label(form.confirm_password) }}
-				{{ form_widget(form.confirm_password) }}
+				<label for="last_name">Nom</label>
+				<input type="text" name="_last_name" id="last_name" required>
+			</div>
+
+			<div class="formGroup">
+				<label for="password">Mot de passe</label>
+				<input type="password" name="_password" id="password" required>
+			</div>
+
+			<div class="formGroup">
+				<label for="confirm_password">Confirmer le mot de passe</label>
+				<input type="password" name="_confirm_password" id="confirm_password" required>
 			</div>
 
 			<button type="submit" class="btnLogin">S'inscrire</button>
@@ -28,7 +36,6 @@
 					<a href="{{ path('login') }}" class="signupButton">Se connecter</a>
 				</p>
 			</div>
-			{{ form_end(form) }}
 		</form>
 	</div>
 {% endblock %}
