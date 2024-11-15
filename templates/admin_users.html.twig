@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	{% include '_header_admin.html.twig' %}
+	{% block flash %}
+		{% for message in app.flashes('success') %}
+			<div class="flash-success">
+				<button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('error') %}
+			<div class="flash-error">
+				<button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endblock %}
+
+	<div class="conteneurAdmin">
+		<h2 class="titreAdmin">Liste des utilisateurs</h2>
+		<div class="divTableAdmin">
+			<table class="tableAdmin">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Prénom</th>
+						<th>Nom</th>
+						<th>Email</th>
+						<th>Rôles</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in users %}
+						<tr>
+							<td>{{ user.id }}</td>
+							<td>{{ user.firstName }}</td>
+							<td>{{ user.lastName }}</td>
+							<td>{{ user.email }}</td>
+							<td>
+								{% if 'ROLE_ADMIN' in user.roles %}
+									Administrateur
+								{% elseif 'ROLE_USER' in user.roles %}
+									Utilisateur
+								{% else %}
+									{{ user.roles|join(', ') }}
+								{% endif %}
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="6" class="tdAucun">Aucun utilisateur trouvé</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{% include '_footer.html.twig' %}
+{% endblock %}

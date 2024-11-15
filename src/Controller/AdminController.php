@@ -48,7 +48,27 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/delete/product/{id}', name: 'app_admin_deleteProduct')]
+    #[Route('/admin/produits', name: 'admin_products')]
+    public function listProducts(): Response
+    {
+        $products = $this->productRepository->findAll();
+
+        return $this->render('admin_products.html.twig', [
+            'products' => $products,
+        ]);
+    }
+
+    #[Route('/admin/users', name: 'admin_users')]
+    public function listUsers(): Response
+    {
+        $users = $this->userRepository->findAll();
+
+        return $this->render('admin_users.html.twig', [
+            'users' => $users,
+        ]);
+    }
+
+    #[Route('/admin/produits/delete/product/{id}', name: 'app_admin_deleteProduct')]
     public function deleteProduct(Product $product, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($product);
@@ -57,7 +77,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('app_admin');
     }
 
-    #[Route('/admin/edit/product/{id}', name: 'app_admin_editProduct')]
+    #[Route('/admin/produits/editProduct/{id}', name: 'app_admin_editProduct')]
     public function editProduct(Product $product, EntityManagerInterface $entityManager, Request $request): Response
     {
         $categories = $this->categoryRepository->findAll();
@@ -99,7 +119,7 @@ class AdminController extends AbstractController
             }
 
             $entityManager->flush();
-
+            $this->addFlash('success', 'Le produit a bien été modifié');
             return $this->redirectToRoute('app_admin');
         }
 
@@ -109,7 +129,7 @@ class AdminController extends AbstractController
             'productStatus' => $productStatus
         ]);
     }
-    #[Route('/admin/addProduct', name: 'app_admin_addProduct')]
+    #[Route('/admin/produits/addProduct', name: 'app_admin_addProduct')]
     public function addProduct(EntityManagerInterface $entityManager, Request $request): Response
     {
         $categories = $this->categoryRepository->findAll();
@@ -139,6 +159,7 @@ class AdminController extends AbstractController
             $entityManager->persist($product);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Le produit a bien été ajouté');
             return $this->redirectToRoute('app_admin');
         }
 

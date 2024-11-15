@@ -5,7 +5,20 @@
 
 {% block content %}
 	{% include '_header.html.twig' %}
-
+	{% block flash %}
+		{% for message in app.flashes('success') %}
+			<div class="flash-success">
+				<button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('error') %}
+			<div class="flash-error">
+				<button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endblock %}
 	<div class="accueilIntro">
 		<div class="container">
 			<h1>Bienvenue !</h1>
@@ -14,7 +27,7 @@
 		</div>
 	</div>
 
-		<main class="veloListContainer">
+	<main class="veloListContainer">
 		<div class="container">
 			<h2>Nos vélos à la une</h2>
 			<ul class="listeVelos">

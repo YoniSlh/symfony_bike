@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	{% include '_header_admin.html.twig' %}
+	{% block flash %}
+		{% for message in app.flashes('success') %}
+			<div class="flash-success">
+				<button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('error') %}
+			<div class="flash-error">
+				<button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endblock %}
+
+	<div class="conteneurAdmin">
+		<h2 class="titreAdmin">Liste des produits</h2>
+		<div class="divTableAdmin">
+			<table class="tableAdmin">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nom</th>
+						<th>Couleur</th>
+						<th>Catégorie</th>
+						<th>Prix</th>
+						<th>Stock</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for product in products %}
+						<tr>
+							<td>{{ product.id }}</td>
+							<td>{{ product.name }}</td>
+							<td>{{ product.couleur }}</td>
+							<td>{{ product.category.categoryNom }}</td>
+							<td>{{ product.price }}
+								€</td>
+							<td>{{ product.stock }}</td>
+							<td>
+								<div class="btnContainer">
+									<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
+									<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+										<button type="submit" class="btnDelete">Supprimer</button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<br>
+			<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
+		</div>
+	</div>
+	{% include '_footer.html.twig' %}
+{% endblock %}

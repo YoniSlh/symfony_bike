@@ -1,22 +1,37 @@
 {% extends 'base.html.twig' %}
-
+{% block flash %}
+	{% for message in app.flashes('success') %}
+		<div class="flash-success">
+			<button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
+			{{ message }}
+		</div>
+	{% endfor %}
+	{% for message in app.flashes('error') %}
+		<div class="flash-error">
+			<button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
+			{{ message }}
+		</div>
+	{% endfor %}
+{% endblock %}
 {% block content %}
-<form action="{{ path('login') }}" method="post" class="loginForm">
-    <h2>Connexion</h2>
-    <div class="formGroup">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ app.request.get('_username') }}" required>
-    </div>
+	<form action="{{ path('login') }}" method="post" class="loginForm">
+		<h2>Connexion</h2>
+		<div class="formGroup">
+			<label for="username">Email:</label>
+			<input type="text" id="username" name="_username" value="{{ app.request.get('_username') }}" required>
+		</div>
 
-    <div class="formGroup">
-        <label for="password">Mot de passe:</label>
-        <input type="password" id="password" name="_password" required>
-    </div>
+		<div class="formGroup">
+			<label for="password">Mot de passe:</label>
+			<input type="password" id="password" name="_password" required>
+		</div>
 
-    <button type="submit" class="btnLogin">Se connecter</button>
+		<button type="submit" class="btnLogin">Se connecter</button>
 
-    <div class="signupLink">
-        <p>Pas encore de compte ? <a href="{{ path('register') }}" class="signupButton">S'inscrire</a></p>
-    </div>
-</form>
+		<div class="signupLink">
+			<p>Pas encore de compte ?
+				<a href="{{ path('register') }}" class="signupButton">S'inscrire</a>
+			</p>
+		</div>
+	</form>
 {% endblock %}
