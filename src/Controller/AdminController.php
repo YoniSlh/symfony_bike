@@ -16,6 +16,7 @@ use App\Entity\User;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Entity\Image;
+use App\Entity\OrderItem;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\ProductStatus;
 
@@ -41,14 +42,16 @@ class AdminController extends AbstractController
     {
         $users = $this->userRepository->findAll();
         $products = $this->productRepository->findAll();
+        $orders = $this->orderRepository->findAll();
 
         return $this->render('admin.html.twig', [
             'users' => $users,
             'products' => $products,
+            'orders' => $orders,
         ]);
     }
 
-    #[Route('/admin/produits', name: 'admin_products')]
+    #[Route('/admin/products', name: 'admin_products')]
     public function listProducts(): Response
     {
         $products = $this->productRepository->findAll();
@@ -68,7 +71,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/produits/delete/product/{id}', name: 'app_admin_deleteProduct')]
+    #[Route('/admin/products/delete/product/{id}', name: 'app_admin_deleteProduct')]
     public function deleteProduct(Product $product, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($product);
@@ -77,7 +80,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('app_admin');
     }
 
-    #[Route('/admin/produits/editProduct/{id}', name: 'app_admin_editProduct')]
+    #[Route('/admin/products/editProduct/{id}', name: 'app_admin_editProduct')]
     public function editProduct(Product $product, EntityManagerInterface $entityManager, Request $request): Response
     {
         $categories = $this->categoryRepository->findAll();
@@ -129,7 +132,7 @@ class AdminController extends AbstractController
             'productStatus' => $productStatus
         ]);
     }
-    #[Route('/admin/produits/addProduct', name: 'app_admin_addProduct')]
+    #[Route('/admin/products/addProduct', name: 'app_admin_addProduct')]
     public function addProduct(EntityManagerInterface $entityManager, Request $request): Response
     {
         $categories = $this->categoryRepository->findAll();

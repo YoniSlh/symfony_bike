@@ -16,36 +16,45 @@
 			</div>
 		{% endfor %}
 	{% endblock %}
-
 	<div class="conteneurAdmin">
-		<h2 class="titreAdmin">Nombre de produits par catégorie</h2>
+		<h2 class="titreAdmin">5 dernières commandes passées</h2>
 		<div class="divTableAdmin">
 			<table class="tableAdmin">
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Nom</th>
-						<th>Couleur</th>
-						<th>Catégorie</th>
-						<th>Prix</th>
-						<th>Stock</th>
+						<th>Utilisateur</th>
+						<th>Date</th>
+						<th>Status</th>
+						<th>Montant</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for product in products %}
+					{% for order in orders %}
 						<tr>
-							<td>{{ product.id }}</td>
-							<td>{{ product.name }}</td>
-							<td>{{ product.couleur }}</td>
-							<td>{{ product.category.categoryNom }}</td>
-							<td>{{ product.price }}
-								€</td>
-							<td>{{ product.stock }}</td>
+							<td>{{ order.id }}</td>
+							<td>{{ order.user.firstName }}
+								{{ order.user.lastName }}</td>
+							<td>{{ order.createdAt|date('d/m/Y H:i') }}</td>
+							<td>
+								{% if order.status.value == "en_preparation" %}
+									En préparation
+								{% elseif order.status.value == "expediee" %}
+									Expédiée
+								{% elseif order.status.value == "livree" %}
+									Livrée
+								{% elseif order.status.value == "annulee" %}
+									Annulée
+								{% else %}
+									{{ order.status.value }}
+								{% endif %}
+							</td>
+							<td>{{ order.price }} €</td>
 							<td>
 								<div class="btnContainer">
-									<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
-									<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+									<button class="btnModifier" onclick="window.location.href=''">Modifier</button>
+									<form method="post" action="" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
 										<button type="submit" class="btnDelete">Supprimer</button>
 									</form>
 								</div>
@@ -53,7 +62,7 @@
 						</tr>
 					{% else %}
 						<tr>
-							<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
+							<td colspan="5" class="tdAucun">Aucune commande trouvée</td>
 						</tr>
 					{% endfor %}
 				</tbody>
@@ -61,137 +70,181 @@
 			<br>
 			<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
 		</div>
-		<h2 class="titreAdmin">Ratio de disponibilité des produits (en stock, en rupture, en précommande)</h2>
-		<div class="divTableAdmin">
-			<table class="tableAdmin">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Nom</th>
-						<th>Couleur</th>
-						<th>Catégorie</th>
-						<th>Prix</th>
-						<th>Stock</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for product in products %}
+		<div class="conteneurAdmin">
+			<h2 class="titreAdmin">Nombre de produits par catégorie</h2>
+			<div class="divTableAdmin">
+				<table class="tableAdmin">
+					<thead>
 						<tr>
-							<td>{{ product.id }}</td>
-							<td>{{ product.name }}</td>
-							<td>{{ product.couleur }}</td>
-							<td>{{ product.category.categoryNom }}</td>
-							<td>{{ product.price }}
-								€</td>
-							<td>{{ product.stock }}</td>
-							<td>
-								<div class="btnContainer">
-									<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
-									<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
-										<button type="submit" class="btnDelete">Supprimer</button>
-									</form>
-								</div>
-							</td>
+							<th>ID</th>
+							<th>Nom</th>
+							<th>Couleur</th>
+							<th>Catégorie</th>
+							<th>Prix</th>
+							<th>Stock</th>
+							<th>Actions</th>
 						</tr>
-					{% else %}
+					</thead>
+					<tbody>
+						{% for product in products %}
+							<tr>
+								<td>{{ product.id }}</td>
+								<td>{{ product.name }}</td>
+								<td>{{ product.couleur }}</td>
+								<td>{{ product.category.categoryNom }}</td>
+								<td>{{ product.price }}
+									€</td>
+								<td>{{ product.stock }}</td>
+								<td>
+									<div class="btnContainer">
+										<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
+										<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+											<button type="submit" class="btnDelete">Supprimer</button>
+										</form>
+									</div>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<br>
+				<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
+			</div>
+			<h2 class="titreAdmin">Ratio de disponibilité des produits (en stock, en rupture, en précommande)</h2>
+			<div class="divTableAdmin">
+				<table class="tableAdmin">
+					<thead>
 						<tr>
-							<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
+							<th>ID</th>
+							<th>Nom</th>
+							<th>Couleur</th>
+							<th>Catégorie</th>
+							<th>Prix</th>
+							<th>Stock</th>
+							<th>Actions</th>
 						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-			<br>
-			<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
-		</div>
-		<h2 class="titreAdmin">Nombre de produits par catégorie</h2>
-		<div class="divTableAdmin">
-			<table class="tableAdmin">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Nom</th>
-						<th>Couleur</th>
-						<th>Catégorie</th>
-						<th>Prix</th>
-						<th>Stock</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for product in products %}
+					</thead>
+					<tbody>
+						{% for product in products %}
+							<tr>
+								<td>{{ product.id }}</td>
+								<td>{{ product.name }}</td>
+								<td>{{ product.couleur }}</td>
+								<td>{{ product.category.categoryNom }}</td>
+								<td>{{ product.price }}
+									€</td>
+								<td>{{ product.stock }}</td>
+								<td>
+									<div class="btnContainer">
+										<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
+										<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+											<button type="submit" class="btnDelete">Supprimer</button>
+										</form>
+									</div>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<br>
+				<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
+			</div>
+			<h2 class="titreAdmin">Nombre de produits par catégorie</h2>
+			<div class="divTableAdmin">
+				<table class="tableAdmin">
+					<thead>
 						<tr>
-							<td>{{ product.id }}</td>
-							<td>{{ product.name }}</td>
-							<td>{{ product.couleur }}</td>
-							<td>{{ product.category.categoryNom }}</td>
-							<td>{{ product.price }}
-								€</td>
-							<td>{{ product.stock }}</td>
-							<td>
-								<div class="btnContainer">
-									<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
-									<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
-										<button type="submit" class="btnDelete">Supprimer</button>
-									</form>
-								</div>
-							</td>
+							<th>ID</th>
+							<th>Nom</th>
+							<th>Couleur</th>
+							<th>Catégorie</th>
+							<th>Prix</th>
+							<th>Stock</th>
+							<th>Actions</th>
 						</tr>
-					{% else %}
-						<tr>
-							<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-			<br>
-			<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
-		</div>
+					</thead>
+					<tbody>
+						{% for product in products %}
+							<tr>
+								<td>{{ product.id }}</td>
+								<td>{{ product.name }}</td>
+								<td>{{ product.couleur }}</td>
+								<td>{{ product.category.categoryNom }}</td>
+								<td>{{ product.price }}
+									€</td>
+								<td>{{ product.stock }}</td>
+								<td>
+									<div class="btnContainer">
+										<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
+										<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+											<button type="submit" class="btnDelete">Supprimer</button>
+										</form>
+									</div>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<br>
+				<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
+			</div>
 
-		<h2 class="titreAdmin">Montant total des ventes réalisés par mois sur les 12 derniers mois</h2>
-		<div class="divTableAdmin">
-			<table class="tableAdmin">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Nom</th>
-						<th>Couleur</th>
-						<th>Catégorie</th>
-						<th>Prix</th>
-						<th>Stock</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for product in products %}
+			<h2 class="titreAdmin">Montant total des ventes réalisés par mois sur les 12 derniers mois</h2>
+			<div class="divTableAdmin">
+				<table class="tableAdmin">
+					<thead>
 						<tr>
-							<td>{{ product.id }}</td>
-							<td>{{ product.name }}</td>
-							<td>{{ product.couleur }}</td>
-							<td>{{ product.category.categoryNom }}</td>
-							<td>{{ product.price }}
-								€</td>
-							<td>{{ product.stock }}</td>
-							<td>
-								<div class="btnContainer">
-									<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
-									<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
-										<button type="submit" class="btnDelete">Supprimer</button>
-									</form>
-								</div>
-							</td>
+							<th>ID</th>
+							<th>Nom</th>
+							<th>Couleur</th>
+							<th>Catégorie</th>
+							<th>Prix</th>
+							<th>Stock</th>
+							<th>Actions</th>
 						</tr>
-					{% else %}
-						<tr>
-							<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-			<br>
-			<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
-		</div>
+					</thead>
+					<tbody>
+						{% for product in products %}
+							<tr>
+								<td>{{ product.id }}</td>
+								<td>{{ product.name }}</td>
+								<td>{{ product.couleur }}</td>
+								<td>{{ product.category.categoryNom }}</td>
+								<td>{{ product.price }}
+									€</td>
+								<td>{{ product.stock }}</td>
+								<td>
+									<div class="btnContainer">
+										<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
+										<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+											<button type="submit" class="btnDelete">Supprimer</button>
+										</form>
+									</div>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<br>
+				<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
+			</div>
 
-	</div>
-	{% include '_footer.html.twig' %}
-{% endblock %}
+		</div>
+		{% include '_footer.html.twig' %}
+	{% endblock %}

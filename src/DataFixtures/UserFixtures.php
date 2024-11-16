@@ -24,7 +24,7 @@ class UserFixtures extends Fixture
             ['email' => 'user3@example.com', 'firstName' => 'Sam', 'lastName' => 'Smith', 'roles' => ['ROLE_USER'], 'password' => 'password3'],
         ];
 
-        foreach ($usersData as $userData) {
+        foreach ($usersData as $index => $userData) {
             $user = new User();
             $user->setEmail($userData['email'])
                 ->setFirstName($userData['firstName'])
@@ -35,6 +35,8 @@ class UserFixtures extends Fixture
             $user->setPassword($hashedPassword);
 
             $manager->persist($user);
+
+            $this->addReference('user_' . ($index + 1), $user);
         }
 
         $manager->flush();
