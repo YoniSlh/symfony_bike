@@ -3,26 +3,31 @@
 {% block title %}Mon Panier{% endblock %}
 
 {% block content %}
-    {% include '_header.html.twig' %}
     <main class="panierContainer">
         <div class="container">
             <h2>Mon Panier</h2>
-            <div class="panierDetails">
-                {% if true %}
+            <div data-controller="cart">
+                {% if cart.items is not empty %}
                     <ul class="panierItems">
-                        <li class="panierItem">
-                            <img src="https://www.cubebikes.fr/26230-pdt_1920/stereo-hybrid-one44-hpc.jpg" class="panierImage">
-                            <div class="panierInfo">
-                                <h3 class="panierTitre">Stereo Hybrid ONE44 HPC</h3>
-                                <p class="panierPrix">Prix : 5450 €</p>
-                                <p class="panierQuantite">Quantité : 1</p>
-                                <button class="btnSupprimer">Supprimer</button>
-                            </div>
-                        </li>
+                        {% for item in cart.items %}
+                            <li class="panierItem">
+                                {# <img src="{{ item.product.imageUrl }}" class="panierImage"> #}
+                                <div class="panierInfo">
+                                    <h3 class="panierTitre">{{ item.product.name }}</h3>
+                                    <p class="panierPrix">Prix : {{ item.product.price }} €</p>
+                                    <p class="panierQuantite">Quantité : {{ item.quantity }}</p>
+                                    <button class="btnSupprimer"
+                                        data-action="cart#remove"
+                                        data-product-id="{{ item.product.id }}">
+                                        Supprimer
+                                    </button>
+                                </div>
+                            </li>
+                        {% endfor %}
                     </ul>
                     <div class="panierTotal">
-                        <p><strong>Total :</strong> 299 €</p>
-                        <a href="{{ path('velos') }}" class="btnValider">Passer la commande</a>
+                        <p><strong>Total :</strong> <span data-cart-target="cartTotal">{{ cart.total }}</span> €</p>
+                        <a href="" class="btnValider">Passer la commande</a>
                     </div>
                 {% else %}
                     <p>Votre panier est vide.</p>

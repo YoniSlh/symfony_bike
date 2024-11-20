@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Cart;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -44,6 +45,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Address::class)]
     private Collection $Addresses;
+
+    #[ORM\OneToOne(targetEntity: Cart::class, cascade: ['persist', 'remove'])]
+    private ?Cart $cart = null;
 
     public function __construct()
     {
@@ -157,5 +161,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // Si vous stockez des données sensibles temporaires sur l'utilisateur, les effacez ici
         // $this->plainPassword = null;
+    }
+
+    public function getCart(): ?Cart
+    {
+        return $this->cart;
+    }
+    
+    public function setCart(?Cart $cart): self
+    {
+        $this->cart = $cart;
+        return $this;
     }
 }

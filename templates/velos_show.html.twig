@@ -73,11 +73,15 @@
 					</select>
 				</div>
 				<div class="btn-container">
-				{% if velo.stock == 0 %}
-					<a href="{{ path('user_panier') }}" class="btnAjoutPanier" style="opacity: 0.5; pointer-events: none;">{{ "add_to_cart"|trans }}</a>
-				{% else %}
-					<a href="{{ path('user_panier') }}" class="btnAjoutPanier">{{ "add_to_cart"|trans }}</a>
-				{% endif %}
+					{% if velo.stock == 0 %}
+						<a href="{{ path('user_panier') }}" class="btnAjoutPanier" style="opacity: 0.5; pointer-events: none;">{{ "add_to_cart"|trans }}</a>
+					{% else %}
+						<form action="{{ path('cart_add') }}" method="POST">
+							<input type="hidden" name="productId" value="{{ velo.id }}">
+							<input type="hidden" name="quantity" value="{{ app.request.get('quantity') }}">
+							<button type="submit" class="btnAjoutPanier">{{ "add_to_cart"|trans }}</button>
+						</form>
+					{% endif %}
 				</div>
 			</div>
 			{# Avis clients #}
