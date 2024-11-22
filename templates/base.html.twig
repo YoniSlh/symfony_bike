@@ -11,11 +11,11 @@
 		<style>
 			{{include('styles/styles.css.twig')}}</style>
 		<script src="{{ asset("js/script.js") }}"></script>
+		<script src="{{ asset('app.js') }}" defer></script>
 		<script>
 			var assetDrapeauFr = "{{ asset('styles/images/drapeau_france.png') }}";
-var assetDrapeauEn = "{{ asset('styles/images/drapeau_anglais.png') }}";
+			var assetDrapeauEn = "{{ asset('styles/images/drapeau_anglais.png') }}";
 		</script>
-
 	</head>
 	{% block flash %}
 		{% for message in app.flashes('success') %}

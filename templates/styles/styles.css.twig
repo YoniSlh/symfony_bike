@@ -244,6 +244,45 @@ body {
     color: #28a745;
 }
 
+.divSearchBar {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.searchBarInput {
+    padding: 10px;
+    width: 15%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1em;
+}
+
+.autocomplete-results {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    background-color: white;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.autocomplete-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.autocomplete-item:hover {
+    background-color: #f0f0f0;
+}
+
+.no-results {
+    padding: 10px;
+    text-align: center;
+    color: #888;
+}
+
 /* Détails d'un vélo */
 .veloDetailsContainer {
     display: grid;
@@ -418,6 +457,8 @@ body {
 .btnAjoutPanier {
     display: inline-block;
     padding: 9px 18px;
+    border: none;
+    cursor: pointer;
     background-color: #ff9900;
     color: white;
     text-decoration: none;

@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const dropdownMenu = document.querySelector(".dropdown-menu");
 
   dropdownToggle.addEventListener("click", function (event) {
-    event.preventDefault(); // Empêche le lien d'agir
+    event.preventDefault(); 
     dropdownMenu.style.display =
       dropdownMenu.style.display === "block" ? "none" : "block";
   });

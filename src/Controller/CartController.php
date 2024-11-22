@@ -2,87 +2,48 @@
 
 namespace App\Controller;
 
-use App\Entity\Cart;
-use App\Entity\CartItem;
-use App\Repository\ProductRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
-use App\Entity\User;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartController extends AbstractController
 {
-    #[Route('/cart', name: 'cart')]
-    public function showCart(EntityManagerInterface $em): Response
+    /**
+     * @Route("/cart", name="cart_index")
+     */
+    public function index(SessionInterface $session): Response
     {
-        $user = $this->getUser();
+        $cart = $this->getCartItems($session);
+        $total = array_reduce($cart, function ($sum, $item) {
+            return $sum + $item['price'] * $item['quantity'];
+        }, 0);
 
-        if (!$user instanceof User) {
-            throw $this->createAccessDeniedException('Vous devez être connecté pour voir votre panier.');
-        }
-
-        $cart = $user->getCart();
-
-        if (!$cart) {
-            $cart = new Cart();
-            $user->setCart($cart);
-            $em->persist($cart);
-            $em->flush();
-        }
-
-        return $this->render('panier.html.twig', [
+        return $this->render('cart/index.html.twig', [
             'cart' => $cart,
+            'total' => $total,
         ]);
     }
 
-    #[Route('/cart/add', name: 'cart_add', methods: ['POST'])]
-    public function add(Request $request, ProductRepository $productRepository, EntityManagerInterface $em): RedirectResponse
+    /**
+     * @Route("/cart/remove/{id}", name="cart_remove")
+     */
+    public function removeFromCart($id, SessionInterface $session): Response
     {
-        $productId = $request->request->get('productId');
-        $quantity = (int) $request->request->get('quantity', 1);
-    
-        $product = $productRepository->find($productId);
-        if (!$product) {
-            return new JsonResponse(['error' => 'Produit introuvable'], 404);
+        $cart = $session->get('cart', []);
+
+        if (isset($cart[$id])) {
+            unset($cart[$id]);
         }
-    
-        $cart = $this->getOrCreateCart($em);
-        $cartItem = $cart->getCartItemForProduct($product);
-    
-        if ($cartItem) {
-            $cartItem->setQuantity($cartItem->getQuantity() + $quantity);
-        } else {
-            $cartItem = new CartItem();
-            $cartItem->setProduct($product);
-            $cartItem->setQuantity($quantity);
-            $cartItem->setCart($cart);
-            $em->persist($cartItem);
-        }
-    
-        $em->flush();
-    
-        return $this->redirectToRoute('cart');
+
+        $session->set('cart', $cart);
+
+        return $this->redirectToRoute('cart_index');
     }
-    
-    private function getOrCreateCart(EntityManagerInterface $em): Cart
+
+    private function getCartItems(SessionInterface $session): array
     {
-        $user = $this->getUser();
-
-        if (!$user instanceof User) {
-            throw $this->createAccessDeniedException('Vous devez être connecté pour voir votre panier.');
-        }
-
-        $cart = $user->getCart();
-        if (!$cart) {
-            $cart = new Cart();
-            $user->setCart($cart);
-            $em->persist($cart);
-        }
-
-        return $cart;
+        return $session->get('cart', []);
     }
 }

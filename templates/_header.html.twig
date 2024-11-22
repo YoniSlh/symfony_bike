@@ -1,46 +1,64 @@
 {% block content %}
-    <header class="siteHeader">
-        <div class="container-nav">
-            <h2 class="logoSite">
-                <a href="{{ path('home') }}">Symfony Bike</a>
-            </h2>
-            <nav class="main-nav">
-                <ul>
-                    {# Choix de la langue #}
+	<header class="siteHeader">
+		<div class="container-nav">
+			<h2 class="logoSite">
+				<a href="{{ path('home') }}">Symfony Bike</a>
+			</h2>
+			<nav class="main-nav">
+				<ul>
+					{# Choix de la langue #}
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle">
+						<a href="" class="dropdown-toggle">
 							<img src="" class="lang-logo">
 						</a>
 						<ul class="dropdown-menu" style="display: none;">
 							<li>
-								<a href="{{ path('translate', {'lang': 'fr'}) }}">
+								<a href="?lang=fr">
 									Français
 								</a>
 							</li>
 							<li>
-								<a href="{{ path('translate', {'lang': 'en'}) }}">
+								<a href="{{ path('translate', {'lang': 'en'}) }}" id="langEn">
 									English
 								</a>
 							</li>
 						</ul>
 					</li>
-                    <li><a href="{{ path('velos') }}">Vélos</a></li>
-                    <li><a href="{{ path('user_panier') }}">Panier</a></li>
-                    {% if app.user %}
-                        {% if 'ROLE_ADMIN' in app.user.roles %}
-                            <li><a href="{{ path('app_admin') }}">Admin</a></li>
-                        {% endif %}
-                        <li><a href="{{ path('user_profil') }}">Mon compte</a></li>
+					<li>
+						<a href="{{ path('velos') }}">Vélos</a>
+					</li>
+					{% if app.user %}
+						{% if 'ROLE_ADMIN' in app.user.roles %}
+							<li>
+								<a href="{{ path('app_admin') }}">Admin</a>
+							</li>
+						{% endif %}
+						<li>
+							<a href="{{ path('user_profil') }}">Mon compte</a>
+						</li>
 						<li>
 							<a href="{{ path('_logout_main') }}" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');">
 								Se déconnecter
 							</a>
 						</li>
-                    {% else %}
-                        <li><a href="{{ path('login') }}">Se connecter</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
-        </div>
-    </header>
+					{% else %}
+						<li>
+							<a href="{{ path('login') }}">Se connecter</a>
+						</li>
+					{% endif %}
+					<li>
+						<div>
+							<a href="/cart">
+								Panier (<span data-cart-target="cartCount">0</span>
+								articles)
+							</a>
+							<span>Total :
+								<span data-cart-target="cartTotal">0,00 €</span>
+							</span>
+						</div>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
 {% endblock %}
