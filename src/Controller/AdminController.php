@@ -132,6 +132,7 @@ class AdminController extends AbstractController
             'productStatus' => $productStatus
         ]);
     }
+    
     #[Route('/admin/products/addProduct', name: 'app_admin_addProduct')]
     public function addProduct(EntityManagerInterface $entityManager, Request $request): Response
     {

@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CreditCardRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: CreditCardRepository::class)]
 class CreditCard
@@ -17,14 +17,15 @@ class CreditCard
     #[ORM\Column]
     private ?int $number = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: "datetime")]
     private ?\DateTimeInterface $expirationDate = null;
 
     #[ORM\Column]
     private ?int $cvv = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $user = null;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?UserInterface $user = null;
 
     public function getId(): ?int
     {
@@ -39,7 +40,6 @@ class CreditCard
     public function setNumber(int $number): static
     {
         $this->number = $number;
-
         return $this;
     }
 
@@ -51,7 +51,6 @@ class CreditCard
     public function setExpirationDate(\DateTimeInterface $expirationDate): static
     {
         $this->expirationDate = $expirationDate;
-
         return $this;
     }
 
@@ -63,19 +62,17 @@ class CreditCard
     public function setCvv(int $cvv): static
     {
         $this->cvv = $cvv;
-
         return $this;
     }
 
-    public function getUser(): ?string
+    public function getUser(): ?UserInterface
     {
         return $this->user;
     }
 
-    public function setUser(string $user): static
+    public function setUser(UserInterface $user): static
     {
         $this->user = $user;
-
         return $this;
     }
 }

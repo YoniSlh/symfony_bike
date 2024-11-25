@@ -8,16 +8,20 @@
 			<div class="profilDetails">
 				<p>
 					<strong>Prénom :</strong>
-					{{ app.user.firstName }}</p>
+					{{ app.user.firstName }}
+				</p>
 				<p>
 					<strong>Nom :</strong>
-					{{ app.user.lastName }}</p>
+					{{ app.user.lastName }}
+				</p>
 				<p>
 					<strong>Email :</strong>
-					{{ app.user.email }}</p>
+					{{ app.user.email }}
+				</p>
 				<p>
 					<strong>ID du compte :</strong>
-					{{ app.user.id }}</p>
+					{{ app.user.id }}
+				</p>
 				<p>
 					<strong>Rôles :</strong>
 					{% if 'ROLE_ADMIN' in app.user.roles %}
@@ -28,6 +32,20 @@
 						{{ app.user.roles|join(', ') }}
 					{% endif %}
 				</p>
+			</div>
+			<div class="creditCardSection">
+				<h3>Mes cartes bancaires</h3>
+				<ul class="creditCardList">
+					{% for card in creditCards %}
+						<li>
+							<span>Carte se terminant par : **** {{ card.number|slice(-4) }}</span>
+							<span>Expire le : {{ card.expirationDate|date('m/Y') }}</span>
+						</li>
+					{% else %}
+						<li>Aucune carte bancaire enregistrée.</li>
+					{% endfor %}
+				</ul>
+				<a href="{{ path('user_profil_addCreditCard') }}" class="addCardButton">Ajouter une carte bancaire</a>
 			</div>
 		</div>
 	</main>
