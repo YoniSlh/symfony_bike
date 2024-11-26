@@ -18,7 +18,7 @@ use App\Entity\Category;
 use App\Entity\Image;
 use App\Entity\OrderItem;
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Entity\ProductStatus;
+use App\Enum\ProductStatus;
 
 class AdminController extends AbstractController
 {
@@ -43,11 +43,86 @@ class AdminController extends AbstractController
         $users = $this->userRepository->findAll();
         $products = $this->productRepository->findAll();
         $orders = $this->orderRepository->findAll();
+        $categories = $this->categoryRepository->findAll();
+
+        // Calcul du nombre de produits par catégorie
+        $nbProductsByCategory = [];
+        foreach ($categories as $category) {
+            $nbProductsByCategory[$category->getCategoryName()] = 0;
+        }
+
+        foreach ($products as $product) {
+            $category = $product->getCategory();
+            $nbProductsByCategory[$category->getCategoryName()]++;
+        }
+
+        // Récupération des 5 dernières commandes
+        $cinqDernieresCommandes = $this->orderRepository->findBy([], ['createdAt' => 'DESC'], 5);
+
+        // Calcul du ratio de disponibilité des produits (en stock, en rupture, en précommande)
+        $enStock = 0;
+        $enRupture = 0;
+        $enPrecommande = 0;
+        foreach ($products as $product) {
+            switch ($product->getStatus()) {
+                case ProductStatus::DISPONIBLE:
+                    $enStock++;
+                    break;
+                case ProductStatus::RUPTURE_DE_STOCK:
+                    $enRupture++;
+                    break;
+                case ProductStatus::PRECOMMANDE:
+                    $enPrecommande++;
+                    break;
+            }
+        }
+
+        $totalProduits = count($products);
+        $ratioEnStock = ($totalProduits > 0) ? ($enStock / $totalProduits) * 100 : 0;
+        $ratioEnRupture = ($totalProduits > 0) ? ($enRupture / $totalProduits) * 100 : 0;
+        $ratioEnPrecommande = ($totalProduits > 0) ? ($enPrecommande / $totalProduits) * 100 : 0;
+
+        // Calcul du montant total des ventes réalisées par mois sur les 12 derniers mois
+        $ventesParMois = [];
+        $dateMoinsUnAn = new \DateTime('-1 year');
+        foreach ($orders as $order) {
+            if ($order->getCreatedAt() >= $dateMoinsUnAn) {
+                $mois = $order->getCreatedAt()->format('Y-m');
+                if (!isset($ventesParMois[$mois])) {
+                    $ventesParMois[$mois] = 0;
+                }
+                $ventesParMois[$mois] += $order->getPrice();
+            }
+        }
+
+        $moisActuel = new \DateTime();
+        for ($i = 0; $i < 12; $i++) {
+            $mois = $moisActuel->format('Y-m');
+            if (!isset($ventesParMois[$mois])) {
+                $ventesParMois[$mois] = 0;
+            }
+            $moisActuel->modify('-1 month');
+        }
+
+        $montantTotalVentes = array_sum($ventesParMois);
+
+        ksort($ventesParMois);
 
         return $this->render('admin.html.twig', [
             'users' => $users,
             'products' => $products,
             'orders' => $orders,
+            'nbProductsByCategory' => $nbProductsByCategory,
+            'cinqDernieresCommandes' => $cinqDernieresCommandes,
+            'totalProduits' => $totalProduits,
+            'enStock' => $enStock,
+            'enRupture' => $enRupture,
+            'enPrecommande' => $enPrecommande,
+            'ratioEnStock' => $ratioEnStock,
+            'ratioEnRupture' => $ratioEnRupture,
+            'ratioEnPrecommande' => $ratioEnPrecommande,
+            'ventesParMois' => $ventesParMois, 
+            'montantTotalVentes' => $montantTotalVentes
         ]);
     }
 
@@ -88,10 +163,20 @@ class AdminController extends AbstractController
 
         if ($request->isMethod('POST')) {
             $product->setName($request->request->get('name'));
-            $product->setPrice($request->request->get('price'));
+            if ($request->request->get('price') > 0)
+                $product->setPrice($request->request->get('price'));
+            else {
+                $this->addFlash('error', 'Le prix doit être supérieur à 0€');
+                return $this->redirectToRoute('app_admin_editProduct', ['id' => $product->getId()]);
+            }
             $product->setDescription($request->request->get('description'));
             $product->setStock($request->request->get('stock'));
-            $product->setPoids($request->request->get('poids'));
+            if ($request->request->get('poids') > 0)
+                $product->setPoids($request->request->get('poids'));
+            else {
+                $this->addFlash('error', 'Le poids doit être supérieur à 0');
+                return $this->redirectToRoute('app_admin_editProduct', ['id' => $product->getId()]);
+            }
             $product->setCouleur($request->request->get('couleur'));
             $product->setMarque($request->request->get('marque'));
 
@@ -132,7 +217,7 @@ class AdminController extends AbstractController
             'productStatus' => $productStatus
         ]);
     }
-    
+
     #[Route('/admin/products/addProduct', name: 'app_admin_addProduct')]
     public function addProduct(EntityManagerInterface $entityManager, Request $request): Response
     {
@@ -142,10 +227,20 @@ class AdminController extends AbstractController
 
         if ($request->isMethod('POST')) {
             $product->setName($request->request->get('name'));
-            $product->setPrice($request->request->get('price'));
+            if ($request->request->get('price') > 0)
+                $product->setPrice($request->request->get('price'));
+            else {
+                $this->addFlash('error', 'Le prix doit être supérieur à 0€');
+                return $this->redirectToRoute('app_admin_addProduct');
+            }
             $product->setDescription($request->request->get('description'));
             $product->setStock($request->request->get('stock'));
-            $product->setPoids($request->request->get('poids'));
+            if ($request->request->get('poids') > 0)
+                $product->setPoids($request->request->get('poids'));
+            else {
+                $this->addFlash('error', 'Le poids doit être supérieur à 0');
+                return $this->redirectToRoute('app_admin_addProduct');
+            }
             $product->setCouleur($request->request->get('couleur'));
             $product->setMarque($request->request->get('marque'));
 

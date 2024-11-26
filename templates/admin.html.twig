@@ -17,12 +17,38 @@
 		{% endfor %}
 	{% endblock %}
 	<div class="conteneurAdmin">
+		<h2 class="titreAdmin">Nombre de produits par catégorie</h2>
+		<div class="divTableAdmin">
+			<table class="tableAdmin">
+				<thead>
+					<tr>
+						<th>Catégorie</th>
+						<th>Nombre de produits</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for category, count in nbProductsByCategory %}
+						<tr>
+							<td>{{ category }}</td>
+							<td>{{ count }}</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="2">Aucune catégorie trouvée.</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="conteneurAdmin">
 		<h2 class="titreAdmin">5 dernières commandes passées</h2>
 		<div class="divTableAdmin">
 			<table class="tableAdmin">
 				<thead>
 					<tr>
 						<th>ID</th>
+						<th>Référence</th>
 						<th>Utilisateur</th>
 						<th>Date</th>
 						<th>Status</th>
@@ -31,220 +57,100 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for order in orders %}
+					{% for cinqDernieresCommande in cinqDernieresCommandes %}
 						<tr>
-							<td>{{ order.id }}</td>
-							<td>{{ order.user.firstName }}
-								{{ order.user.lastName }}</td>
-							<td>{{ order.createdAt|date('d/m/Y H:i') }}</td>
+							<td>{{ cinqDernieresCommande.id }}</td>
+							<td>{{ cinqDernieresCommande.reference }}</td>
 							<td>
-								{% if order.status.value == "en_preparation" %}
-									En préparation
-								{% elseif order.status.value == "expediee" %}
-									Expédiée
-								{% elseif order.status.value == "livree" %}
-									Livrée
-								{% elseif order.status.value == "annulee" %}
-									Annulée
+								{% if cinqDernieresCommande.user %}
+									{{ cinqDernieresCommande.user.firstName }}
+									{{ cinqDernieresCommande.user.lastName }}
 								{% else %}
-									{{ order.status.value }}
+									Inconnu
 								{% endif %}
 							</td>
-							<td>{{ order.price }} €</td>
+							<td>{{ cinqDernieresCommande.createdAt|date('d/m/Y') }}
+								à
+								{{ cinqDernieresCommande.createdAt|date('H') }}h{{ cinqDernieresCommande.createdAt|date('i') }}</td>
+							<td>{{ cinqDernieresCommande.status.value }}</td>
+							<td>{{ cinqDernieresCommande.price }}
+								€</td>
+
 							<td>
 								<div class="btnContainer">
-									<button class="btnModifier" onclick="window.location.href=''">Modifier</button>
-									<form method="post" action="" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+									<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': cinqDernieresCommande.id}) }}'">Modifier</button>
+									<form method="post" action="{{ path('app_admin_deleteProduct', {'id': cinqDernieresCommande.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette commande ?');">
 										<button type="submit" class="btnDelete">Supprimer</button>
 									</form>
-								</div>
+								</td>
 							</td>
 						</tr>
-					{% else %}
-						<tr>
-							<td colspan="5" class="tdAucun">Aucune commande trouvée</td>
-						</tr>
-					{% endfor %}
+					</div>
 				</tbody>
-			</table>
-			<br>
-			<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
-		</div>
-		<div class="conteneurAdmin">
-			<h2 class="titreAdmin">Nombre de produits par catégorie</h2>
-			<div class="divTableAdmin">
-				<table class="tableAdmin">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Nom</th>
-							<th>Couleur</th>
-							<th>Catégorie</th>
-							<th>Prix</th>
-							<th>Stock</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for product in products %}
-							<tr>
-								<td>{{ product.id }}</td>
-								<td>{{ product.name }}</td>
-								<td>{{ product.couleur }}</td>
-								<td>{{ product.category.categoryNom }}</td>
-								<td>{{ product.price }}
-									€</td>
-								<td>{{ product.stock }}</td>
-								<td>
-									<div class="btnContainer">
-										<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
-										<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
-											<button type="submit" class="btnDelete">Supprimer</button>
-										</form>
-									</div>
-								</td>
-							</tr>
-						{% else %}
-							<tr>
-								<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-				<br>
-				<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
-			</div>
-			<h2 class="titreAdmin">Ratio de disponibilité des produits (en stock, en rupture, en précommande)</h2>
-			<div class="divTableAdmin">
-				<table class="tableAdmin">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Nom</th>
-							<th>Couleur</th>
-							<th>Catégorie</th>
-							<th>Prix</th>
-							<th>Stock</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for product in products %}
-							<tr>
-								<td>{{ product.id }}</td>
-								<td>{{ product.name }}</td>
-								<td>{{ product.couleur }}</td>
-								<td>{{ product.category.categoryNom }}</td>
-								<td>{{ product.price }}
-									€</td>
-								<td>{{ product.stock }}</td>
-								<td>
-									<div class="btnContainer">
-										<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
-										<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
-											<button type="submit" class="btnDelete">Supprimer</button>
-										</form>
-									</div>
-								</td>
-							</tr>
-						{% else %}
-							<tr>
-								<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-				<br>
-				<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
-			</div>
-			<h2 class="titreAdmin">Nombre de produits par catégorie</h2>
-			<div class="divTableAdmin">
-				<table class="tableAdmin">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Nom</th>
-							<th>Couleur</th>
-							<th>Catégorie</th>
-							<th>Prix</th>
-							<th>Stock</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for product in products %}
-							<tr>
-								<td>{{ product.id }}</td>
-								<td>{{ product.name }}</td>
-								<td>{{ product.couleur }}</td>
-								<td>{{ product.category.categoryNom }}</td>
-								<td>{{ product.price }}
-									€</td>
-								<td>{{ product.stock }}</td>
-								<td>
-									<div class="btnContainer">
-										<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
-										<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
-											<button type="submit" class="btnDelete">Supprimer</button>
-										</form>
-									</div>
-								</td>
-							</tr>
-						{% else %}
-							<tr>
-								<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-				<br>
-				<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
-			</div>
-
-			<h2 class="titreAdmin">Montant total des ventes réalisés par mois sur les 12 derniers mois</h2>
-			<div class="divTableAdmin">
-				<table class="tableAdmin">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Nom</th>
-							<th>Couleur</th>
-							<th>Catégorie</th>
-							<th>Prix</th>
-							<th>Stock</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for product in products %}
-							<tr>
-								<td>{{ product.id }}</td>
-								<td>{{ product.name }}</td>
-								<td>{{ product.couleur }}</td>
-								<td>{{ product.category.categoryNom }}</td>
-								<td>{{ product.price }}
-									€</td>
-								<td>{{ product.stock }}</td>
-								<td>
-									<div class="btnContainer">
-										<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
-										<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
-											<button type="submit" class="btnDelete">Supprimer</button>
-										</form>
-									</div>
-								</td>
-							</tr>
-						{% else %}
-							<tr>
-								<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-				<br>
-				<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
-			</div>
-
-		</div>
-		{% include '_footer.html.twig' %}
-	{% endblock %}
+			</td>
+		</tr>
+	{% else %}
+		<tr>
+			<td colspan="6" class="tdAucun">Aucune commande trouvée</td>
+		</tr>
+	{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+<div class="conteneurAdmin">
+<h2 class="titreAdmin">Ratio de disponibilité des produits (en stock, en rupture, en précommande)</h2>
+<div class="divTableAdmin">
+<p>Nombre de produits : {{ totalProduits }}</p>
+<table class="tableAdmin">
+<thead>
+	<tr>
+		<th>Statut</th>
+		<th>Nombre de produits</th>
+		<th>Ratio</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>En stock</td>
+		<td>{{ enStock }}</td>
+		<td>{{ ratioEnStock|number_format(2, ',', ' ') }} %</td>
+	</tr>
+	<tr>
+		<td>En rupture</td>
+		<td>{{ enRupture }}</td>
+		<td>{{ ratioEnRupture|number_format(2, ',', ' ') }} %</td>
+	</tr>
+	<tr>
+		<td>En précommande</td>
+		<td>{{ enPrecommande }}</td>
+		<td>{{ ratioEnPrecommande|number_format(2, ',', ' ') }} %</td>
+	</tr>
+</tbody></table></div></div>
+<div class="conteneurAdmin">
+<div class="divTableAdmin">
+    <h2 class="titreAdmin">Montant total des ventes réalisées par mois sur les 12 derniers mois</h2>
+	<p>Montant total : {{ montantTotalVentes | number_format(2, ',', ' ') }} €</p>
+    <table class="tableAdmin">
+        <thead>
+            <tr>
+                <th>Mois</th>
+                <th>Montant des ventes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mois, montant in ventesParMois %}
+            <tr>
+                <td>{{ mois }}</td>
+                <td>{{ montant | number_format(2, ',', ' ') }} €</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="2" class="tdAucun">Aucune vente pour les 12 derniers mois</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>	
+</div>
+</div>{% include '_footer.html.twig' %}{% endblock %}

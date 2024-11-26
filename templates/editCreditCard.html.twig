@@ -12,7 +12,7 @@
 
 			<div class="champProduit">
 				<label for="card_number" class="labelProduit">Numéro de carte :</label>
-				<input type="number" id="card_number" name="card_number" value="{{ card.number }}" maxlength="16" pattern="\d{16}" required>
+				<input type="number" id="card_number" name="card_number" value="{{ card.number }}" minlength="16" maxlength="16" pattern="\d{16}" required>
 			</div>
 
 			<div class="champProduit">

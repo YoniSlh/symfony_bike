@@ -12,12 +12,12 @@ class CategoryFixtures extends Fixture
     {
         $categorys = ['Vélo de route', 'Vélo tout terrain', 'Vélo électrique'];
 
-        foreach ($categorys as $index => $categoryNom) {
-            $categoryExistant = $manager->getRepository(Category::class)->findOneBy(['categoryNom' => $categoryNom]);
+        foreach ($categorys as $index => $CategoryName) {
+            $categoryExistant = $manager->getRepository(Category::class)->findOneBy(['CategoryName' => $CategoryName]);
 
             if (!$categoryExistant) {
                 $category = new Category();
-                $category->setCategoryNom($categoryNom);
+                $category->setCategoryName($CategoryName);
                 $manager->persist($category);
 
                 $this->addReference('category_' . ($index + 1), $category);

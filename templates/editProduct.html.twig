@@ -64,7 +64,7 @@
 				<select id="category" name="category" required>
 					{% for category in categories %}
 						<option value="{{ category.id }}" {% if product.category and product.category.id == category.id %} selected {% endif %}>
-							{{ category.categoryNom }}
+							{{ category.CategoryName }}
 						</option>
 					{% endfor %}
 				</select>
