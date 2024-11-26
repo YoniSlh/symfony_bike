@@ -38,14 +38,18 @@
 				<ul class="creditCardList">
 					{% for card in creditCards %}
 						<li>
-							<span>Carte se terminant par : **** {{ card.number|slice(-4) }}</span>
-							<span>Expire le : {{ card.expirationDate|date('m/Y') }}</span>
+							<span>Carte se terminant par : ****
+								{{ card.number|slice(-4) }}</span>
+							<span>Expire le :
+								{{ card.expirationDate|date('m/Y') }}</span>
+							<a href="{{ path('user_profil_editCreditCard', {id: card.id}) }}" class="btnModifier">Modifier</a>
+							<a href="{{ path('user_profil_deleteCreditCard', {id: card.id}) }}" class="btnDelete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette carte ?');">Supprimer</a>
 						</li>
 					{% else %}
 						<li>Aucune carte bancaire enregistrée.</li>
 					{% endfor %}
 				</ul>
-				<a href="{{ path('user_profil_addCreditCard') }}" class="addCardButton">Ajouter une carte bancaire</a>
+				<a href="{{ path('user_profil_addCreditCard') }}" class="btnAjouter">Ajouter une carte bancaire</a>
 			</div>
 		</div>
 	</main>
