@@ -3,29 +3,29 @@
 {% block content %}
 	{% include '_header.html.twig' %}
 	<div class="conteneurAdminProduit">
-		<h2>Modification de la carte bancaire</h2>
+		<h2>{{ "update_credit_card"|trans }}</h2>
 		<form method="POST" class="formulaireProduit">
 			<div class="champProduit">
-				<label for="cardholder_name" class="labelProduit">Nom du titulaire :</label>
+				<label for="cardholder_name" class="labelProduit">{{ "cardholder_name"|trans }} :</label>
 				<input type="text" id="cardholder_name" name="cardholder_name" value="{{ app.user.firstName ~ ' ' ~ app.user.lastName }}" readonly>
 			</div>
 
 			<div class="champProduit">
-				<label for="card_number" class="labelProduit">Numéro de carte :</label>
+				<label for="card_number" class="labelProduit">{{ "card_number"|trans }} :</label>
 				<input type="number" id="card_number" name="card_number" value="{{ card.number }}" minlength="16" maxlength="16" pattern="\d{16}" required>
 			</div>
 
 			<div class="champProduit">
-				<label for="expiration_date" class="labelProduit">Date d'expiration :</label>
+				<label for="expiration_date" class="labelProduit">{{ "expiration_date"|trans }} :</label>
 				<input type="date" id="expiration_date" name="expiration_date" value="{{ card.expirationDate|date('Y-m-d') }}" required>
 			</div>
 
 			<div class="champProduit">
-				<label for="cvv" class="labelProduit">Code de sécurité (CVV) :</label>
+				<label for="cvv" class="labelProduit">{{ "cvv"|trans }} :</label>
 				<input type="text" id="cvv" name="cvv" value="{{ card.cvv }}" maxlength="3" pattern="\d{3}" required>
 			</div>
 
-			<input type="submit" class="btnEnregistrer" onclick="return confirm('Êtes-vous sûr de confirmer les modifications de la carte ?');" value="Mettre à jour la carte"/>
+			<input type="submit" class="btnEnregistrer" onclick="return confirm('{{ "confirm_credit_card_update"|trans }}');" value="{{ "update_card"|trans }}"/>
 		</form>
 	</div>
 	{% include '_footer.html.twig' %}

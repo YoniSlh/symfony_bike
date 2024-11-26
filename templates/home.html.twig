@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil
+{% block title %}{{ 'home'|trans }}
 {% endblock %}
 
 {% block content %}
@@ -21,15 +21,15 @@
 	{% endblock %}
 	<div class="accueilIntro">
 		<div class="container">
-			<h1>Bienvenue !</h1>
+			<h1>{{ 'welcome'|trans }} !</h1>
 			<p>Découvrez notre sélection de vélos.</p>
-			<a href="{{ path('velos') }}" class="btnRedirection">Voir nos vélos</a>
+			<a href="{{ path('velos') }}" class="btnRedirection">{{ 'our_bikes'|trans }}</a>
 		</div>
 	</div>
 
 	<main class="veloListContainer">
 		<div class="container">
-			<h2>Nos vélos à la une</h2>
+			<h2>{{ 'bikes_top'|trans }}</h2>
 			<ul class="listeVelos">
 				{% for velo in velos|slice(0,3) %}
 					<li class="veloItem">

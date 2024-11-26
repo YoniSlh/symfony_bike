@@ -6,13 +6,13 @@
     {% include '_header.html.twig' %}
 
     <div data-controller="search" class="divSearchBar">
-        <input type="text" data-action="input->search#update" placeholder="Recherche..." class="searchBarInput"/>
+        <input type="text" data-action="input->search#update" placeholder="{{ 'search'|trans }}" class="searchBarInput"/>
         <div data-search-target="results"></div>
     </div>
 
     <main class="veloListContainer">
         <div class="container">
-            <h2>Nos vélos</h2>
+            <h2>{{ 'our_bikes_2'|trans}}</h2>
             <ul class="listeVelos">
                 {% for velo in velos %}
                     <li class="veloItem">

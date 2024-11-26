@@ -17,13 +17,13 @@
 		{% endfor %}
 	{% endblock %}
 	<div class="conteneurAdmin">
-		<h2 class="titreAdmin">Nombre de produits par catégorie</h2>
+		<h2 class="titreAdmin">{{ "admin.nb_products_per_category"|trans }}</h2>
 		<div class="divTableAdmin">
 			<table class="tableAdmin">
 				<thead>
 					<tr>
-						<th>Catégorie</th>
-						<th>Nombre de produits</th>
+						<th>{{ "category"|trans }}</th>
+						<th>{{ "nb_products"|trans }}</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -34,7 +34,7 @@
 						</tr>
 					{% else %}
 						<tr>
-							<td colspan="2">Aucune catégorie trouvée.</td>
+							<td colspan="2">{{ "no_category_found"|trans }}</td>
 						</tr>
 					{% endfor %}
 				</tbody>
@@ -42,115 +42,104 @@
 		</div>
 	</div>
 	<div class="conteneurAdmin">
-		<h2 class="titreAdmin">5 dernières commandes passées</h2>
+		<h2 class="titreAdmin">{{ "admin.last_5_orders"|trans }}</h2>
 		<div class="divTableAdmin">
 			<table class="tableAdmin">
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>Référence</th>
-						<th>Utilisateur</th>
-						<th>Date</th>
-						<th>Status</th>
-						<th>Montant</th>
-						<th>Actions</th>
+						<th>{{ "id"|trans }}</th>
+						<th>{{ "reference"|trans }}</th>
+						<th>{{ "user"|trans }}</th>
+						<th>{{ "date"|trans }}</th>
+						<th>{{ "status"|trans }}</th>
+						<th>{{ "amount"|trans }}</th>
+						<th>{{ "admin.actions"|trans }}</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for cinqDernieresCommande in cinqDernieresCommandes %}
+					{% for order in cinqDernieresCommandes %}
 						<tr>
-							<td>{{ cinqDernieresCommande.id }}</td>
-							<td>{{ cinqDernieresCommande.reference }}</td>
-							<td>
-								{% if cinqDernieresCommande.user %}
-									{{ cinqDernieresCommande.user.firstName }}
-									{{ cinqDernieresCommande.user.lastName }}
-								{% else %}
-									Inconnu
-								{% endif %}
-							</td>
-							<td>{{ cinqDernieresCommande.createdAt|date('d/m/Y') }}
-								à
-								{{ cinqDernieresCommande.createdAt|date('H') }}h{{ cinqDernieresCommande.createdAt|date('i') }}</td>
-							<td>{{ cinqDernieresCommande.status.value }}</td>
-							<td>{{ cinqDernieresCommande.price }}
-								€</td>
-
+							<td>{{ order.id }}</td>
+							<td>{{ order.reference }}</td>
+							<td>{{ order.user ? order.user.firstName ~ " " ~ order.user.lastName : "unknown"|trans }}</td>
+							<td>{{ order.createdAt|date('d/m/Y H:i') }}</td>
+							<td>{{ order.status.value }}</td>
+							<td>{{ order.price }} €</td>
 							<td>
 								<div class="btnContainer">
-									<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': cinqDernieresCommande.id}) }}'">Modifier</button>
-									<form method="post" action="{{ path('app_admin_deleteProduct', {'id': cinqDernieresCommande.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette commande ?');">
-										<button type="submit" class="btnDelete">Supprimer</button>
+									<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': order.id}) }}'">{{ "modify"|trans }}</button>
+									<form method="post" action="{{ path('app_admin_deleteProduct', {'id': order.id}) }}" onsubmit="return confirm('{{ "confirm_delete"|trans }}');">
+										<button type="submit" class="btnDelete">{{ "admin.delete"|trans }}</button>
 									</form>
-								</td>
+								</div>
 							</td>
 						</tr>
-					</div>
+					{% else %}
+						<tr>
+							<td colspan="7" class="tdAucun">{{ "no_order_found"|trans }}</td>
+						</tr>
+					{% endfor %}
 				</tbody>
-			</td>
-		</tr>
-	{% else %}
-		<tr>
-			<td colspan="6" class="tdAucun">Aucune commande trouvée</td>
-		</tr>
-	{% endfor %}
-</tbody>
-</table>
-</div>
-</div>
-<div class="conteneurAdmin">
-<h2 class="titreAdmin">Ratio de disponibilité des produits (en stock, en rupture, en précommande)</h2>
-<div class="divTableAdmin">
-<p>Nombre de produits : {{ totalProduits }}</p>
-<table class="tableAdmin">
-<thead>
-	<tr>
-		<th>Statut</th>
-		<th>Nombre de produits</th>
-		<th>Ratio</th>
-	</tr>
-</thead>
-<tbody>
-	<tr>
-		<td>En stock</td>
-		<td>{{ enStock }}</td>
-		<td>{{ ratioEnStock|number_format(2, ',', ' ') }} %</td>
-	</tr>
-	<tr>
-		<td>En rupture</td>
-		<td>{{ enRupture }}</td>
-		<td>{{ ratioEnRupture|number_format(2, ',', ' ') }} %</td>
-	</tr>
-	<tr>
-		<td>En précommande</td>
-		<td>{{ enPrecommande }}</td>
-		<td>{{ ratioEnPrecommande|number_format(2, ',', ' ') }} %</td>
-	</tr>
-</tbody></table></div></div>
-<div class="conteneurAdmin">
-<div class="divTableAdmin">
-    <h2 class="titreAdmin">Montant total des ventes réalisées par mois sur les 12 derniers mois</h2>
-	<p>Montant total : {{ montantTotalVentes | number_format(2, ',', ' ') }} €</p>
-    <table class="tableAdmin">
-        <thead>
-            <tr>
-                <th>Mois</th>
-                <th>Montant des ventes</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for mois, montant in ventesParMois %}
-            <tr>
-                <td>{{ mois }}</td>
-                <td>{{ montant | number_format(2, ',', ' ') }} €</td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="2" class="tdAucun">Aucune vente pour les 12 derniers mois</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>	
-</div>
-</div>{% include '_footer.html.twig' %}{% endblock %}
+			</table>
+		</div>
+	</div>
+	<div class="conteneurAdmin">
+		<h2 class="titreAdmin">{{ "admin.product_availability_ratio"|trans }}</h2>
+		<div class="divTableAdmin">
+			<p>{{ "total_products"|trans }}: {{ totalProduits }}</p>
+			<table class="tableAdmin">
+				<thead>
+					<tr>
+						<th>{{ "status"|trans }}</th>
+						<th>{{ "nb_products"|trans }}</th>
+						<th>{{ "ratio"|trans }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{ "in_stock"|trans }}</td>
+						<td>{{ enStock }}</td>
+						<td>{{ ratioEnStock|number_format(2, ',', ' ') }} %</td>
+					</tr>
+					<tr>
+						<td>{{ "out_of_stock"|trans }}</td>
+						<td>{{ enRupture }}</td>
+						<td>{{ ratioEnRupture|number_format(2, ',', ' ') }} %</td>
+					</tr>
+					<tr>
+						<td>{{ "preorder"|trans }}</td>
+						<td>{{ enPrecommande }}</td>
+						<td>{{ ratioEnPrecommande|number_format(2, ',', ' ') }} %</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="conteneurAdmin">
+		<h2 class="titreAdmin">{{ "admin.monthly_sales"|trans }}</h2>
+		<p>{{ "total_sales"|trans }}: {{ montantTotalVentes|number_format(2, ',', ' ') }} €</p>
+		<div class="divTableAdmin">
+			<table class="tableAdmin">
+				<thead>
+					<tr>
+						<th>{{ "month"|trans }}</th>
+						<th>{{ "sales_amount"|trans }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for mois, montant in ventesParMois %}
+						<tr>
+							<td>{{ mois }}</td>
+							<td>{{ montant|number_format(2, ',', ' ') }} €</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="2" class="tdAucun">{{ "no_sales_found"|trans }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{% include '_footer.html.twig' %}
+{% endblock %}

@@ -25,7 +25,7 @@
 						</ul>
 					</li>
 					<li>
-						<a href="{{ path('velos') }}">Vélos</a>
+						<a href="{{ path('velos') }}">{{ "bikes"|trans }}</a>
 					</li>
 					{% if app.user %}
 						{% if 'ROLE_ADMIN' in app.user.roles %}
@@ -34,12 +34,12 @@
 							</li>
 						{% endif %}
 						<li>
-							<a href="{{ path('user_profil') }}">Mon compte</a>
+							<a href="{{ path('user_profil') }}">{{ "account"|trans }}</a>
 						</li>
 						<li>
 							<div>
 								<a href="/cart">
-									Panier (<span data-cart-target="cartCount">0</span>
+									{{ "cart"|trans }} (<span data-cart-target="cartCount">0</span>
 									articles)
 								</a>
 								{# <span>Total :
@@ -49,12 +49,12 @@
 						</li>
 						<li>
 							<a href="{{ path('_logout_main') }}" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');">
-								Se déconnecter
+								{{ "disconnect"|trans }}
 							</a>
 						</li>
 					{% else %}
 						<li>
-							<a href="{{ path('login') }}">Se connecter</a>
+							<a href="{{ path('login') }}">{{ "connect"|trans }}</a>
 						</li>
 					{% endif %}
 				</ul>

@@ -3,37 +3,37 @@
 {% block content %}
 	<div class="loginWrapper">
 		<form action="{{ path('register') }}" method="post" class="loginForm">
-			<h2>Inscription</h2>
+			<h2>{{ "registration"|trans }}</h2>
 			<div class="formGroup">
-				<label for="email">Email</label>
+				<label for="email">{{ "email"|trans }}</label>
 				<input type="email" name="_username" id="email" required>
 			</div>
 
 			<div class="formGroup">
-				<label for="first_name">Prénom</label>
+				<label for="first_name">{{ "first_name"|trans }}</label>
 				<input type="text" name="_first_name" id="first_name" required>
 			</div>
 
 			<div class="formGroup">
-				<label for="last_name">Nom</label>
+				<label for="last_name">{{ "last_name"|trans }}</label>
 				<input type="text" name="_last_name" id="last_name" required>
 			</div>
 
 			<div class="formGroup">
-				<label for="password">Mot de passe</label>
+				<label for="password">{{ "password"|trans }}</label>
 				<input type="password" name="_password" id="password" required>
 			</div>
 
 			<div class="formGroup">
-				<label for="confirm_password">Confirmer le mot de passe</label>
+				<label for="confirm_password">{{ "confirm_password"|trans }}</label>
 				<input type="password" name="_confirm_password" id="confirm_password" required>
 			</div>
 
-			<button type="submit" class="btnLogin">S'inscrire</button>
+			<button type="submit" class="btnLogin">{{ "register"|trans }}</button>
 
 			<div class="signupLink">
-				<p>Déjà un compte ?
-					<a href="{{ path('login') }}" class="signupButton">Se connecter</a>
+				<p>{{ "already_have_account"|trans }}
+					<a href="{{ path('login') }}" class="signupButton">{{ "login"|trans }}</a>
 				</p>
 			</div>
 		</form>

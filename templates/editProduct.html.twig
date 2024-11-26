@@ -7,12 +7,12 @@
 			{{ product.id }}</h2>
 		<form method="POST" class="formulaireModificationProduit">
 			<div class="champProduit">
-				<label for="name" class="labelProduit">Nom du produit :</label>
+				<label for="name" class="labelProduit">{{ "product_name"|trans }} :</label>
 				<input type="text" id="name" name="name" value="{{ product.name }}" required>
 			</div>
 
 			<div class="champProduit">
-				<label for="price" class="labelProduit">Prix :</label>
+				<label for="price" class="labelProduit">{{ "price"|trans }} :</label>
 				<input type="number" id="price" name="price" value="{{ product.price }}" required>
 			</div>
 
@@ -27,22 +27,22 @@
 			</div>
 
 			<div class="champProduit">
-				<label for="poids" class="labelProduit">Poids :</label>
+				<label for="poids" class="labelProduit">{{ "weight"|trans }} :</label>
 				<input type="number" id="poids" name="poids" value="{{ product.poids }}" required>
 			</div>
 
 			<div class="champProduit">
-				<label for="couleur" class="labelProduit">Couleur :</label>
+				<label for="couleur" class="labelProduit">{{ "color"|trans }} :</label>
 				<input type="text" id="couleur" name="couleur" value="{{ product.couleur }}" required>
 			</div>
 
 			<div class="champProduit">
-				<label for="marque" class="labelProduit">Marque :</label>
+				<label for="marque" class="labelProduit">{{ "brand"|trans }} :</label>
 				<input type="text" id="marque" name="marque" value="{{ product.marque }}" required>
 			</div>
 
 			<div class="champProduit">
-				<label for="tableUrlImages" class="labelProduit">URLs des images :</label>
+				<label for="tableUrlImages" class="labelProduit">{{ "images_url"|trans }} :</label>
 				{% if product.images is not empty %}
 					<div class="images-container">
 						{% for image in product.images %}
@@ -56,11 +56,11 @@
 						{% endfor %}
 					</div>
 				{% else %}
-					<p>Aucune image associée à ce produit.</p>
+					<p>{{ "no_images"|trans }}</p>
 				{% endif %}
 			</div>
 			<div class="champProduit">
-				<label for="category" class="labelProduit">Catégorie :</label>
+				<label for="category" class="labelProduit">{{ "category"|trans }} :</label>
 				<select id="category" name="category" required>
 					{% for category in categories %}
 						<option value="{{ category.id }}" {% if product.category and product.category.id == category.id %} selected {% endif %}>

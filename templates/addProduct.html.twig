@@ -3,66 +3,66 @@
 {% block content %}
 	{% include '_header.html.twig' %}
 	<div class="conteneurAdminProduit">
-		<h2>Ajout d'un nouveau produit</h2>
+		<h2>{{ 'product_addition.title'|trans }}</h2>
 		<form method="POST" class="formulaireProduit">
 			<div class="champProduit">
-				<label for="name" class="labelProduit">Nom du produit :</label>
+				<label for="name" class="labelProduit">{{ 'product_name'|trans }} :</label>
 				<input type="text" id="name" name="name" required>
 			</div>
 
 			<div class="champProduit">
-				<label for="price" class="labelProduit">Prix :</label>
+				<label for="price" class="labelProduit">{{ 'price'|trans }} :</label>
 				<input type="number" id="price" name="price" required>
 			</div>
 
 			<div class="champProduit">
-				<label for="description" class="labelProduit">Description :</label>
+				<label for="description" class="labelProduit">{{ 'product_addition.description_label'|trans }} :</label>
 				<textarea id="description" name="description" required></textarea>
 			</div>
 
 			<div class="champProduit">
-				<label for="stock" class="labelProduit">Stock :</label>
+				<label for="stock" class="labelProduit">{{ 'product_addition.stock_label'|trans }} :</label>
 				<input type="number" id="stock" name="stock" required>
 			</div>
 
 			<div class="champProduit">
-				<label for="poids" class="labelProduit">Poids :</label>
+				<label for="poids" class="labelProduit">{{ 'product_addition.weight_label'|trans }} :</label>
 				<input type="number" id="poids" name="poids" required>
 			</div>
 
 			<div class="champProduit">
-				<label for="couleur" class="labelProduit">Couleur :</label>
+				<label for="couleur" class="labelProduit">{{ 'product_addition.color_label'|trans }} :</label>
 				<input type="text" id="couleur" name="couleur" required>
 			</div>
 
 			<div class="champProduit">
-				<label for="marque" class="labelProduit">Marque :</label>
+				<label for="marque" class="labelProduit">{{ 'product_addition.brand_label'|trans }} :</label>
 				<input type="text" id="marque" name="marque" required>
 			</div>
 
 			<div class="champProduit">
-				<label for="tableUrlImages" class="labelProduit">URLs des images :</label>
+				<label for="tableUrlImages" class="labelProduit">{{ 'product_addition.images_url_label'|trans }} :</label>
 				<div class="images-container">
 					<div class="image-entry">
-						<label class="labelAjoutImage">Image 1 :
-							<input type="text" name="images[0]" placeholder="Entrez l'URL de l'image" required></label>
+						<label class="labelAjoutImage">{{ 'product_addition.image_label'|trans }} 1 :
+							<input type="text" name="images[0]" placeholder="Enter image URL" required></label>
 					</div>
 					<div class="image-entry">
-						<label class="labelAjoutImage">Image 2 :
-							<input type="text" name="images[1]" placeholder="Entrez l'URL de l'image"></label>
+						<label class="labelAjoutImage">{{ 'product_addition.image_label'|trans }} 2 :
+							<input type="text" name="images[1]" placeholder="Enter image URL"></label>
 					</div>
 					<div class="image-entry">
-						<label class="labelAjoutImage">Image 3 :
-							<input type="text" name="images[2]" placeholder="Entrez l'URL de l'image"></label>
+						<label class="labelAjoutImage">{{ 'product_addition.image_label'|trans }} 3 :
+							<input type="text" name="images[2]" placeholder="Enter image URL"></label>
 					</div>
 					<div class="image-entry">
-						<label class="labelAjoutImage">Image 4 :
-							<input type="text" name="images[3]" placeholder="Entrez l'URL de l'image"></label>
+						<label class="labelAjoutImage">{{ 'product_addition.image_label'|trans }} 4 :
+							<input type="text" name="images[3]" placeholder="Enter image URL"></label>
 					</div>
 				</div>
 			</div>
 			<div class="champProduit">
-				<label for="status" class="labelProduit">Status :
+				<label for="status" class="labelProduit">{{ 'product_addition.status_label'|trans }} :
 					<select id="status" name="status" class="selectCateg" required>
 						{% for status in productStatus %}
 							<option value="{{ status.value }}" {% if status.value == product.status %} selected {% endif %}>{{ status.value }}</option>
@@ -71,7 +71,7 @@
 				</label>
 			</div>
 			<div class="champProduit">
-				<label for="category" class="labelProduit">Catégorie :
+				<label for="category" class="labelProduit">{{ 'product_addition.category_label'|trans }} :
 					<select id="category" name="category" class="selectCateg" required>
 						{% for category in categories %}
 							<option value="{{ category.id }}">{{ category.CategoryName }}</option>
@@ -79,7 +79,7 @@
 					</select>
 				</label>
 			</div>
-			<input type="submit" class="btnEnregistrer" onclick="return confirm('Êtes-vous sûr de confirmer l\'ajout ?');" value="Ajouter le produit"/>
+			<input type="submit" class="btnEnregistrer" onclick="return confirm('{{ 'product_addition.confirm_add_product'|trans }}');" value="{{ 'product_addition.add_product_button'|trans }}"/>
 		</form>
 	</div>
 	{% include '_footer.html.twig' %}

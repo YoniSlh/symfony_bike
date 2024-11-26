@@ -15,22 +15,22 @@
 {% endblock %}
 {% block content %}
 	<form action="{{ path('login') }}" method="post" class="loginForm">
-		<h2>Connexion</h2>
+		<h2>{{ "login"|trans }}</h2>
 		<div class="formGroup">
-			<label for="username">Email:</label>
+			<label for="username">{{ "email"|trans }}:</label>
 			<input type="text" id="username" name="_username" value="{{ app.request.get('_username') }}" required>
 		</div>
 
 		<div class="formGroup">
-			<label for="password">Mot de passe:</label>
+			<label for="password">{{ "password"|trans }}:</label>
 			<input type="password" id="password" name="_password" required>
 		</div>
 
-		<button type="submit" class="btnLogin">Se connecter</button>
+		<button type="submit" class="btnLogin">{{ "connect"|trans }}</button>
 
 		<div class="signupLink">
-			<p>Pas encore de compte ?
-				<a href="{{ path('register') }}" class="signupButton">S'inscrire</a>
+			<p>{{ "no_account"|trans }}
+				<a href="{{ path('register') }}" class="signupButton">{{ "register"|trans }}</a>
 			</p>
 		</div>
 	</form>

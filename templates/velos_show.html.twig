@@ -26,16 +26,16 @@
 				<h2>Caractéristiques</h2>
 				<ul>
 					<li>
-						<strong>Categorie :</strong>
+						<strong>{{ 'category'|trans }} :</strong>
 						{{ velo.category }}</li>
 					<li>
-						<strong>Marque :</strong>
+						<strong>{{ 'brand'|trans }} :</strong>
 						{{ velo.marque }}</li>
 					<li>
-						<strong>Couleur :</strong>
+						<strong>{{ 'color'|trans }} :</strong>
 						{{ velo.couleur }}</li>
 					<li>
-						<strong>Poids :</strong>
+						<strong>{{ 'weight'|trans }} :</strong>
 						{{ velo.poids }}
 						kg</li>
 					<li>
@@ -65,7 +65,7 @@
 					{% endif %}
 				</div>
 				<div class="quantityContainer">
-					<label for="quantity" class="quantityLabel">Quantité :</label>
+					<label for="quantity" class="quantityLabel">{{ 'quantity'|trans }} :</label>
 					<select id="quantity" class="quantitySelect" data-cart-target="quantitySelect">
 						{% for i in 1..velo.stock %}
 							<option value="{{ i }}">{{ i }}</option>

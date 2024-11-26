@@ -4,52 +4,59 @@
 	{% include '_header.html.twig' %}
 	<main class="profilContainer">
 		<div class="container">
-			<h2>Mon profil</h2>
+			<h2>{{ "profile"|trans }}</h2>
 			<div class="profilDetails">
 				<p>
-					<strong>Prénom :</strong>
+					<strong>{{ "first_name"|trans }}
+						:</strong>
 					{{ app.user.firstName }}
 				</p>
 				<p>
-					<strong>Nom :</strong>
+					<strong>{{ "last_name"|trans }}
+						:</strong>
 					{{ app.user.lastName }}
 				</p>
 				<p>
-					<strong>Email :</strong>
+					<strong>{{ "email"|trans }}
+						:</strong>
 					{{ app.user.email }}
 				</p>
 				<p>
-					<strong>ID du compte :</strong>
+					<strong>{{ "profile_id"|trans }}
+						:</strong>
 					{{ app.user.id }}
 				</p>
 				<p>
-					<strong>Rôles :</strong>
+					<strong>{{ "profile_roles"|trans }}
+						:</strong>
 					{% if 'ROLE_ADMIN' in app.user.roles %}
-						Administrateur
+						{{ "role_admin"|trans }}
 					{% elseif 'ROLE_USER' in app.user.roles %}
-						Utilisateur
+						{{ "role_user"|trans }}
 					{% else %}
 						{{ app.user.roles|join(', ') }}
 					{% endif %}
 				</p>
 			</div>
 			<div class="creditCardSection">
-				<h3>Mes cartes bancaires</h3>
+				<h3>{{ "credit_cards"|trans }}</h3>
 				<ul class="creditCardList">
 					{% for card in creditCards %}
 						<li>
-							<span>Carte se terminant par : ****
+							<span>{{ "credit_card_ending"|trans }}
+								: ****
 								{{ card.number|slice(-4) }}</span>
-							<span>Expire le :
+							<span>{{ "expiration_date"|trans }}
+								:
 								{{ card.expirationDate|date('m/Y') }}</span>
-							<a href="{{ path('user_profil_editCreditCard', {id: card.id}) }}" class="btnModifier">Modifier</a>
-							<a href="{{ path('user_profil_deleteCreditCard', {id: card.id}) }}" class="btnDelete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette carte ?');">Supprimer</a>
+							<a href="{{ path('user_profil_editCreditCard', {id: card.id}) }}" class="btnModifier">{{ "modify"|trans }}</a>
+							<a href="{{ path('user_profil_deleteCreditCard', {id: card.id}) }}" class="btnDelete" onclick="return confirm('{{ " confirm_card_deletion"|trans }}');">{{ "delete_card"|trans }}</a>
 						</li>
 					{% else %}
-						<li>Aucune carte bancaire enregistrée.</li>
+						<li>{{ "no_credit_cards"|trans }}</li>
 					{% endfor %}
 				</ul>
-				<a href="{{ path('user_profil_addCreditCard') }}" class="btnAjouter">Ajouter une carte bancaire</a>
+				<a href="{{ path('user_profil_addCreditCard') }}" class="btnAjouter">{{ "add_credit_card"|trans }}</a>
 			</div>
 		</div>
 	</main>

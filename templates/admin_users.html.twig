@@ -18,16 +18,16 @@
 	{% endblock %}
 
 	<div class="conteneurAdmin">
-		<h2 class="titreAdmin">Liste des utilisateurs</h2>
+		<h2 class="titreAdmin">{{ 'admin.user_list_title'|trans }}</h2>
 		<div class="divTableAdmin">
 			<table class="tableAdmin">
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>Prénom</th>
-						<th>Nom</th>
-						<th>Email</th>
-						<th>Rôles</th>
+						<th>{{ 'id'|trans }}</th>
+						<th>{{ 'first_name'|trans }}</th>
+						<th>{{ 'last_name'|trans }}</th>
+						<th>{{ 'email'|trans }}</th>
+						<th>{{ 'profile_roles'|trans }}</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -39,9 +39,9 @@
 							<td>{{ user.email }}</td>
 							<td>
 								{% if 'ROLE_ADMIN' in user.roles %}
-									Administrateur
+									{{ 'role_admin'|trans }}
 								{% elseif 'ROLE_USER' in user.roles %}
-									Utilisateur
+									{{ 'role_user'|trans }}
 								{% else %}
 									{{ user.roles|join(', ') }}
 								{% endif %}
@@ -49,7 +49,7 @@
 						</tr>
 					{% else %}
 						<tr>
-							<td colspan="6" class="tdAucun">Aucun utilisateur trouvé</td>
+							<td colspan="5" class="tdAucun">{{ 'admin.no_users_found'|trans }}</td>
 						</tr>
 					{% endfor %}
 				</tbody>

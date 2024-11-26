@@ -27,14 +27,14 @@
 						<a href="{{ path('app_admin') }}">Dashboard</a>
 					</li>
 					<li>
-						<a href="{{ path('admin_users') }}">Utilisateurs</a>
+						<a href="{{ path('admin_users') }}">{{ "users"|trans }}</a>
 					</li>
 					<li>
-						<a href="{{ path('admin_products') }}">Produits</a>
+						<a href="{{ path('admin_products') }}">{{ "products"|trans }}</a>
 					</li>
 					<li>
 						<a href="{{ path('_logout_main') }}" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');">
-							Se déconnecter
+							{{ "disconnect"|trans }}
 						</a>
 					</li>
 				</ul>

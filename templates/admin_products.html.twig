@@ -18,18 +18,18 @@
 	{% endblock %}
 
 	<div class="conteneurAdmin">
-		<h2 class="titreAdmin">Liste des produits</h2>
+		<h2 class="titreAdmin">{{ 'admin.product_list_title'|trans }}</h2>
 		<div class="divTableAdmin">
 			<table class="tableAdmin">
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>Nom</th>
-						<th>Couleur</th>
-						<th>Catégorie</th>
-						<th>Prix</th>
-						<th>Stock</th>
-						<th>Actions</th>
+						<th>{{ 'id'|trans }}</th>
+						<th>{{ 'name'|trans }}</th>
+						<th>{{ 'color'|trans }}</th>
+						<th>{{ 'category'|trans }}</th>
+						<th>{{ 'price'|trans }}</th>
+						<th>{{ 'product_addition.stock_label'|trans }}</th>
+						<th>{{ 'admin.actions'|trans }}</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -44,22 +44,22 @@
 							<td>{{ product.stock }}</td>
 							<td>
 								<div class="btnContainer">
-									<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">Modifier</button>
-									<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
-										<button type="submit" class="btnDelete">Supprimer</button>
+									<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': product.id}) }}'">{{ 'admin.edit'|trans }}</button>
+									<form method="post" action="{{ path('app_admin_deleteProduct', {'id': product.id}) }}" onsubmit="return confirm('{{ 'admin.confirm_delete'|trans }}');">
+										<button type="submit" class="btnDelete">{{ 'admin.delete'|trans }}</button>
 									</form>
 								</div>
 							</td>
 						</tr>
 					{% else %}
 						<tr>
-							<td colspan="5" class="tdAucun">Aucun produit trouvé</td>
+							<td colspan="7" class="tdAucun">{{ 'admin.no_products_found'|trans }}</td>
 						</tr>
 					{% endfor %}
 				</tbody>
 			</table>
 			<br>
-			<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">Ajouter un produit</button>
+			<button class="btnAjouter" onclick="window.location.href='{{ path('app_admin_addProduct') }}'">{{ 'admin.add_product'|trans }}</button>
 		</div>
 	</div>
 	{% include '_footer.html.twig' %}
