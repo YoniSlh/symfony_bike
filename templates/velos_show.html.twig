@@ -26,16 +26,20 @@
 				<h2>Caractéristiques</h2>
 				<ul>
 					<li>
-						<strong>{{ 'category'|trans }} :</strong>
+						<strong>{{ 'category'|trans }}
+							:</strong>
 						{{ velo.category }}</li>
 					<li>
-						<strong>{{ 'brand'|trans }} :</strong>
+						<strong>{{ 'brand'|trans }}
+							:</strong>
 						{{ velo.marque }}</li>
 					<li>
-						<strong>{{ 'color'|trans }} :</strong>
+						<strong>{{ 'color'|trans }}
+							:</strong>
 						{{ velo.couleur }}</li>
 					<li>
-						<strong>{{ 'weight'|trans }} :</strong>
+						<strong>{{ 'weight'|trans }}
+							:</strong>
 						{{ velo.poids }}
 						kg</li>
 					<li>
@@ -65,7 +69,8 @@
 					{% endif %}
 				</div>
 				<div class="quantityContainer">
-					<label for="quantity" class="quantityLabel">{{ 'quantity'|trans }} :</label>
+					<label for="quantity" class="quantityLabel">{{ 'quantity'|trans }}
+						:</label>
 					<select id="quantity" class="quantitySelect" data-cart-target="quantitySelect">
 						{% for i in 1..velo.stock %}
 							<option value="{{ i }}">{{ i }}</option>
@@ -84,42 +89,36 @@
 			</div>
 
 			<div class="veloAchatContainer">
-				<h3>Avis des clients
-					<span class="nbAvis">3</span>
+				<h3>{{ 'customer_reviews'|trans }}
+					<span class="nbAvis">{{ avis|length }}</span>
 				</h3>
 				<div class="avisContainer">
-					<div class="avisItem">
-						<div class="avisHeader">
-							<span class="avisNom">Jean Dupont</span>
-							<div class="etoiles">⭐⭐⭐⭐⭐</div>
-						</div>
-						<p class="avisTexte">Un vélo exceptionnel ! Très confortable et rapide. Je le recommande vivement.</p>
-						<p class="dateAvis">Publié le 12 mars 2024</p>
-					</div>
-					<div class="avisItem">
-						<div class="avisHeader">
-							<span class="avisNom">Marie Curie</span>
-							<div class="etoiles">⭐⭐⭐⭐</div>
-						</div>
-						<p class="avisTexte">Un excellent rapport qualité-prix. Idéal pour les balades en ville.</p>
-						<p class="dateAvis">Publié le 10 mars 2024</p>
-					</div>
-					<div class="avisItem">
-						<div class="avisHeader">
-							<span class="avisNom">Pierre Martin</span>
-							<div class="etoiles">⭐⭐⭐⭐⭐</div>
-						</div>
-						<p class="avisTexte">J'adore ce vélo ! Sa maniabilité est incroyable. Parfait pour les sorties le week-end.</p>
-						<p class="dateAvis">Publié le 8 mars 2024</p>
-					</div>
+					{% if avis is not empty %}
+						{% for avisItem in avis %}
+							<div class="avisItem">
+								<div class="avisHeader">
+									<span class="avisNom">{{ avisItem.nomUser }}</span>
+									<div class="etoiles">
+										{% for i in 1..avisItem.etoiles %}
+											★
+										{% endfor %}
+									</div>
+								</div>
+								<p class="avisTexte">{{ avisItem.texteAvis }}</p>
+								<p class="dateAvis">{{'publish_date'|trans}}
+									{{ avisItem.dateAvis|date('d F Y') }}</p>
+							</div>
+						{% endfor %}
+					{% else %}
+						<p>{{ 'no_review'|trans }}</p>
+					{% endif %}
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<div class="veloListContainer">
 		<div class="container">
-			<h2>Nos autres vélos</h2>
+			<h2>{{ 'our_bikes_2'|trans }}</h2>
 			<ul class="listeVelos">
 				{% for velo in velos|slice(0, 3) %}
 					<li class="veloItem">
@@ -143,6 +142,5 @@
 			</ul>
 		</div>
 	</div>
-
 	{% include '_footer.html.twig' %}
 {% endblock %}

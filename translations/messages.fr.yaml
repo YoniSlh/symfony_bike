@@ -111,3 +111,6 @@ product_addition:
   category_label: "Catégorie"
   confirm_add_product: "Êtes-vous sûr de vouloir ajouter ce produit ?"
   add_product_button: "Ajouter le produit"
+customer_reviews: "Avis des clients"
+no_reviews: "Aucun avis pour ce produit pour le moment."
+publish_date: "Publié le"

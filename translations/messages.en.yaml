@@ -111,3 +111,6 @@ product_addition:
   category_label: "Category"
   confirm_add_product: "Are you sure you want to add this product?"
   add_product_button: "Add product"
+customer_reviews: "Customer reviews"
+no_reviews: "No reviews for this product yet."
+publish_date: "Published on"

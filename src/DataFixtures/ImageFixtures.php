@@ -21,7 +21,10 @@ class ImageFixtures extends Fixture
             ],
             [
                 'urls' => [
-                    'https://www.velobrival.com/app/uploads/2024/04/lorpa.jpg'
+                    'https://embed.widencdn.net/img/dorelrl/syzqbicaov/1100px@1x/C23_C65403U_Moterra_Neo_Al_4_SBK_PD.webp?color=F1F1F1&q=99',
+                    'https://embed.widencdn.net/img/dorelrl/ts2c4df4jr/1100px@1x/C23_C65403U_Moterra_Neo_Al_4_SBK_3Q.webp?color=F1F1F1&q=99',
+                    'https://embed.widencdn.net/img/dorelrl/iaecmau9et/1100px@1x/C23_C65403U_Moterra_Neo_Al_4_SBK_D2.webp?color=F1F1F1&q=99',
+                    'https://embed.widencdn.net/img/dorelrl/lbpthgs0tv/1100px@1x/C23_C65403U_Moterra_Neo_Al_4_SBK_D3.webp?color=F1F1F1&q=99'
                 ],
             ],
             [

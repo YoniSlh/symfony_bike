@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Product;
-use App\Entity\ProductStatus;
+use App\Enum\ProductStatus;
 use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -27,15 +27,15 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 'image_refs' => ['image_1']
             ],
             [
-                'name' => 'Overvolt AM 9.7 2024',
+                'name' => 'Moterra Carbon 4',
                 'category_ref' => 'category_3',
-                'price' => 5789.00,
+                'price' => 4899.00,
                 'description' => 'VTT électrique puissant, parfait pour les aventures tout-terrain',
                 'stock' => 17,
                 'status' => ProductStatus::DISPONIBLE,
                 'poids' => 11.2,
-                'couleur' => 'Noir',
-                'marque' => 'Lapierre',
+                'couleur' => 'Gris',
+                'marque' => 'Cannondale',
                 'image_refs' => ['image_2']
             ],
             [
@@ -64,7 +64,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             ]
         ];
 
-        foreach ($products as $data) {
+        foreach ($products as $index => $data) {
             $product = new Product();
             $product->setName($data['name'])
                 ->setPrice($data['price'])
@@ -84,6 +84,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             }
 
             $manager->persist($product);
+
+            $this->addReference('product_' . ($index + 1), $product);
         }
 
         $manager->flush();
