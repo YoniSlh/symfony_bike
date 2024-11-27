@@ -8,14 +8,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\CreditCard;
+use App\Entity\Order;
 
 class UserController extends AbstractController
 {
     #[Route('/profil', name: 'user_profil')]
-    public function index(): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $creditCards = $entityManager->getRepository(CreditCard::class)->findBy(['user' => $user]);
+        $userOrders = $entityManager->getRepository(Order::class)->findBy(['user' => $user]);
+        
         return $this->render('profil.html.twig', [
             'controller_name' => 'UserController',
+            'creditCards' => $creditCards,
+            'userOrders' => $userOrders,
         ]);
     }
 
@@ -24,17 +31,6 @@ class UserController extends AbstractController
     {
         return $this->render('panier.html.twig', [
             'controller_name' => 'UserController',
-        ]);
-    }
-
-    #[Route('/profil', name: 'user_profil')]
-    public function listCreditCards(EntityManagerInterface $entityManager): Response
-    {
-        $user = $this->getUser();
-        $creditCards = $entityManager->getRepository(CreditCard::class)->findBy(['user' => $user]);
-
-        return $this->render('profil.html.twig', [
-            'creditCards' => $creditCards,
         ]);
     }
 

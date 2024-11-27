@@ -68,7 +68,7 @@
 							<td>
 								<div class="btnContainer">
 									<button class="btnModifier" onclick="window.location.href='{{ path('app_admin_editProduct', {'id': order.id}) }}'">{{ "modify"|trans }}</button>
-									<form method="post" action="{{ path('app_admin_deleteProduct', {'id': order.id}) }}" onsubmit="return confirm('{{ "confirm_delete"|trans }}');">
+									<form method="post" action="{{ path('app_admin_deleteProduct', {'id': order.id}) }}" onsubmit="return confirm('{{ "confirm_delete_product"|trans }}');">
 										<button type="submit" class="btnDelete">{{ "admin.delete"|trans }}</button>
 									</form>
 								</div>

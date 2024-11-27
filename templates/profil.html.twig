@@ -38,26 +38,73 @@
 					{% endif %}
 				</p>
 			</div>
+			<h2 class="titreAdmin">{{ "your_orders"|trans }}</h2>
+			<div class="divTableAdmin">
+				<table class="tableAdmin">
+					<thead>
+						<tr>
+							<th>{{ "id"|trans }}</th>
+							<th>{{ "reference"|trans }}</th>
+							<th>{{ "user"|trans }}</th>
+							<th>{{ "date"|trans }}</th>
+							<th>{{ "status"|trans }}</th>
+							<th>{{ "amount"|trans }}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for userOrder in userOrders %}
+							<tr>
+								<td>{{ userOrder.id }}</td>
+								<td>{{ userOrder.reference }}</td>
+								<td>{{ userOrder.user ? userOrder.user.firstName ~ " " ~ userOrder.user.lastName : "unknown"|trans }}</td>
+								<td>{{ userOrder.createdAt|date('d/m/Y H:i') }}</td>
+								<td>{{ userOrder.status.value }}</td>
+								<td>{{ userOrder.price }}
+									€</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="7" class="tdAucun">{{ "no_order_found"|trans }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<br>
 			<div class="creditCardSection">
-				<h3>{{ "credit_cards"|trans }}</h3>
-				<ul class="creditCardList">
-					{% for card in creditCards %}
-						<li>
-							<span>{{ "credit_card_ending"|trans }}
-								: ****
-								{{ card.number|slice(-4) }}</span>
-							<span>{{ "expiration_date"|trans }}
-								:
-								{{ card.expirationDate|date('m/Y') }}</span>
-							<a href="{{ path('user_profil_editCreditCard', {id: card.id}) }}" class="btnModifier">{{ "modify"|trans }}</a>
-							<a href="{{ path('user_profil_deleteCreditCard', {id: card.id}) }}" class="btnDelete" onclick="return confirm('{{ " confirm_card_deletion"|trans }}');">{{ "delete_card"|trans }}</a>
-						</li>
-					{% else %}
-						<li>{{ "no_credit_cards"|trans }}</li>
-					{% endfor %}
-				</ul>
+				<h2 class="titreAdmin">{{ "credit_cards"|trans }}</h2>
+				<div class="divTableAdmin">
+					<table class="tableAdmin">
+						<thead>
+							<tr>
+								<th>{{ "credit_card_ending"|trans }}</th>
+								<th>{{ "expiration_date"|trans }}</th>
+								<th>{{ "actions"|trans }}</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for card in creditCards %}
+								<tr>
+									<td>****
+										{{ card.number|slice(-4) }}</td>
+									<td>{{ card.expirationDate|date('m/Y') }}</td>
+									<td>
+										<a href="{{ path('user_profil_editCreditCard', {id: card.id}) }}" class="btnModifier">{{ "modify"|trans }}</a>
+										<a href="{{ path('user_profil_deleteCreditCard', {id: card.id}) }}" class="btnDelete" onclick="return confirm('{{ " confirm_card_deletion"|trans }}');">{{ "delete_card"|trans }}</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="3" class="tdAucun">{{ "no_credit_cards"|trans }}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<br>
 				<a href="{{ path('user_profil_addCreditCard') }}" class="btnAjouter">{{ "add_credit_card"|trans }}</a>
 			</div>
 		</div>
 	</main>
+	{% include '_footer.html.twig' %}
 {% endblock %}
