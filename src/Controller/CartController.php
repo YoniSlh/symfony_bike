@@ -3,47 +3,18 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class CartController extends AbstractController
-{
-    /**
-     * @Route("/cart", name="cart_index")
-     */
-    public function index(SessionInterface $session): Response
+{ 
+    #[Route('/panier', name: 'cart_index')]
+    public function index(): Response
     {
-        $cart = $this->getCartItems($session);
-        $total = array_reduce($cart, function ($sum, $item) {
-            return $sum + $item['price'] * $item['quantity'];
-        }, 0);
-
-        return $this->render('cart/index.html.twig', [
-            'cart' => $cart,
-            'total' => $total,
+        return $this->render('cart.html.twig', [
+            'controller_name' => 'CartController',
         ]);
-    }
-
-    /**
-     * @Route("/cart/remove/{id}", name="cart_remove")
-     */
-    public function removeFromCart($id, SessionInterface $session): Response
-    {
-        $cart = $session->get('cart', []);
-
-        if (isset($cart[$id])) {
-            unset($cart[$id]);
-        }
-
-        $session->set('cart', $cart);
-
-        return $this->redirectToRoute('cart_index');
-    }
-
-    private function getCartItems(SessionInterface $session): array
-    {
-        return $session->get('cart', []);
     }
 }

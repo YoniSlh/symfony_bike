@@ -4,17 +4,20 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="csrf-token" content="{{ csrf_token('cart') }}">
 		<title>
 			{% block title %}Symfony Bike
 			{% endblock %}
 		</title>
 		<style>
 			{{include('styles/styles.css.twig')}}</style>
-		<script src="{{ asset("js/script.js") }}"></script>
-		<script src="{{ asset('app.js') }}" defer></script>
+		<script src="{{ asset("script.js") }}"></script>
+		<script type="module" src="{{ asset('app.js') }}" defer></script>
+		<script type="module" src="{{ asset('controllers/cart_controller.js') }}"></script>
+		<script src="{{ asset('build/index.js') }}"></script>
 		<script>
 			var assetDrapeauFr = "{{ asset('styles/images/drapeau_france.png') }}";
-			var assetDrapeauEn = "{{ asset('styles/images/drapeau_anglais.png') }}";
+var assetDrapeauEn = "{{ asset('styles/images/drapeau_anglais.png') }}";
 		</script>
 	</head>
 	{% block flash %}

@@ -1,1 +1,20 @@
-{}
+{
+  "dependencies": {
+    "@symfony/stimulus-bridge": "^3.2.2",
+    "sass": "^1.81.0",
+    "sass-loader": "16.0.1",
+    "stimulus": "^3.2.2"
+  },
+  "scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@symfony/webpack-encore": "^5.0.1",
+    "babel-loader": "^9.2.1",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
+  }
+}

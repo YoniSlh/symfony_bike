@@ -1,20 +1,8 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Panier{% endblock %}
-
 {% block content %}
-<main>
-    <h1>Votre panier</h1>
-    <div data-controller="cart" data-action="click->cart#removeFromCart">
-        <ul id="cartItems">
-            {% for item in cart %}
-                <li>
-                    {{ item.name }} - {{ item.quantity }} x {{ item.price }} €
-                    <button data-cart-id="{{ item.id }}">Supprimer</button>
-                </li>
-            {% endfor %}
-        </ul>
-        <p>Total : <span data-cart-target="cartTotal">0,00 €</span></p>
-    </div>
-</main>
+{% include '_header.html.twig' %}
+<h1>Votre Panier</h1>
+
+{% include '_footer.html.twig' %}
 {% endblock %}
