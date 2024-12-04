@@ -12,9 +12,15 @@
 		<style>
 			{{include('styles/styles.css.twig')}}</style>
 		{% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+			{% block importmap %}
+				{{ importmap('app') }}
+			{% endblock %}
 		{% endblock %}
 		<script src="{{ asset("js/script.js") }}"></script>
+		<script>
+			const addToCartUrl = "{{ path('api_cart_add') }}";
+		</script>
+
 		<script>
 			var assetDrapeauFr = "{{ asset('images/drapeau_france.png') }}";
 var assetDrapeauEn = "{{ asset('images/drapeau_anglais.png') }}";

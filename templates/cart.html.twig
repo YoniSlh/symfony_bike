@@ -1,11 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Panier
-{% endblock %}
+{% block title %}Panier{% endblock %}
 
 {% block content %}
-	{% include '_header.html.twig' %}
-	<h1>Votre Panier</h1>
+    {% include '_header.html.twig' %}
 
-	{% include '_footer.html.twig' %}
+    <div class="panier-container">
+        <h1>Votre Panier</h1>
+        
+        {% if cart.itemCount > 0 %}
+            <div class="panier-items">
+                <table class="table-panier">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Prix unitaire</th>
+                            <th>Quantité</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart.cart %}
+                            <tr>
+                                <td>
+                                    <div class="product-name">
+                                        <img src="{{ item.imageUrl }}" alt="{{ item.name }}" class="product-image">
+                                        <span>{{ item.name }}</span>
+                                    </div>
+                                </td>
+                                <td>{{ item.price }} €</td>
+                                <td>
+                                    <input type="number" value="{{ item.quantity }}" min="1" max="10" class="quantity-input">
+                                </td>
+                                <td>{{ item.price * item.quantity }} €</td>
+                                <td>
+                                    <button class="remove-item-btn">Retirer</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panier-summary">
+                <div class="summary-item">
+                    <strong>Total des articles :</strong> <span>{{ cart.totalAmount }} €</span>
+                </div>
+                <div class="summary-item">
+                    <strong>Frais de livraison :</strong> <span>5,00 €</span>
+                </div>
+                <div class="summary-item total">
+                    <strong>Total à payer :</strong> <span>{{ cart.totalAmount + 5.00 }} €</span>
+                </div>
+            </div>
+
+            <div class="panier-actions">
+                <a href="{{ path('checkout') }}" class="btn-commander">Commander</a>
+                <a href="{{ path('velos') }}" class="btn-continuer">Continuer vos achats</a>
+            </div>
+
+        {% else %}
+            <p>Votre panier est vide. <a href="{{ path('velos') }}">Découvrez nos produits</a>.</p>
+        {% endif %}
+
+        {% include '_footer.html.twig' %}
+    </div>
 {% endblock %}

@@ -83,9 +83,9 @@
 					{% if velo.stock == 0 %}
 						<button class="btnAjoutPanier" style="opacity: 0.5; pointer-events: none;">{{ "add_to_cart"|trans }}</button>
 					{% else %}
-						<button class="btnAjoutPanier">
+						<a href="#" class="btnAjoutPanier" data-controller="cart" data-action="click->cart#addToCart" data-id="{{ velo.id }}" data-name="{{ velo.name }}" data-price="{{ velo.price }}">
 							{{ "add_to_cart"|trans }}
-						</button>
+						</a>
 					{% endif %}
 				</div>
 			</div>
