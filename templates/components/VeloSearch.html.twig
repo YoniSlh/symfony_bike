@@ -1,5 +1,7 @@
 <div {{ attributes }}>
-	<input type="search" data-model="query" placeholder="Recherchez un vélo..." class="live-search-input"/>
+	<div class="divSearchBar">
+		<input type="search" data-model="query" placeholder="Recherche" class="searchBarInput"/>
+	</div>
 	<ul class="live-search-results">
 		<ul class="listeVelos">
 			{% for product in this.products %}
