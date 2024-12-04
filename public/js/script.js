@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const dropdownMenu = document.querySelector(".dropdown-menu");
 
   dropdownToggle.addEventListener("click", function (event) {
-    event.preventDefault(); 
+    event.preventDefault();
     dropdownMenu.style.display =
       dropdownMenu.style.display === "block" ? "none" : "block";
   });
@@ -72,12 +72,14 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // fermer flash
-document.querySelectorAll('.flash-success .close-btn, .flash-error .close-btn').forEach(function(button) {
-    button.addEventListener('click', function() {
-        var flash = this.closest('.flash-success, .flash-error');
-        flash.classList.add('hidden');
-        setTimeout(function() {
-            flash.style.display = 'none';
-        }, 300);
+document
+  .querySelectorAll(".flash-success .close-btn, .flash-error .close-btn")
+  .forEach(function (button) {
+    button.addEventListener("click", function () {
+      var flash = this.closest(".flash-success, .flash-error");
+      flash.classList.add("hidden");
+      setTimeout(function () {
+        flash.style.display = "none";
+      }, 300);
     });
-});
+  });

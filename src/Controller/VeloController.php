@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Form\ProductAutocompleteField;
+use App\Form\ProductAutocomplete;
 use App\Repository\ProductRepository;
 use App\Repository\AvisRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,34 +24,40 @@ class VeloController extends AbstractController
     }
 
     #[Route('/velos', name: 'velos')]
-    public function list(Request $request, ProductRepository $productRepository): Response
+    public function list(Request $request): Response
     {
-        $velos = $this->productRepository->findAll();
-        $query = $request->query->get('query', '');
-        $products = $productRepository->findBySearchQuery($query);
+        $form = $this->createForm(ProductAutocomplete::class);
+        $form->handleRequest($request);
+
+        $velos = [];
+        if ($form->isSubmitted() && $form->isValid()) {
+            $searchQuery = $form->getData()['search'];
+            $velos = $this->productRepository->findBy(['name' => $searchQuery]);
+        } else {
+            $velos = $this->productRepository->findAll();
+        }
 
         return $this->render('velos_list.html.twig', [
             'velos' => $velos,
-            'products' => $products,
-            'searchTerm' => $query,
+            'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/search', name: 'product_search')]
-    public function search(Request $request, ProductRepository $productRepository): JsonResponse
+    #[Route('/velos/autocomplete', name: 'velos_autocomplete', methods: ['GET'])]
+    public function autocomplete(Request $request): JsonResponse
     {
         $query = $request->query->get('query', '');
-        $products = $productRepository->findBySearchQuery($query);
+        $results = $this->productRepository->findBy(['name' => $query]);
 
-        $result = [];
-        foreach ($products as $product) {
-            $result[] = [
-                'id' => $product->getId(),
-                'name' => $product->getName(),
+        $data = [];
+        foreach ($results as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'name' => $result->getName(),
             ];
         }
 
-        return new JsonResponse($result);
+        return new JsonResponse($data);
     }
 
     #[Route('/velos/show/{id}', name: 'velos_show', methods: ['GET'])]

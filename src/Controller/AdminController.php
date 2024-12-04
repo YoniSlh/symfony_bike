@@ -121,7 +121,7 @@ class AdminController extends AbstractController
             'ratioEnStock' => $ratioEnStock,
             'ratioEnRupture' => $ratioEnRupture,
             'ratioEnPrecommande' => $ratioEnPrecommande,
-            'ventesParMois' => $ventesParMois, 
+            'ventesParMois' => $ventesParMois,
             'montantTotalVentes' => $montantTotalVentes
         ]);
     }
@@ -149,11 +149,26 @@ class AdminController extends AbstractController
     #[Route('/admin/products/delete/product/{id}', name: 'app_admin_deleteProduct')]
     public function deleteProduct(Product $product, EntityManagerInterface $entityManager): Response
     {
+        // Vérifie si le produit est dans une commande
+        $orderItems = $entityManager->getRepository(OrderItem::class)->findBy(['product' => $product]);
+
+        if (count($orderItems) > 0) {
+            $this->addFlash('error', 'Ce produit est associé à une ou plusieurs commandes et ne peut pas être supprimé.');
+            return $this->redirectToRoute('admin_products');
+        }
+
+        foreach ($product->getImages() as $image) {
+            $entityManager->remove($image);
+        }
+
         $entityManager->remove($product);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_admin');
+        $this->addFlash('success', 'Le produit a été supprimé avec succès.');
+        return $this->redirectToRoute('admin_products');
     }
+
+
 
     #[Route('/admin/products/editProduct/{id}', name: 'app_admin_editProduct')]
     public function editProduct(Product $product, EntityManagerInterface $entityManager, Request $request): Response

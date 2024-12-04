@@ -49,10 +49,14 @@ class Product
     #[ORM\ManyToOne(targetEntity: Category::class)]
     private ?Category $category = null;
 
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Avis::class)]
+    private Collection $avis;
+
     public function __construct()
     {
         $this->orderItems = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->avis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -164,10 +168,9 @@ class Product
             $this->images[] = $image;
             $image->setProduct($this);
         }
-    
+
         return $this;
     }
-    
 
     public function removeImage(Image $image): self
     {
@@ -188,5 +191,10 @@ class Product
     {
         $this->category = $category;
         return $this;
+    }
+
+    public function getAvis(): Collection
+    {
+        return $this->avis;
     }
 }

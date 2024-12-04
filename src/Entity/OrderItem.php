@@ -20,9 +20,11 @@ class OrderItem
     private ?float $productPrice = null;
 
     #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'orderItems')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Order $order = null;
 
     #[ORM\ManyToOne(targetEntity: Product::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
 
     public function getId(): ?int
@@ -38,6 +40,7 @@ class OrderItem
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
         return $this;
     }
 
@@ -49,6 +52,7 @@ class OrderItem
     public function setProductPrice(float $productPrice): self
     {
         $this->productPrice = $productPrice;
+
         return $this;
     }
 
@@ -60,6 +64,7 @@ class OrderItem
     public function setOrder(?Order $order): self
     {
         $this->order = $order;
+
         return $this;
     }
 
@@ -71,6 +76,7 @@ class OrderItem
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
+
         return $this;
     }
 }

@@ -6,14 +6,15 @@ use App\Entity\CreditCard;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use App\Entity\User;
 
 class CreditCardFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $user1 = $this->getReference('user_1');
-        $user2 = $this->getReference('user_2');
-        $user3 = $this->getReference('user_3');
+        $user1 = $this->getReference('user_1', User::class);
+        $user2 = $this->getReference('user_2', User::class);
+        $user3 = $this->getReference('user_3', User::class);
 
         $creditCards = [
             ['number' => '1234567812345678', 'user' => $user1, 'expirationDate' => new \DateTime('2025-12-31'), 'cvv' => 123],

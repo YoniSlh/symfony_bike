@@ -26,8 +26,8 @@ class Avis
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_avis = null;
 
-    #[ORM\ManyToOne(targetEntity: Product::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'avis')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Product $product = null;
 
     public function getId(): ?int
@@ -43,7 +43,6 @@ class Avis
     public function setNomUser(string $nom_user): static
     {
         $this->nom_user = $nom_user;
-
         return $this;
     }
 
@@ -55,7 +54,6 @@ class Avis
     public function setTexteAvis(string $texte_avis): static
     {
         $this->texte_avis = $texte_avis;
-
         return $this;
     }
 
@@ -67,7 +65,6 @@ class Avis
     public function setEtoiles(int $etoiles): static
     {
         $this->etoiles = $etoiles;
-
         return $this;
     }
 
@@ -79,7 +76,6 @@ class Avis
     public function setDateAvis(\DateTimeInterface $date_avis): static
     {
         $this->date_avis = $date_avis;
-
         return $this;
     }
 
@@ -91,7 +87,6 @@ class Avis
     public function setProduct(?Product $product): static
     {
         $this->product = $product;
-
         return $this;
     }
 }

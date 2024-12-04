@@ -8,10 +8,11 @@ use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use App\Entity\Image;
 
 class ProductFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $products = [
             [
@@ -75,11 +76,11 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 ->setCouleur($data['couleur'])
                 ->setMarque($data['marque']);
 
-            $category = $this->getReference($data['category_ref']);
+            $category = $this->getReference($data['category_ref'], Category::class);
             $product->setCategory($category);
 
             foreach ($data['image_refs'] as $image_ref) {
-                $image = $this->getReference($image_ref);
+                $image = $this->getReference($image_ref, Image::class);
                 $product->addImage($image);
             }
 
@@ -91,7 +92,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             CategoryFixtures::class,

@@ -6,10 +6,11 @@ use App\Entity\Avis;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use App\Entity\Product;
 
 class AvisFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $avisData = [
             [
@@ -108,7 +109,7 @@ class AvisFixtures extends Fixture implements DependentFixtureInterface
                 ->setEtoiles($data['etoiles'])
                 ->setDateAvis(new \DateTime($data['date_avis']));
 
-            $product = $this->getReference($data['product_ref']);
+            $product = $this->getReference($data['product_ref'], Product::class);
             $avis->setProduct($product);
 
             $manager->persist($avis);
@@ -117,7 +118,7 @@ class AvisFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             ProductFixtures::class,

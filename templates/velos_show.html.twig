@@ -50,10 +50,12 @@
 		</div>
 
 		<div class="veloInfosContainer">
-			<div class="veloAchatContainer" data-controller="cart">
+
+			<div class="veloAchatContainer">
 				<h2 style="margin: 0 0;">{{ velo.name }}</h2>
 				<p style="margin-top: 0;">
-					<i class="refVelo">Référence :
+					<i class="refVelo">{{ 'reference'|trans }}
+						:
 						{{ velo.id }}</i>
 				</p>
 				<div class="prixContainer">
@@ -62,16 +64,16 @@
 				</div>
 				<div class="stockContainer">
 					{% if velo.stock == 0 %}
-						<span class="stockInfo" style="color: red;">En rupture de stock</span>
+						<span class="stockInfo" style="color: red;">{{ 'out_of_stock'|trans }}</span>
 					{% else %}
 						<span class="stockInfo">{{ velo.stock }}
-							en stock</span>
+							{{ 'in_stock'|trans }}</span>
 					{% endif %}
 				</div>
 				<div class="quantityContainer">
 					<label for="quantity" class="quantityLabel">{{ 'quantity'|trans }}
 						:</label>
-					<select id="quantity" class="quantitySelect" data-cart-target="quantitySelect">
+					<select id="quantity" class="quantitySelect">
 						{% for i in 1..velo.stock %}
 							<option value="{{ i }}">{{ i }}</option>
 						{% endfor %}
@@ -81,13 +83,12 @@
 					{% if velo.stock == 0 %}
 						<button class="btnAjoutPanier" style="opacity: 0.5; pointer-events: none;">{{ "add_to_cart"|trans }}</button>
 					{% else %}
-						<button class="btnAjoutPanier" data-action="click->cart#addToCart" data-cart-id="{{ velo.id }}" data-cart-name="{{ velo.name }}" data-cart-price="{{ velo.price }}">
+						<button class="btnAjoutPanier">
 							{{ "add_to_cart"|trans }}
 						</button>
 					{% endif %}
 				</div>
 			</div>
-
 			<div class="veloAchatContainer">
 				<h3>{{ 'customer_reviews'|trans }}
 					<span class="nbAvis">{{ avis|length }}</span>
@@ -132,7 +133,7 @@
 									<strong class="prixVeloItem">{{ velo.price }}
 										€</strong>
 								</p>
-								<button class="btnAjoutPanier" data-action="click->cart#addToCart" data-cart-id="{{ velo.id }}" data-cart-name="{{ velo.name }}" data-cart-price="{{ velo.price }}">
+								<button class="btnAjoutPanier">
 									{{ "add_to_cart"|trans }}
 								</button>
 							</div>
