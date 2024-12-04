@@ -1,27 +1,26 @@
 <div {{ attributes }}>
 	<input type="search" data-model="query" placeholder="Recherchez un vélo..." class="live-search-input"/>
-
 	<ul class="live-search-results">
-        <ul class="listeVelos">
-		{% for product in this.products %}
-			<li class="veloItem">
-				<a href="{{ path('velos_show', {'id': product.id}) }}" class="veloLink">
-					<div class="veloDetails">
-						<img src="{{ product.images|first.urls[0] }}" class="veloImage">
-						<h3 class="titreDetails">{{ product.name }}</h3>
-						<p class="veloItemMarque">{{ product.marque }}</p>
-						<p>{{ product.description|length > 100 ? product.description|slice(0, 100) ~ '...' : product.description }}</p>
-						<p>
-							<strong class="prixVeloItem">{{ product.price }}
-								€</strong>
-						</p>
-						<a href="{{ path('user_panier') }}" class="btnAjoutPanier">{{ "add_to_cart"|trans }}</a>
-					</div>
-				</a>
-			</li>
-		{% else %}
-			<li class="live-search-empty">Aucun vélo trouvé.</li>
-		{% endfor %}
-        </ul>   
+		<ul class="listeVelos">
+			{% for product in this.products %}
+				<li class="veloItem">
+					<a href="{{ path('velos_show', {'id': product.id}) }}" class="veloLink">
+						<div class="veloDetails">
+							<img src="{{ product.images|first.urls[0] }}" class="veloImage">
+							<h3 class="titreDetails">{{ product.name }}</h3>
+							<p class="veloItemMarque">{{ product.marque }}</p>
+							<p>{{ product.description|length > 100 ? product.description|slice(0, 100) ~ '...' : product.description }}</p>
+							<p>
+								<strong class="prixVeloItem">{{ product.price }}
+									€</strong>
+							</p>
+							<a href="{{ path('user_panier') }}" class="btnAjoutPanier">{{ "add_to_cart"|trans }}</a>
+						</div>
+					</a>
+				</li>
+			{% else %}
+				<li class="live-search-empty">Aucun vélo trouvé.</li>
+			{% endfor %}
+		</ul>
 	</ul>
 </div>

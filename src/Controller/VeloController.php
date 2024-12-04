@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Form\ProductAutocompleteField;
-use App\Form\ProductAutocomplete;
 use App\Repository\ProductRepository;
 use App\Repository\AvisRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,20 +24,10 @@ class VeloController extends AbstractController
     #[Route('/velos', name: 'velos')]
     public function list(Request $request): Response
     {
-        $form = $this->createForm(ProductAutocomplete::class);
-        $form->handleRequest($request);
-
-        $velos = [];
-        if ($form->isSubmitted() && $form->isValid()) {
-            $searchQuery = $form->getData()['search'];
-            $velos = $this->productRepository->findBy(['name' => $searchQuery]);
-        } else {
-            $velos = $this->productRepository->findAll();
-        }
+        $velos = $this->productRepository->findAll();
 
         return $this->render('velos_list.html.twig', [
             'velos' => $velos,
-            'form' => $form->createView(),
         ]);
     }
 

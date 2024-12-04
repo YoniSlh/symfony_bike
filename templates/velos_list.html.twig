@@ -5,16 +5,7 @@
 
 {% block content %}
 	{% include '_header.html.twig' %}
-
-    {# autocomplete #}
-	<div class="divSearchBar">
-		{{ form_start(form) }}
-		{{ form_widget(form) }}
-		{{ form_end(form) }}
-		<ul id="autocomplete-list" style="display: none;"></ul>
-	</div>
-
- {# live components #}
+	{# live components #}
 	<main class="veloListContainer">
 		<div class="container">
 			<h2>{{ 'our_bikes_2'|trans}}</h2>

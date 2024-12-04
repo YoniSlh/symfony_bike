@@ -7,7 +7,7 @@ use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
-#[AsLiveComponent('VeloSearch', template: 'components/VeloSearch.html.twig')]
+#[AsLiveComponent]
 class VeloSearch
 {
     use DefaultActionTrait;

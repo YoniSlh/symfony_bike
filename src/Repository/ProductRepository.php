@@ -13,13 +13,16 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function findByQuery(string $query): array
+    public function findAll(string $query = ''): array
     {
-        return $this->createQueryBuilder('p')
-            ->where('p.name LIKE :query OR p.description LIKE :query')
-            ->setParameter('query', '%' . $query . '%')
-            ->getQuery()
-            ->getResult();
+        $qb = $this->createQueryBuilder('p');
+    
+        if ($query) {
+            $qb->andWhere('p.name LIKE :query OR p.description LIKE :query')
+               ->setParameter('query', '%'.$query.'%');
+        }
+    
+        return $qb->getQuery()->getResult();
     }
     
 }
