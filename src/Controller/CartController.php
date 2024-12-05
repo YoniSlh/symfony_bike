@@ -18,51 +18,44 @@ class CartController extends AbstractController
         $this->session = $requestStack->getSession();
     }
 
-    #[Route('/cart', name: 'cart')]
-    public function index(): Response
-    {
-        return $this->render('cart/index.html.twig');
-    }
-
     #[Route('/api/cart/add', name: 'api_cart_add', methods: ['POST'])]
     public function addToCart(Request $request): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
-
-        if (!isset($data['id'], $data['name'], $data['price'])) {
-            return new JsonResponse(['error' => 'Données invalides'], 400);
-        }
-
         $cart = $this->session->get('cart', []);
 
-        $productId = $data['id'];
-        if (isset($cart[$productId])) {
-            $cart[$productId]['quantity'] += 1;
-        } else {
+        $data = json_decode($request->getContent(), true);
+        $productId = $data['id'] ?? null;
+        $productName = $data['name'] ?? null;
+        $productPrice = $data['price'] ?? null;
+
+        if (!$productId || !$productName || !$productPrice) {
+            return new JsonResponse(['error' => 'Invalid data'], 400);
+        }
+
+        if (!isset($cart[$productId])) {
             $cart[$productId] = [
-                'id' => $productId,
-                'name' => $data['name'],
-                'price' => $data['price'],
-                'quantity' => $data['quantity'],
+                'name' => $productName,
+                'price' => $productPrice,
+                'quantity' => 0,
             ];
         }
 
+        $cart[$productId]['quantity']++;
+
         $this->session->set('cart', $cart);
 
-        $itemCount = array_sum(array_column($cart, 'quantity'));
-        $totalAmount = array_reduce($cart, fn($sum, $item) => $sum + $item['price'] * $item['quantity'], 0);
-
         return new JsonResponse([
-            'itemCount' => $itemCount,
-            'totalAmount' => $totalAmount,
+            'cart' => $cart,
+            'itemCount' => array_sum(array_column($cart, 'quantity')),
+            'totalAmount' => array_reduce($cart, fn($sum, $item) => $sum + $item['price'] * $item['quantity'], 0),
         ]);
     }
+
 
     #[Route('/api/cart', name: 'api_cart_get', methods: ['GET'])]
     public function getCart(): JsonResponse
     {
         $cart = $this->session->get('cart', []);
-
         $itemCount = array_sum(array_column($cart, 'quantity'));
         $totalAmount = array_reduce($cart, fn($sum, $item) => $sum + $item['price'] * $item['quantity'], 0);
 
@@ -72,6 +65,7 @@ class CartController extends AbstractController
             'totalAmount' => $totalAmount,
         ]);
     }
+
 
     #[Route('/cart', name: 'cart_show', methods: ['GET'])]
     public function showCart(): Response

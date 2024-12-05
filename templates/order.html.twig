@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre commande
+{% endblock %}
+
+{% block content %}
+	{% include '_header.html.twig' %}
+
+	<a href="{{ path('cart_show') }}" class="btnRetour" title="Retour"></a>
+
+	<div class="commandeContainer">
+		<div class="commandeItems">
+			<h1>Votre commande</h1>
+			{% if items is not empty %}
+				<table class="tableCommande">
+					<thead>
+						<tr>
+							<th>Produit</th>
+							<th>Prix unitaire</th>
+							<th>Quantité</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in items %}
+							<tr class="commande-item">
+								<td>
+									<div class="productName">
+										<img src="" alt="{{ item.product.name }}" class="productImage">
+										<span>{{ item.product.name }}</span>
+									</div>
+								</td>
+								<td>{{ item.product.price }}€</td>
+								<td>{{ item.quantity }}</td>
+								<td>{{ item.quantity * item.product.price }}€</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+				<div class="commandeSummary">
+					<div class="summaryItem">
+						<strong>Total des articles :</strong>
+						<span>{{ items|length }}</span>
+					</div>
+					<div class="summaryItem">
+						<strong>Total :</strong>
+						<span>{{ total }}€</span>
+					</div>
+				</div>
+
+				<div class="commandeActions">
+					<form action="{{ path('order_confirm') }}" method="post">
+						<button type="submit" class="btnConfirmerCommande">Confirmer la commande</button>
+					</form>
+				</div>
+			{% else %}
+				<p>Votre panier est vide.
+					<a href="{{ path('velos') }}">Découvrez nos produits</a>.
+				</p>
+			{% endif %}
+		</div>
+	</div>
+
+	{% include '_footer.html.twig' %}
+{% endblock %}

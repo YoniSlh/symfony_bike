@@ -1112,6 +1112,192 @@ body {
     }
 }
 
+/* Commandes */
+.successContainer {
+    background-color: #e9f7ef;
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 650px;
+    margin: 0 auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.successContainer h1 {
+    color: #2ecc71;
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.successContainer p {
+    color: #333;
+    font-size: 1.1em;
+    margin: 15px 0;
+}
+
+.successContainer strong {
+    color: #27ae60;
+    font-size: 1.3em;
+    font-weight: 700;
+}
+
+.successActions {
+    margin-top: 25px;
+}
+
+.successActions .btnAjouter {
+    padding: 12px 25px;
+    background-color: #27ae60;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1em;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.successActions .btnAjouter:hover {
+    background-color: #2ecc71;
+    transform: translateY(-3px);
+}
+
+.successContainer p:last-child {
+    font-weight: 600;
+    color: #555;
+}
+
+/* Panier */
+.panierContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.panierItems {
+    flex: 1;
+    min-width: 60%;
+}
+
+.tablePanier {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.tablePanier th,
+.tablePanier td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.productName {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.productImage {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.quantityInput {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.removeItemBtn {
+    background-color: #ff4b2b;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.removeItemBtn:hover {
+    background-color: #e03d20;
+}
+
+.panierSummary {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: right;
+}
+
+.summaryItem {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.panierDetails {
+    flex: 0 0 30%;
+    min-width: 250px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.panierActions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.actionItem {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2em;
+}
+
+.btnCheckout {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.btnCheckout:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+    .panierContainer {
+        flex-direction: column;
+    }
+
+    .panierItems,
+    .panierDetails {
+        min-width: 100%;
+    }
+}
+
+
 /* Footer */
 footer {
     display: block;

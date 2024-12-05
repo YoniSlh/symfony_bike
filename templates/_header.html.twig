@@ -28,35 +28,36 @@
 						<a href="{{ path('velos') }}">{{ "bikes"|trans }}</a>
 					</li>
 					<li>
-						<div>
-							<a href="{{ path('cart_show')}}">
+						<div data-controller="cart">
+							<a href="{{ path('cart_show') }}">
 								{{ "cart"|trans }}
-								<span class="cart-item-count" data-cart-target="itemCount"></span>articles
-								<span class="cart-total-amount" data-cart-target="totalAmount"></span> €
+								<span class="cart-item-count" data-cart-target="itemCount"></span>
+								articles
+								<span class="cart-total-amount" data-cart-target="totalAmount"></span>
 							</a>
 						</div>
 					</li>
-					{% if app.user %}
-						{% if 'ROLE_ADMIN' in app.user.roles %}
-							<li>
-								<a href="{{ path('app_admin') }}">Admin</a>
-							</li>
-						{% endif %}
+				</li>
+				{% if app.user %}
+					{% if 'ROLE_ADMIN' in app.user.roles %}
 						<li>
-							<a href="{{ path('user_profil') }}">{{ "account"|trans }}</a>
-						</li>
-						<li>
-							<a href="{{ path('_logout_main') }}" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');">
-								{{ "disconnect"|trans }}
-							</a>
-						</li>
-					{% else %}
-						<li>
-							<a href="{{ path('login') }}">{{ "connect"|trans }}</a>
+							<a href="{{ path('app_admin') }}">Admin</a>
 						</li>
 					{% endif %}
-				</ul>
-			</nav>
-		</div>
-	</header>
-{% endblock %}
+					<li>
+						<a href="{{ path('user_profil') }}">{{ "account"|trans }}</a>
+					</li>
+					<li>
+						<a href="{{ path('_logout_main') }}" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');">
+							{{ "disconnect"|trans }}
+						</a>
+					</li>
+				{% else %}
+					<li>
+						<a href="{{ path('login') }}">{{ "connect"|trans }}</a>
+					</li>
+				{% endif %}
+			</ul>
+		</nav>
+	</div>
+</header>{% endblock %}

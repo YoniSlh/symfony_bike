@@ -19,6 +19,8 @@ use App\Entity\Image;
 use App\Entity\OrderItem;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Enum\ProductStatus;
+use App\Enum\OrderStatus;
+use App\Entity\Order;
 
 class AdminController extends AbstractController
 {
@@ -168,8 +170,6 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_products');
     }
 
-
-
     #[Route('/admin/products/editProduct/{id}', name: 'app_admin_editProduct')]
     public function editProduct(Product $product, EntityManagerInterface $entityManager, Request $request): Response
     {
@@ -281,6 +281,57 @@ class AdminController extends AbstractController
             'categories' => $categories,
             'product' => $product,
             'productStatus' => $productStatus
+        ]);
+    }
+
+    #[Route('/admin/orders/delete/{id}', name: 'app_admin_deleteOrder')]
+    public function deleteOrder(Order $order, EntityManagerInterface $entityManager): Response
+    {
+        foreach ($order->getOrderItems() as $orderItem) {
+            $entityManager->remove($orderItem);
+        }
+
+        $entityManager->remove($order);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'La commande a été supprimée avec succès.');
+        return $this->redirectToRoute('app_admin');
+    }
+    #[Route('/admin/orders/edit/{id}', name: 'app_admin_editOrder')]
+    public function editOrder(Order $order, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $statuses = OrderStatus::cases();
+
+        if ($request->isMethod('POST')) {
+            if ($request->request->get('status')) {
+                $status = $request->request->get('status');
+                if (OrderStatus::tryFrom($status)) {
+                    $order->setStatus(OrderStatus::from($status));
+                } else {
+                    $this->addFlash('error', 'Statut de commande invalide');
+                    return $this->redirectToRoute('app_admin_editOrder', ['id' => $order->getId()]);
+                }
+            }
+
+            if ($request->request->get('price') > 0) {
+                $order->setPrice($request->request->get('price'));
+            } else {
+                $this->addFlash('error', 'Le prix doit être supérieur à 0€');
+                return $this->redirectToRoute('app_admin_editOrder', ['id' => $order->getId()]);
+            }
+
+            if ($request->request->get('createdAt')) {
+                $order->setCreatedAt(new \DateTimeImmutable($request->request->get('createdAt')));
+            }
+
+            $entityManager->flush();
+            $this->addFlash('success', 'La commande a bien été modifiée');
+            return $this->redirectToRoute('app_admin');
+        }
+
+        return $this->render('editOrder.html.twig', [
+            'order' => $order,
+            'statuses' => $statuses,
         ]);
     }
 }

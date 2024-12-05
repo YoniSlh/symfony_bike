@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande réussie
+{% endblock %}
+
+{% block content %}
+	{% include '_header.html.twig' %}
+
+	<div class="successContainer">
+		<h1>Commande confirmée</h1>
+		<p>Merci pour votre achat !</p>
+		<p>Votre commande a été enregistrée avec succès.</p>
+		<p>Référence de la commande :
+			<strong>{{ reference }}</strong>
+		</p>
+
+		<div class="successActions">
+			<a href="{{ path('user_profil') }}" class="btnAjouter">Voir vos commandes</a>
+		</div>
+	</div>
+	{% include '_footer.html.twig' %}
+{% endblock %}

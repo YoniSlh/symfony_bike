@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	{% include '_header.html.twig' %}
+	<div class="conteneurAdminProduit">
+		<h2>Modification de la commande n°{{ order.id }}</h2>
+		<form method="POST" class="formulaireModificationProduit">
+			<div class="champProduit">
+				<label for="status" class="labelProduit">{{ "status"|trans }}
+					:</label>
+				<select id="status" name="status" required>
+					{% for status in statuses %}
+						<option value="{{ status.value }}" {% if status.value == order.status.value %} selected {% endif %}>
+							{{ status.value }}
+						</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="champProduit">
+				<label for="price" class="labelProduit">{{ "price"|trans }}
+					:</label>
+				<input type="number" id="price" name="price" value="{{ order.price }}" required>
+			</div>
+
+			<div class="champProduit">
+				<label for="createdAt" class="labelProduit">{{ "created_at"|trans }}
+					:</label>
+				<input type="datetime-local" id="createdAt" name="createdAt" value="{{ order.createdAt|date('Y-m-d\TH:i') }}" required>
+			</div>
+
+			<div class="champProduit">
+				<label for="products" class="labelProduit">{{ "products"|trans }}
+					:</label>
+				<ul>
+					{% for item in order.orderItems %}
+						<li>{{ item.product.name }}
+							- {{ item.quantity }} quantité</li>
+					{% endfor %}
+				</ul>
+			</div>
+
+			<button type="submit" class="btnEnregistrer" onclick="return confirm('Êtes-vous sûr de confirmer les modifications ?');">Enregistrer les modifications</button>
+		</form>
+	</div>
+	{% include '_footer.html.twig' %}
+{% endblock %}
