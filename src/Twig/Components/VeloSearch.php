@@ -19,6 +19,6 @@ class VeloSearch
 
     public function getProducts(): array
     {
-        return $this->productRepository->findAll($this->query);
+        return $this->productRepository->findByQuery($this->query);
     }
 }

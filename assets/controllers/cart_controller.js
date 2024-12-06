@@ -68,13 +68,27 @@ export default class extends Controller {
 
   updateCartDisplay(data) {
     console.log("Mise à jour des données du panier :", data);
+
+    const itemCountPanier = document.getElementById("itemCountPanier");
+    const totalAmountPanier = document.getElementById("totalAmountPanier");
+
+    if (itemCountPanier) {
+      const itemCountText =
+        data.itemCount === 0 ? "0 articles" : `${data.itemCount} articles`;
+      itemCountPanier.textContent = itemCountText;
+    }
+
+    if (totalAmountPanier) {
+      totalAmountPanier.textContent = `${(data.totalAmount || 0).toFixed(2)} €`;
+    }
+
     this.itemCountTarget.textContent = data.itemCount || 0;
     this.totalAmountTarget.textContent = `${(data.totalAmount || 0).toFixed(
       2
     )} €`;
 
     const row = this.cartItemTargets.find(
-      (item) => item.dataset.id === data.removedProductId.toString()
+      (item) => item.dataset.id === data.removedProductId?.toString()
     );
     if (row) {
       row.remove();

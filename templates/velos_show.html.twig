@@ -133,9 +133,9 @@
 									<strong class="prixVeloItem">{{ velo.price }}
 										€</strong>
 								</p>
-								<button class="btnAjoutPanier">
+								<a href="#" class="btnAjoutPanier" data-controller="cart" data-action="click->cart#addToCart" data-id="{{ velo.id }}" data-name="{{ velo.name }}" data-price="{{ velo.price }}">
 									{{ "add_to_cart"|trans }}
-								</button>
+								</a>
 							</div>
 						</a>
 					</li>

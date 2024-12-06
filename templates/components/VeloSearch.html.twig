@@ -16,7 +16,9 @@
 								<strong class="prixVeloItem">{{ product.price }}
 									€</strong>
 							</p>
-							<a href="{{ path('user_panier') }}" class="btnAjoutPanier">{{ "add_to_cart"|trans }}</a>
+							<a href="#" class="btnAjoutPanier" data-controller="cart" data-action="click->cart#addToCart" data-id="{{ product.id }}" data-name="{{ product.name }}" data-price="{{ product.price }}">
+								{{ "add_to_cart"|trans }}
+							</a>
 						</div>
 					</a>
 				</li>

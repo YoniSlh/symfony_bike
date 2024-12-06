@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'home'|trans }}
+{% block title %}
+	{{ 'home'|trans }}
 {% endblock %}
 
 {% block content %}
@@ -21,7 +22,8 @@
 	{% endblock %}
 	<div class="accueilIntro">
 		<div class="container">
-			<h1>{{ 'welcome'|trans }} !</h1>
+			<h1>{{ 'welcome'|trans }}
+				!</h1>
 			<p>Découvrez notre sélection de vélos.</p>
 			<a href="{{ path('velos') }}" class="btnRedirection">{{ 'our_bikes'|trans }}</a>
 		</div>
@@ -43,7 +45,9 @@
 									<strong class="prixVeloItem">{{ velo.price }}
 										€</strong>
 								</p>
-								<a href="{{ path('user_panier') }}" class="btnAjoutPanier">{{ "add_to_cart"|trans }}</a>
+								<a href="#" class="btnAjoutPanier" data-controller="cart" data-action="click->cart#addToCart" data-id="{{ velo.id }}" data-name="{{ velo.name }}" data-price="{{ velo.price }}">
+									{{ "add_to_cart"|trans }}
+								</a>
 							</div>
 						</a>
 					</li>

@@ -31,23 +31,6 @@ class VeloController extends AbstractController
         ]);
     }
 
-    #[Route('/velos/autocomplete', name: 'velos_autocomplete', methods: ['GET'])]
-    public function autocomplete(Request $request): JsonResponse
-    {
-        $query = $request->query->get('query', '');
-        $results = $this->productRepository->findBy(['name' => $query]);
-
-        $data = [];
-        foreach ($results as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'name' => $result->getName(),
-            ];
-        }
-
-        return new JsonResponse($data);
-    }
-
     #[Route('/velos/show/{id}', name: 'velos_show', methods: ['GET'])]
     public function show(int $id): Response
     {

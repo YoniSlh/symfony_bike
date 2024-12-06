@@ -31,9 +31,8 @@
 						<div data-controller="cart">
 							<a href="{{ path('cart_show') }}">
 								{{ "cart"|trans }}
-								<span class="cart-item-count" data-cart-target="itemCount"></span>
-								articles
-								<span class="cart-total-amount" data-cart-target="totalAmount"></span>
+								<span class="cart-item-count" id="itemCountPanier" data-cart-target="itemCount"></span>
+								<span class="cart-total-amount" id="totalAmountPanier" data-cart-target="totalAmount">0.00 €</span>
 							</a>
 						</div>
 					</li>

@@ -6,23 +6,26 @@
 {% block content %}
 {% include '_header.html.twig' %}
 
-<a href="{{ path('velos') }}" class="btnRetour" title="Retour"></a>
+<a href="{{ path('velos') }}" class="btnRetour" title="{{ 'panier.retour'|trans }}"></a>
 
 <div class="panierContainer">
 	<div class="panierItems">
-		<h1>Votre panier</h1>
+		<h1>{{ 'panier.titre'|trans }}</h1>
+
 		{% if cart %}
 			<table class="tablePanier">
 				<thead>
 					<tr>
-						<th>Produit</th>
-						<th>Prix unitaire</th>
-						<th>Quantité</th>
-						<th>Total</th>
-						<th>Actions</th>
+						<th>{{ 'panier.produit'|trans }}</th>
+						<th>{{ 'panier.prix_unitaire'|trans }}</th>
+						<th>{{ 'panier.quantite'|trans }}</th>
+						<th>{{ 'panier.total'|trans }}</th>
+						<th>{{ 'panier.actions'|trans }}</th>
 					</tr>
 				</thead>
 				<tbody>
+					{% set totalAmount = 0 %}
+					{% set totalQuantity = 0 %}
 					{% for id, item in cart %}
 						<tr class="cart-item" data-id="{{ id }}">
 							<td>
@@ -37,34 +40,33 @@
 							</td>
 							<td>{{ item.price * item.quantity }}€</td>
 							<td>
-								<button class="removeItemBtn" data-action="click->cart#removeFromCart">Retirer</button>
+								<button class="removeItemBtn" data-action="click->cart#removeFromCart">{{ 'panier.retirer'|trans }}</button>
 							</td>
 						</tr>
+						{% set totalAmount = totalAmount + (item.price * item.quantity) %}
+						{% set totalQuantity = totalQuantity + item.quantity %}
 					{% endfor %}
 				</tbody>
 			</table>
 
 			<div class="panierSummary">
-				<div class="summaryItem" data-controller="cart">
-					<strong>Total des articles :</strong>
-					<span data-cart-target="itemCount"></span>
-				</div>
-				<div class="summaryItem" data-controller="cart">
-					<strong>Total :</strong>
-					<span data-cart-target="totalAmount">€</span>
+				<div class="summaryItem">
+					<strong>{{ 'panier.total_articles'|trans }}:</strong>
+					<span>{{ totalQuantity }}
+						{{ 'panier.articles'|trans }}</span>
 				</div>
 			</div>
 		{% else %}
-			<p>Votre panier est vide.</p>
+			<p>{{ 'panier.panier_vide'|trans }}</p>
 		{% endif %}
 	</div>
 
 	<div class="panierDetails">
-		<h2>Informations Panier</h2>
+		<h2>{{ 'panier.infos_panier'|trans }}</h2>
 		<div class="panierActions">
 			<div class="actionItem">
-				<strong>Total :</strong>
-				<span data-cart-target="totalAmount">€</span>
+				<strong>{{ 'panier.total'|trans }}:</strong>
+				<span>{{ totalAmount }}€</span>
 			</div>
 			<div class="actionItem">
-				<button class="btnAjouter" title="Passer à la caisse" onclick="window.location.href='{{ path('app_order') }}'" {% if cart|length < 1 %} style="opacity: 0.5; background-color: grey; cursor: not-allowed;" disabled {% endif %}> Passer à la caisse </button> </div> </div> </div> </div> {% include '_footer.html.twig' %} {% endblock %}
+				<button class="btnAjouter" title="{{ 'panier.passer_commande'|trans }}" onclick="window.location.href='{{ path('app_order') }}'" {% if cart|length < 1 %} style="opacity: 0.5; background-color: grey; cursor: not-allowed;" disabled {% endif %}> {{ 'panier.passer_commande'|trans }} </button> </div> </div> </div> </div> {% include '_footer.html.twig' %} {% endblock %}
