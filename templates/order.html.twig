@@ -21,11 +21,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						{% for item in items %}
+						{% for id, item in items %}
 							<tr class="commande-item">
 								<td>
 									<div class="productName">
-										<img src="" alt="{{ item.product.name }}" class="productImage">
+										<img src="{{ images[item.product.id] }}" alt="{{ item.product.name }}" class="productImage">
 										<span>{{ item.product.name }}</span>
 									</div>
 								</td>

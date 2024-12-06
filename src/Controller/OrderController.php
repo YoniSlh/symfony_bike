@@ -12,15 +12,18 @@ use App\Entity\OrderItem;
 use App\Entity\Product;
 use App\Enum\OrderStatus;
 use App\Repository\ProductRepository;
+use App\Repository\ImageRepository;
 
 class OrderController extends AbstractController
 {
     private $session;
     private ProductRepository $productRepository;
-
-    public function __construct(RequestStack $requestStack)
+    private ImageRepository $imageRepository;
+    
+    public function __construct(RequestStack $requestStack, ImageRepository $imageRepository)
     {
         $this->session = $requestStack->getSession();
+        $this->imageRepository = $imageRepository;
     }
 
     #[Route('/order', name: 'app_order')]
@@ -30,6 +33,12 @@ class OrderController extends AbstractController
 
         $items = [];
         $total = 0;
+        $images = [];
+
+        foreach ($cart as $productId => $item) {
+            $imageEntity = $this->imageRepository->findOneBy(['product' => $productId]);
+            $images[$productId] = $imageEntity ? $imageEntity->getUrls()[0] : null;
+        }
 
         foreach ($cart as $productId => $item) {
             $product = $productRepository->find($productId);
@@ -46,6 +55,7 @@ class OrderController extends AbstractController
         return $this->render('order.html.twig', [
             'items' => $items,
             'total' => $total,
+            'images' => $images,
         ]);
     }
 

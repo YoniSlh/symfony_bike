@@ -30,13 +30,17 @@
 						<tr class="cart-item" data-id="{{ id }}">
 							<td>
 								<div class="productName">
-									<img src="" alt="{{ item.name }}" class="productImage">
+									<img src="{{ images[id] }}" alt="{{ item.name }}" class="productImage">
 									<span>{{ item.name }}</span>
 								</div>
 							</td>
 							<td>{{ item.price }}€</td>
 							<td>
-								<input type="number" value="{{ item.quantity }}" min="1" class="quantityInput" data-action="change->cart#updateQuantity">
+								<select class="quantitySelect" data-id="{{ id }}" data-action="change->cart#updateQuantity">
+									{% for i in 1..10 %}
+										<option value="{{ i }}" {% if i == item.quantity %} selected {% endif %}>{{ i }}</option>
+									{% endfor %}
+								</select>
 							</td>
 							<td>{{ item.price * item.quantity }}€</td>
 							<td>
@@ -52,8 +56,12 @@
 			<div class="panierSummary">
 				<div class="summaryItem">
 					<strong>{{ 'panier.total_articles'|trans }}:</strong>
-					<span>{{ totalQuantity }}
+					<span id="total-quantity">{{ totalQuantity }}
 						{{ 'panier.articles'|trans }}</span>
+				</div>
+				<div class="summaryItem">
+					<strong>{{ 'panier.total'|trans }}:</strong>
+					<span id="total-amount-summary">{{ totalAmount|default(0) }}€</span>
 				</div>
 			</div>
 		{% else %}
@@ -66,7 +74,7 @@
 		<div class="panierActions">
 			<div class="actionItem">
 				<strong>{{ 'panier.total'|trans }}:</strong>
-				<span>{{ totalAmount }}€</span>
+				<span>{{ totalAmount|default(0) }}€</span>
 			</div>
 			<div class="actionItem">
 				<button class="btnAjouter" title="{{ 'panier.passer_commande'|trans }}" onclick="window.location.href='{{ path('app_order') }}'" {% if cart|length < 1 %} style="opacity: 0.5; background-color: grey; cursor: not-allowed;" disabled {% endif %}> {{ 'panier.passer_commande'|trans }} </button> </div> </div> </div> </div> {% include '_footer.html.twig' %} {% endblock %}

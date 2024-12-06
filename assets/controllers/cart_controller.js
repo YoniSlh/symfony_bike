@@ -82,16 +82,25 @@ export default class extends Controller {
       totalAmountPanier.textContent = `${(data.totalAmount || 0).toFixed(2)} €`;
     }
 
-    this.itemCountTarget.textContent = data.itemCount || 0;
-    this.totalAmountTarget.textContent = `${(data.totalAmount || 0).toFixed(
-      2
-    )} €`;
+    if (this.itemCountTarget) {
+      this.itemCountTarget.textContent =
+        data.itemCount === 0 ? "0 articles" : `${data.itemCount} articles`;
+    }
 
-    const row = this.cartItemTargets.find(
-      (item) => item.dataset.id === data.removedProductId?.toString()
-    );
-    if (row) {
-      row.remove();
+    if (this.totalAmountTarget) {
+      this.totalAmountTarget.textContent = `${(data.totalAmount || 0).toFixed(
+        2
+      )} €`;
+    }
+
+    const removedProductId = data.removedProductId?.toString();
+    if (removedProductId) {
+      const row = this.cartItemTargets.find(
+        (item) => item.dataset.id === removedProductId
+      );
+      if (row) {
+        row.remove();
+      }
     }
   }
 
@@ -127,11 +136,12 @@ export default class extends Controller {
   }
 
   removeFromCart(event) {
+    event.preventDefault();
     const button = event.currentTarget;
     const row = button.closest(".cart-item");
     const productId = row.dataset.id;
 
-    fetch(removeFromCartUrl, {
+    fetch("/cart/remove", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -147,11 +157,13 @@ export default class extends Controller {
         return response.json();
       })
       .then((data) => {
-        console.log("Produit retiré du panier :", data);
-        this.updateCartDisplay(data);
+        console.log("Produit retiré du panier:", data);
+        if (data.success) {
+          this.loadCartData();
+        }
       })
       .catch((error) => {
-        console.error("Erreur lors de la suppression du produit :", error);
+        console.error("Erreur lors de la suppression du produit:", error);
       });
   }
 }

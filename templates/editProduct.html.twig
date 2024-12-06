@@ -17,12 +17,12 @@
 			</div>
 
 			<div class="champProduit">
-				<label for="description" class="labelProduit">Description :</label>
+				<label for="description" class="labelProduit">{{ "product_addition.description_label"|trans }} :</label>
 				<textarea id="description" name="description" required>{{ product.description }}</textarea>
 			</div>
 
 			<div class="champProduit">
-				<label for="stock" class="labelProduit">Stock :</label>
+				<label for="stock" class="labelProduit">{{ "product_addition.stock_label"|trans }} :</label>
 				<input type="number" id="stock" name="stock" value="{{ product.stock }}" required>
 			</div>
 
