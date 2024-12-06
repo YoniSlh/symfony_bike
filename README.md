@@ -1,6 +1,8 @@
-# Projet Symfony 7 - E-commerce de vélos
+# Projet Symfony 7 - Site E-commerce de vélos
 
-Ce projet est une application web e-commerce développée avec Symfony 7, permettant aux utilisateurs de consulter des vélos, les ajouter à leur panier et finaliser leur achat en ligne. Ce projet utilise également une base de données MySQL pour gérer les produits, les utilisateurs et les commandes.
+## Réalisé par Yoni Selhaoui dans le cadre d'un TP Noté en BUT3 Informatique (2024-2025)
+
+Ce projet est une application web e-commerce développée avec Symfony 7, permettant aux utilisateurs de consulter des vélos, les ajouter à leur panier et finaliser leur achat en ligne. Ce projet utilise également une base de données MySQL pour gérer les produits, les utilisateurs et les commandes. 
 
 ## Installation du projet
 
@@ -50,23 +52,10 @@ Une fois la base de données créée, appliquez les migrations pour mettre en pl
  ```bash
 php bin/console doctrine:migrations:migrate
 ```
-Lancer le serveur Symfony :
+Lancer le serveur Symfony (ou serveur local type WAMP..) :
 Maintenant que tout est configuré, lancez le serveur de développement Symfony avec la commande :
 
  ```bash
 symfony server:start
 ```
 Votre site sera accessible à l'adresse http://localhost:8000.
-
-Utilisation du projet
-Page d'accueil :
-Naviguez vers la page d'accueil pour découvrir les vélos disponibles à la vente. Chaque vélo possède une image, une description, et un prix.
-
-Ajouter un produit au panier :
-Vous pouvez ajouter des vélos à votre panier en cliquant sur les boutons correspondants. Le nombre de produits ajoutés sera mis à jour en temps réel.
-
-Consulter le panier :
-Accédez à la page du panier pour voir la liste des produits que vous avez ajoutés, modifier leur quantité ou les supprimer.
-
-Passer une commande :
-Si vous êtes prêt à finaliser votre commande, vous pouvez passer à la page de commande. Vous y trouverez un résumé des produits, de leur quantité et du montant total à payer. Un bouton vous permettra de confirmer la commande.
